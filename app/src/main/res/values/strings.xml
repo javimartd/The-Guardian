@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">The Guardian</string>
+    <string name="app_name" translatable="false">The Guardian</string>
+    <string name="button_readMore" translatable="false">Read more</string>
 </resources>
