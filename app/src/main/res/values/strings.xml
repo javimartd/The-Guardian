@@ -1,4 +1,15 @@
 <resources>
+    <!--app-->
     <string name="app_name" translatable="false">The Guardian</string>
-    <string name="button_readMore" translatable="false">Read more</string>
+
+    <!--news activity-->
+    <string name="button_readMore">Read more</string>
+
+    <!--settings activity-->
+    <string name="title_activity_settings">Settings</string>
+
+    <!--errors-->
+    <string name="generic_error">Something was wrong. Please try again later.</string>
+    <string name="connection_error">Connection error. Please check your internet connection.</string>
+
 </resources>
