@@ -1,6 +1,9 @@
 package com.javimartd.theguardian.framework.db
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
 
 @Dao
 interface NewsDao {
@@ -10,6 +13,6 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(news: List<NewsEntity>)
 
-    @Delete
-    fun delete(newsEntity: NewsEntity)
+    @Query("DELETE FROM news")
+    fun deleteAll()
 }
