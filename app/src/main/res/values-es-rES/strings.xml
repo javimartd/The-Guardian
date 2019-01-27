@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--app-->
-    <string name="app_name">The Guardian</string>
 
     <!--news activity-->
     <string name="button_readMore">Leer más</string>
 
     <!--settings activity-->
-    <string name="title_activity_settings">Ajustes</string>
+    <string name="toolbar_activity_settings">Ajustes</string>
+    <string name="option_1">Opción 1</string>
 
     <!--errors-->
     <string name="generic_error">Se ha producido un error. Por favor, inténtelo de nuevo más tarde.</string>

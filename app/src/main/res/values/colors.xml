@@ -2,9 +2,27 @@
 <resources>
     <color name="colorPrimary">@color/the_guardian</color>
     <color name="colorPrimaryDark">@color/status_bar</color>
-    <color name="colorAccent">#ffffff</color>
-    <color name="navigationarColor">@color/the_guardian</color>
+    <color name="colorAccent">@color/vivid_blue</color>
+    <color name="navigationColor">@color/the_guardian</color>
 
     <color name="the_guardian">#E9EEF1</color>
     <color name="status_bar">#d9e2e7</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="business">#8b4513</color>
+    <color name="film">#262626</color>
+    <color name="media">#004385</color>
+    <color name="money">#006400</color>
+    <color name="article">#886308</color>
+    <color name="opinion">#ff4500</color>
+    <color name="politics">#838383</color>
+    <color name="sport">#1e90ff</color>
+    <color name="world">#cc0000</color>
+    <color name="lifeAndStyle">#ff69b4</color>
+    <color name="other">#daa520</color>
+    <color name="travel">#ea7e5d</color>
+
+    <color name="chip_text_color">#ffffff</color>
+    <color name="vivid_blue">#1e90ff</color>
 </resources>
