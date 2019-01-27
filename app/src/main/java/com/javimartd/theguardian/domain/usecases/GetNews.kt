@@ -1,14 +1,14 @@
 package com.javimartd.theguardian.domain.usecases
 
-import com.javimartd.theguardian.data.NewsRepositoryImpl
-import com.javimartd.theguardian.data.mapper.DataMapper
-import com.javimartd.theguardian.domain.Command
-import com.javimartd.theguardian.domain.model.DailyNews
+import com.javimartd.theguardian.domain.common.UseCase
+import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.repositories.NewsRepository
+import javax.inject.Inject
 
-class GetNews : Command<DailyNews> {
+class GetNews @Inject constructor(private val repository: NewsRepository): UseCase() { //: Command<DailyNews>
 
-    override fun execute(): DailyNews {
-        val newsRequest = NewsRepositoryImpl()
-        return DataMapper().convertFromDataModel(newsRequest.getNews())
+    @Throws(Exception::class)
+    override suspend fun execution(): List<News> {
+        return repository.getNews()
     }
 }

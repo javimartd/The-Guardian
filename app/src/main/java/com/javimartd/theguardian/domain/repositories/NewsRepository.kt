@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.domain.repositories
 
-import com.javimartd.theguardian.data.response.news.Response
+import com.javimartd.theguardian.domain.model.News
 
 interface NewsRepository {
-    fun getNews(): Response
+    fun getNews(): List<News>
 }
