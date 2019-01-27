@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.presentation.common
+package com.javimartd.theguardian.ui.common
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
