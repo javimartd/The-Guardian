@@ -1,6 +1,7 @@
-package com.javimartd.theguardian.presentation.extensions
+package com.javimartd.theguardian.ui.extensions
 
 import android.content.Context
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +17,15 @@ fun ViewGroup.inflate(layoutRes: Int): View {
 
 // View
 
-val View.ctx: Context get() = context
+val View.ctx: Context
+    get() = context
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).transition(DrawableTransitionOptions.withCrossFade()).into(this)
+}
+
+fun View.showSnackbar(snackBarText: String, timeLength: Int) {
+    Snackbar.make(this, snackBarText, timeLength).show()
 }
 
 fun View.hide() : View {
@@ -44,10 +50,10 @@ fun View.remove() : View {
 }
 
 fun View.toggleVisibility() : View {
-    if (visibility == View.VISIBLE) {
-        visibility = View.GONE
+    visibility = if (visibility == View.VISIBLE) {
+        View.GONE
     } else {
-        visibility = View.VISIBLE
+        View.VISIBLE
     }
     return this
 }

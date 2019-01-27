@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.presentation.news.sections
+package com.javimartd.theguardian.ui.news.sections
 
 interface Section {
     fun getTitle(): String

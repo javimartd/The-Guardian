@@ -1,7 +1,6 @@
-package com.javimartd.theguardian.presentation.news.factory
+package com.javimartd.theguardian.ui.news.factory
 
-import com.javimartd.theguardian.presentation.news.sections.*
-
+import com.javimartd.theguardian.ui.news.sections.*
 
 class SectionFactory {
 
@@ -13,6 +12,10 @@ class SectionFactory {
         private const val SPORT = "sport"
         private const val POLITICS = "politics"
         private const val WORLD = "world"
+        private const val LIFE_AND_STYLE = "lifeandstyle"
+        private const val MONEY = "money"
+        private const val ARTICLE = "article"
+        private const val TRAVEL = "travel"
 
         fun getSection(sectionId: String, sectionName: String) : Section {
             return when (sectionId) {
@@ -23,6 +26,10 @@ class SectionFactory {
                 SPORT -> Sport(sectionName)
                 POLITICS -> Politics(sectionName)
                 WORLD -> World(sectionName)
+                LIFE_AND_STYLE -> LifeAndStyle(sectionName)
+                MONEY -> Money(sectionName)
+                ARTICLE -> Article(sectionName)
+                TRAVEL -> Travel(sectionName)
                 else -> Other(sectionName)
             }
         }
