@@ -12,8 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="true" />
+
         <activity
-            android:name=".presentation.news.NewsActivity"
+            android:name=".ui.news.NewsActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.webView.WebViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.settings.SettingsActivity"/>
+
     </application>
 
 </manifest>
