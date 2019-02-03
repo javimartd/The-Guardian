@@ -121,6 +121,8 @@ dependencies {
     // retrofit OkHttp
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // okhttp
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
@@ -147,10 +149,12 @@ dependencies {
 
     // mock web server
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
     // espresso
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso_version"
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
     // mockito
