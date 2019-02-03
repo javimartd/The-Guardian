@@ -1,5 +1,6 @@
 package com.javimartd.theguardian.data.common
 
+import com.javimartd.theguardian.data.exceptions.ApiException
 import retrofit2.Call
 import retrofit2.Response
 
@@ -10,7 +11,9 @@ abstract class Repository {
         return if (response == null) {
             throw Exception()
         } else if (!response.isSuccessful) {
-            throw Exception()
+            val errorCode: Int = response.code()
+            val message: String = response.message()
+            throw ApiException(errorCode, message)
         } else {
             response
         }

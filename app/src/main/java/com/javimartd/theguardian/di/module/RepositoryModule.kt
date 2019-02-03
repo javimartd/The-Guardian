@@ -13,6 +13,6 @@ class RepositoryModule {
     @Provides
     fun providesNewsRepository(apiService: APIService,
                                appDatabase: AppDatabase): NewsRepository {
-        return NewsDataRepository(apiService, appDatabase)
+        return NewsDataRepository(apiService)
     }
 }

@@ -17,6 +17,8 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
+
+
 class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
 
     @Inject lateinit var presenter: NewsPresenter
@@ -49,6 +51,11 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
 
     override fun showConnectionError() {
         constraintNewsActivity.showSnackbar(getString(R.string.connection_error),
+                Snackbar.LENGTH_LONG)
+    }
+
+    override fun showError(errorCode: Int, message: String) {
+        constraintNewsActivity.showSnackbar(errorCode.toString() + " " + message,
                 Snackbar.LENGTH_LONG)
     }
 

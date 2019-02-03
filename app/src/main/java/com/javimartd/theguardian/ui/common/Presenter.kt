@@ -1,6 +1,7 @@
 package com.javimartd.theguardian.ui.common
 
 import com.javimartd.theguardian.domain.common.UseCase
+import com.javimartd.theguardian.domain.errors.ApiError
 
 abstract class Presenter<T: RequestView> {
 
@@ -16,7 +17,8 @@ abstract class Presenter<T: RequestView> {
     fun execute(useCase: UseCase,
                 onSuccess: (Any) -> Unit,
                 noConnection: () -> Unit,
+                apiError: (ApiError) -> Unit,
                 genericError: () -> Unit) {
-        useCase.execute(onSuccess, noConnection, genericError)
+        useCase.execute(onSuccess, noConnection, apiError, genericError)
     }
 }

@@ -1,5 +1,6 @@
 package com.javimartd.theguardian.ui.news
 
+import com.javimartd.theguardian.domain.errors.ApiError
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.usecases.GetNews
 import com.javimartd.theguardian.ui.common.Presenter
@@ -16,9 +17,10 @@ class NewsPresenter @Inject constructor(private val getNews: GetNews): Presenter
     private fun getNews() {
         view.showLoading()
         execute(useCase = getNews,
-                onSuccess = {showNews(it)},
-                noConnection = {connectionError()},
-                genericError = {onError()})
+                onSuccess = { showNews(it) },
+                noConnection = { connectionError() },
+                apiError = { apiError(it) },
+                genericError = { onError() })
     }
 
     private fun showNews(news: Any?) {
@@ -30,6 +32,11 @@ class NewsPresenter @Inject constructor(private val getNews: GetNews): Presenter
     private fun connectionError() {
         view.hideLoading()
         view.showConnectionError()
+    }
+
+    private fun apiError(apiError: ApiError) {
+        view.hideLoading()
+        view.showError(apiError.errorCode, apiError.message)
     }
 
     private fun onError() {

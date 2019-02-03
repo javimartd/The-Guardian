@@ -1,5 +1,7 @@
 package com.javimartd.theguardian.domain.common
 
+import com.javimartd.theguardian.data.exceptions.ApiException
+import com.javimartd.theguardian.domain.errors.ApiError
 import kotlinx.coroutines.*
 import java.net.UnknownHostException
 
@@ -10,8 +12,9 @@ abstract class UseCase {
     private lateinit var result: Deferred<*>
 
     fun execute(
-            onSuccess: (it: Any) -> Unit,
+            onSuccess: (data: Any) -> Unit,
             noConnection: () -> Unit,
+            apiError: (ApiError) -> Unit,
             genericError: () -> Unit
     ) {
         result = GlobalScope.async(Dispatchers.IO) {
@@ -19,6 +22,8 @@ abstract class UseCase {
                 execution()
             }catch (exception: UnknownHostException) {
                 UnknownHostException()
+            } catch (exception: ApiException) {
+                ApiException(exception.code, exception.message)
             } catch (exception: Exception) {
                 Exception()
             }
@@ -27,6 +32,7 @@ abstract class UseCase {
             result.await()?.let {
                 when (it) {
                     is UnknownHostException -> noConnection()
+                    is ApiException -> apiError(ApiError(it.code, it.message))
                     is Exception -> genericError()
                     else -> onSuccess(it)
                 }
