@@ -15,4 +15,8 @@ interface NewsDao {
 
     @Query("DELETE FROM news")
     fun deleteAll()
+
+    @Query("SELECT * FROM news WHERE section == :sectionID")
+    fun findBySection(sectionID: String): List<NewsEntity>
+
 }

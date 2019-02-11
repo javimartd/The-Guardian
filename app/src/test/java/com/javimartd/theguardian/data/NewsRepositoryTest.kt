@@ -26,16 +26,16 @@ class NewsRepositoryTest {
 
         server = MockWebServer()
         server.start()
+        //server.setDispatcher(MockServerDispatcher().RequestDispatcher())
 
         val okHttpClient = OkHttpClient.Builder().build()
-
         val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .baseUrl(server.url("/"))
                 .client(okHttpClient)
                 .build()
-
         apiService = retrofit.create(APIService::class.java)
+
         sut = NewsDataRepository(apiService)
     }
 
@@ -46,12 +46,14 @@ class NewsRepositoryTest {
         val mockResponse = MockResponse()
                 .setResponseCode(200)
                 .setBody(getJson("json/news/news.json"))
-
         server.enqueue(mockResponse)
 
         val response = sut.getNews()
-
-        assertEquals("US-Taliban talks offer glimmer of hope on path to Afghan peace", response[0].title)
+        val request = server.takeRequest()
+        assertEquals("/search?show-fields=all&api-key=db0d0891-0604-403a-9fad-f8ea5a76dbcb",
+                request.path)
+        assertEquals("US-Taliban talks offer glimmer of hope on path to Afghan peace",
+                response[0].title)
     }
 
     @Test

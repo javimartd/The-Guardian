@@ -31,7 +31,7 @@ class GetNewsPresenterTest {
     @Test
     fun `execute get news use case only once`() {
         sut.attachView(newsView)
-        verify(getNews, times(1)).execute(any(), any(), any())
+        verify(getNews, times(1)).execute(any(), any(), any(), any())
     }
 
     @Test
@@ -45,7 +45,7 @@ class GetNewsPresenterTest {
         val onCompleteCaptor = argumentCaptor<(Any) -> Unit>()
         val result: List<News> = emptyList()
         sut.attachView(newsView)
-        verify(getNews).execute(onCompleteCaptor.capture(), any(), any())
+        verify(getNews).execute(onCompleteCaptor.capture(), any(), any(), any())
         onCompleteCaptor.firstValue.invoke(result)
         verify(newsView).hideLoading()
     }
@@ -55,7 +55,7 @@ class GetNewsPresenterTest {
         val onCompleteCaptor = argumentCaptor<(Any) -> Unit>()
         val result: List<NewsViewModel> = emptyList()
         sut.attachView(newsView)
-        verify(getNews).execute(onCompleteCaptor.capture(), any(), any())
+        verify(getNews).execute(onCompleteCaptor.capture(), any(), any(), any())
         onCompleteCaptor.firstValue.invoke(result)
         verify(newsView).showNews(result)
     }
