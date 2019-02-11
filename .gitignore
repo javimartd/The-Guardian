@@ -66,7 +66,7 @@ obj/
 .idea/caches/
 .idea/codeStyles
 .idea/gradle.xml
-.idea/runConfiguration.xml
+.idea/runConfigurations.xml
 .idea/libraries/
 .idea/sonarlint
 .idea/shelf/
