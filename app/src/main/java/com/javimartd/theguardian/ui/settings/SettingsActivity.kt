@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.ui.settings
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
