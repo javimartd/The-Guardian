@@ -1,8 +1,8 @@
 package com.javimartd.theguardian.data
 
-import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.room.Room
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import com.javimartd.theguardian.framework.db.AppDatabase
 import com.javimartd.theguardian.framework.db.NewsDao
 import com.javimartd.theguardian.framework.db.NewsEntity
