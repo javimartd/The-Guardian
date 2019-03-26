@@ -1,7 +1,7 @@
 package com.javimartd.theguardian
 
 import android.app.Application
-import android.arch.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.javimartd.theguardian.di.component.AppComponent
 import com.javimartd.theguardian.di.component.DaggerAppComponent
 import com.javimartd.theguardian.ui.common.ApplicationObserver
