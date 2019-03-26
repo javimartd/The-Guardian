@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.ui.webView
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.javimartd.theguardian.R
 import kotlinx.android.synthetic.main.activity_web_view.*
 
