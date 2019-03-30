@@ -5,6 +5,7 @@ import com.javimartd.theguardian.di.module.AppModule
 import com.javimartd.theguardian.di.module.NetworkModule
 import com.javimartd.theguardian.di.module.RepositoryModule
 import com.javimartd.theguardian.ui.news.NewsActivity
+import com.javimartd.theguardian.ui.splash.SplashActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,4 +15,6 @@ interface AppComponent {
     fun inject(application: TheGuardianApplication)
 
     fun plus(newsActivity: NewsActivity)
+
+    fun plus(splashActivity: SplashActivity)
 }

@@ -1,5 +1,7 @@
 package com.javimartd.theguardian.ui.news
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -20,6 +22,12 @@ import javax.inject.Inject
 
 
 class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
+
+    companion object {
+        fun buildIntent(context: Context): Intent {
+            return Intent(context, NewsActivity::class.java)
+        }
+    }
 
     @Inject lateinit var presenter: NewsPresenter
 
