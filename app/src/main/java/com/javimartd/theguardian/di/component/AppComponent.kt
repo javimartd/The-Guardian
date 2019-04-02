@@ -6,6 +6,7 @@ import com.javimartd.theguardian.di.module.NetworkModule
 import com.javimartd.theguardian.di.module.RepositoryModule
 import com.javimartd.theguardian.ui.news.NewsActivity
 import com.javimartd.theguardian.ui.splash.SplashActivity
+import com.javimartd.theguardian.ui.webView.WebViewActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -17,4 +18,6 @@ interface AppComponent {
     fun plus(newsActivity: NewsActivity)
 
     fun plus(splashActivity: SplashActivity)
+
+    fun plus(webViewActivity: WebViewActivity)
 }
