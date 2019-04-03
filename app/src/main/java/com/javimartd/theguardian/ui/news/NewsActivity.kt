@@ -11,14 +11,13 @@ import com.javimartd.theguardian.TheGuardianApplication
 import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
-import com.javimartd.theguardian.ui.extensions.showSnackbar
+import com.javimartd.theguardian.ui.extensions.showSnack
 import com.javimartd.theguardian.ui.news.model.NewsViewModel
 import com.javimartd.theguardian.ui.webView.WebViewActivity
 import kotlinx.android.synthetic.main.activity_news.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
-
 
 
 class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
@@ -58,17 +57,17 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
     }
 
     override fun showConnectionError() {
-        constraintNewsActivity.showSnackbar(getString(R.string.connection_error),
+        constraintNewsActivity.showSnack(getString(R.string.connection_error),
                 Snackbar.LENGTH_LONG)
     }
 
     override fun showError(errorCode: Int, message: String) {
-        constraintNewsActivity.showSnackbar(errorCode.toString() + " " + message,
+        constraintNewsActivity.showSnack("$errorCode $message",
                 Snackbar.LENGTH_LONG)
     }
 
     override fun showGenericError() {
-        constraintNewsActivity.showSnackbar(getString(R.string.generic_error),
+        constraintNewsActivity.showSnack(getString(R.string.generic_error),
                 Snackbar.LENGTH_LONG)
     }
 

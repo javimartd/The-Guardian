@@ -27,8 +27,14 @@ fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).transition(DrawableTransitionOptions.withCrossFade()).into(this)
 }
 
-fun View.showSnackbar(snackBarText: String, timeLength: Int) {
+fun View.showSnack(snackBarText: String, timeLength: Int) {
     Snackbar.make(this, snackBarText, timeLength).show()
+}
+
+inline fun View.snack(message: String, length: Int = Snackbar.LENGTH_SHORT, f: Snackbar.() -> Unit) {
+    val snack = Snackbar.make(this, message, length)
+    snack.f()
+    snack.show()
 }
 
 fun View.hide() : View {

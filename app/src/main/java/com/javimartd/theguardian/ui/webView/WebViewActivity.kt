@@ -9,7 +9,7 @@ import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.BaseWebViewClient
 import com.javimartd.theguardian.ui.common.WebClient
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
-import com.javimartd.theguardian.ui.extensions.showSnackbar
+import com.javimartd.theguardian.ui.extensions.snack
 import kotlinx.android.synthetic.main.activity_web_view.*
 import javax.inject.Inject
 
@@ -39,7 +39,9 @@ class WebViewActivity : BaseActivity(), WebClient {
     }
 
     override fun errorLoading() {
-        constraintWebViewActivity.showSnackbar("Error", Snackbar.LENGTH_INDEFINITE)
+        constraintWebViewActivity.snack(getString(R.string.snackBar_text), Snackbar.LENGTH_INDEFINITE) {
+            setAction(getString(R.string.snackBar_action)) { finish() }
+        }
     }
 
     override fun showLoading() = loading.showDialog()

@@ -4,6 +4,10 @@
     <!--news activity-->
     <string name="button_readMore">Leer más</string>
 
+    <!--web view activity-->
+    <string name="snackBar_action">Se ha producido un error al cargar la página</string>
+    <string name="snackBar_text">SALIR</string>
+
     <!--settings activity-->
     <string name="toolbar_activity_settings">Ajustes</string>
     <string name="option_1">Opción 1</string>
