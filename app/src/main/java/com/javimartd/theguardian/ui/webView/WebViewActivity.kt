@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.KeyEvent
 import com.javimartd.theguardian.R
-import com.javimartd.theguardian.TheGuardianApplication
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.BaseWebViewClient
 import com.javimartd.theguardian.ui.common.WebClient
@@ -26,7 +25,6 @@ class WebViewActivity : BaseActivity(), WebClient {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
-        setUpDagger()
         setUpUI()
     }
 
@@ -56,10 +54,6 @@ class WebViewActivity : BaseActivity(), WebClient {
         loading.createDialog(this)
         setWebViewSettings()
         loadURL()
-    }
-
-    private fun setUpDagger() {
-        (application as TheGuardianApplication).component.plus(this)
     }
 
     private fun loadURL() {

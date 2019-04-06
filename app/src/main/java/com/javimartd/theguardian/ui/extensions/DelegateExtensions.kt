@@ -31,7 +31,7 @@ class Preference<T>(private val context: Context, private val name: String,
             is Int -> getInt(name, default)
             is Boolean -> getBoolean(name, default)
             is Float -> getFloat(name, default)
-            else -> throw IllegalArgumentException("This type can be saved into Preferences")
+            else -> throw IllegalArgumentException("This type can't be saved into Preferences")
         }
 
         res as T

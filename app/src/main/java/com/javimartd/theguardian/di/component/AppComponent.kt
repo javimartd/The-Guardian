@@ -1,23 +1,28 @@
 package com.javimartd.theguardian.di.component
 
+import android.app.Application
 import com.javimartd.theguardian.TheGuardianApplication
+import com.javimartd.theguardian.di.module.ActivityModule
 import com.javimartd.theguardian.di.module.AppModule
 import com.javimartd.theguardian.di.module.NetworkModule
 import com.javimartd.theguardian.di.module.RepositoryModule
-import com.javimartd.theguardian.ui.news.NewsActivity
-import com.javimartd.theguardian.ui.splash.SplashActivity
-import com.javimartd.theguardian.ui.webView.WebViewActivity
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
+
 @Singleton
-@Component(modules = [AppModule::class, RepositoryModule::class, NetworkModule::class])
+@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, AppModule::class, RepositoryModule::class, NetworkModule::class])
 interface AppComponent {
+
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
+
+        fun build(): AppComponent
+    }
+
     fun inject(application: TheGuardianApplication)
-
-    fun plus(newsActivity: NewsActivity)
-
-    fun plus(splashActivity: SplashActivity)
-
-    fun plus(webViewActivity: WebViewActivity)
 }

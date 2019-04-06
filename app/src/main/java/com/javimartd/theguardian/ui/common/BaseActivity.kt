@@ -3,6 +3,7 @@ package com.javimartd.theguardian.ui.common
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.javimartd.theguardian.ui.utils.ActivityTransition
+import dagger.android.AndroidInjection
 
 abstract class BaseActivity: AppCompatActivity() {
 
@@ -14,6 +15,7 @@ abstract class BaseActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidInjection.inject(this)
         setUpTransitionFromBundle()
         initializeEnterTransition()
     }

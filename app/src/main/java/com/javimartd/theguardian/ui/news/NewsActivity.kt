@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import com.javimartd.theguardian.R
-import com.javimartd.theguardian.TheGuardianApplication
 import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
@@ -39,13 +38,8 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        setUpDagger()
         setUpUI()
         setUpPresenter()
-    }
-
-    private fun setUpDagger() {
-        (application as TheGuardianApplication).component.plus(this)
     }
 
     override fun showLoading() {

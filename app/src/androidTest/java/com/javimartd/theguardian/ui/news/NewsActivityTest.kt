@@ -1,6 +1,8 @@
 package com.javimartd.theguardian.ui.news
 
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.UiController
+import android.support.test.espresso.ViewAction
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
@@ -12,8 +14,10 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import android.view.View
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.settings.SettingsActivity
+import org.hamcrest.Matcher
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -29,7 +33,7 @@ class NewsActivityTest {
 
     @Before
     fun setUp() {
-        // not require implementation
+        Thread.sleep(2500)
     }
 
     @Test
@@ -64,10 +68,40 @@ class NewsActivityTest {
     }
 
     @Test
+    fun recyclerScrollToPositionAndClickOnItemButton() {
+        onView(withId(R.id.recycler))
+                .perform(RecyclerViewActions
+                        .actionOnItemAtPosition<NewsAdapter.ViewHolder>(
+                                2,
+                                MyViewAction.clickChildViewWithId(R.id.buttonReadMore)))
+    }
+
+    @Test
     fun checkSettingsActivityIsAvailable() {
         Intents.init()
         onView(withId(R.id.action_settings)).perform(ViewActions.click())
         intended(hasComponent(SettingsActivity::class.java.name))
+    }
+
+    object MyViewAction {
+
+        fun clickChildViewWithId(id: Int): ViewAction {
+            return object : ViewAction {
+                override fun getConstraints(): Matcher<View>? {
+                    return null
+                }
+
+                override fun getDescription(): String {
+                    return "Click on a child view with specified id."
+                }
+
+                override fun perform(uiController: UiController, view: View) {
+                    val v = view.findViewById<View>(id)
+                    v.performClick()
+                }
+            }
+        }
+
     }
 
 }
