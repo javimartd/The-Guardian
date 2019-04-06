@@ -1,8 +1,8 @@
 package com.javimartd.theguardian.ui.webView
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.view.KeyEvent
+import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.BaseWebViewClient

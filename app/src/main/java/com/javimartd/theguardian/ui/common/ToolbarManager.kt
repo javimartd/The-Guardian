@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.ui.base
 
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.widget.Toolbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.TheGuardianApplication
 import com.javimartd.theguardian.ui.extensions.ctx

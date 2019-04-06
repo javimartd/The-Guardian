@@ -1,12 +1,12 @@
 package com.javimartd.theguardian.ui.news
 
-import android.support.design.chip.Chip
-import android.support.v7.widget.AppCompatButton
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.extensions.*
 import com.javimartd.theguardian.ui.news.model.NewsViewModel

@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.di.module
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.javimartd.theguardian.TheGuardianApplication
 import com.javimartd.theguardian.framework.db.AppDatabase
 import com.javimartd.theguardian.ui.common.BaseWebViewClient
