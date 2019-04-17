@@ -32,6 +32,7 @@ class NewsAdapter(private val readMoreClick: (NewsViewModel) -> Unit)
             holder.textDate.text = date.toLong(FORMAT_DATE_TIME_API).toDateString()
             holder.chip.setChipBackgroundColorResource(section.getColor())
             holder.chip.text = section.getTitle()
+            holder.textDescription.text = description
             holder.buttonReadMore.setOnClickListener { readMoreClick(this) }
         }
     }
@@ -41,6 +42,7 @@ class NewsAdapter(private val readMoreClick: (NewsViewModel) -> Unit)
         val textDate:  AppCompatTextView = itemView.findViewById(R.id.textDate)
         val buttonReadMore: AppCompatButton = itemView.findViewById(R.id.buttonReadMore)
         val chip: Chip = itemView.findViewById(R.id.some_chip)
+        val textDescription: AppCompatTextView = itemView.findViewById(R.id.textDescription)
         val image: AppCompatImageView = itemView.findViewById(R.id.imageView)
     }
 }

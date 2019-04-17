@@ -15,8 +15,9 @@ private fun articleToDomain(it: ArticleData): News {
             it.webTitle,
             it.webPublicationDate,
             it.webUrl,
-            (it.fields.liveBloggingNow == "true"),
-            it.fields.thumbnail)
+            it.fields.liveBloggingNow == "true",
+            it.fields.thumbnail,
+            it.fields.bodyText)
 }
 
 fun List<News>.toEntity(): List<NewsEntity> {

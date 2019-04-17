@@ -9,4 +9,7 @@ class ExtrasData {
 
     @SerializedName("thumbnail")
     val thumbnail: String = ""
+
+    @SerializedName("bodyText")
+    val bodyText: String = ""
 }

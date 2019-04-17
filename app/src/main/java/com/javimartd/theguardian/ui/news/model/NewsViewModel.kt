@@ -7,4 +7,5 @@ data class NewsViewModel(val section: Section,
                          val date: String,
                          val webUrl: String,
                          val live: Boolean,
-                         val thumbnail: String)
+                         val thumbnail: String,
+                         val description: String)

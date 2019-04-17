@@ -26,7 +26,8 @@
             android:contentDescription="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:minHeight="100dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textTitle"
@@ -35,10 +36,7 @@
             android:layout_marginEnd="@dimen/small_margin"
             android:layout_marginStart="@dimen/small_margin"
             android:layout_marginTop="@dimen/small_margin"
-            android:ellipsize="end"
-            android:maxLines="3"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
@@ -46,10 +44,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="@+id/textTitle"
             app:layout_constraintTop_toBottomOf="@+id/textTitle"
             tools:text="Date" />
@@ -57,24 +54,39 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/some_chip"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
             android:clickable="false"
             android:textColor="@color/chip_text_color"
-            app:layout_constraintStart_toStartOf="@+id/textTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textDate" />
+            app:chipIconEnabled="false"
+            app:layout_constraintBottom_toBottomOf="@+id/textDate"
+            app:layout_constraintStart_toEndOf="@+id/textDate"
+            app:layout_constraintTop_toTopOf="@+id/textDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:maxLines="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textDate"
+            tools:text="Description"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonReadMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
             android:background="@android:color/transparent"
             android:text="@string/button_readMore"
             android:textAllCaps="true"
             android:textColor="@color/vivid_blue"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/textTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textDate" />
+            app:layout_constraintTop_toBottomOf="@+id/textDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

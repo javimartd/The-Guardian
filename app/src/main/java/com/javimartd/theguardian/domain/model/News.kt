@@ -6,4 +6,5 @@ data class News(val sectionId: String,
                 val date: String,
                 val webUrl: String,
                 val live: Boolean,
-                val thumbnail: String)
+                val thumbnail: String,
+                val description: String)

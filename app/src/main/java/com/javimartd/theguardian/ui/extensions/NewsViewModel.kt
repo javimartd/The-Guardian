@@ -9,10 +9,12 @@ fun List<News>.toPresentation(): List<NewsViewModel> {
 }
 
 private fun newsToPresentation(it: News): NewsViewModel {
-    return NewsViewModel(SectionFactory.getSection(it.sectionId, it.sectionName),
+    return NewsViewModel(
+            SectionFactory.getSection(it.sectionId, it.sectionName),
             it.title,
             it.date,
             it.webUrl,
             it.live,
-            it.thumbnail)
+            it.thumbnail,
+            it.description)
 }
