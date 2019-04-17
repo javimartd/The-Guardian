@@ -13,16 +13,16 @@ import javax.inject.Inject
 
 class TheGuardianApplication: Application(), HasActivityInjector {
 
-    private val component: AppComponent by lazy {
-        DaggerAppComponent.builder().application(this).build()
+    companion object {
+        lateinit var instance: TheGuardianApplication
+            private set
     }
 
     @Inject
     lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
-    companion object {
-        lateinit var instance: TheGuardianApplication
-        private set
+    private val component: AppComponent by lazy {
+        DaggerAppComponent.builder().application(this).build()
     }
 
     override fun onCreate() {

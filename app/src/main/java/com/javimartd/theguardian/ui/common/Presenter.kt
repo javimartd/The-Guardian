@@ -3,7 +3,7 @@ package com.javimartd.theguardian.ui.common
 import com.javimartd.theguardian.domain.common.UseCase
 import com.javimartd.theguardian.domain.errors.ApiError
 
-abstract class Presenter<T: RequestView> {
+abstract class Presenter<T: BaseView> {
 
     abstract fun onViewAttached()
 
