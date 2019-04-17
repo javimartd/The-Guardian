@@ -8,7 +8,7 @@ import java.net.URL
  * to perform a simple API request.
  * Not recommended for huge responses.
  */
-class Request (private val url : String) {
+class QuickRequest (private val url : String) {
 
     fun run() {
         val forecastJsonStr = URL(url).readText()
