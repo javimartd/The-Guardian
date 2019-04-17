@@ -10,7 +10,8 @@
 
     <!--settings activity-->
     <string name="toolbar_activity_settings">Ajustes</string>
-    <string name="option_1">Opción 1</string>
+    <string name="option_night_mode_off">Modo noche</string>
+    <string name="option_night_mode_on">Modo noche activado</string>
 
     <!--errors-->
     <string name="generic_error">Se ha producido un error. Por favor, inténtelo de nuevo más tarde.</string>
