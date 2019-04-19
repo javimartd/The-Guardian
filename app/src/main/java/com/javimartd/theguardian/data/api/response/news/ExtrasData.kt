@@ -2,14 +2,12 @@ package com.javimartd.theguardian.data.api.response.news
 
 import com.google.gson.annotations.SerializedName
 
-class ExtrasData {
+data class ExtrasData (
+        @SerializedName("liveBloggingNow")
+        val liveBloggingNow: String = "",
 
-    @SerializedName("liveBloggingNow")
-    val liveBloggingNow: String = ""
+        @SerializedName("thumbnail")
+        val thumbnail: String = "",
 
-    @SerializedName("thumbnail")
-    val thumbnail: String = ""
-
-    @SerializedName("bodyText")
-    val bodyText: String = ""
-}
+        @SerializedName("bodyText")
+        val bodyText: String = "")
