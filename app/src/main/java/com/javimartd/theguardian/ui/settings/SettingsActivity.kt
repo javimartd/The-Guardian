@@ -8,27 +8,35 @@ import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.extensions.DelegatesExt
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.find
+import javax.inject.Inject
 
-class SettingsActivity : BaseActivity(), ToolbarManager {
+class SettingsActivity : BaseActivity(), ToolbarManager, SettingsView {
 
     companion object {
         const val OPTION1 = "option1"
         const val OPTION1_DEFAULT = false
     }
 
+    @Inject lateinit var presenter: SettingsPresenter
+
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
-    private var option1: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
+    private var dayNightOption: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        setUpPresenter()
         setUpUI()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        option1 = switchOption1.isChecked
+        dayNightOption = switchDayNight.isChecked
+    }
+
+    override fun setOptionNameDayNight(name: String) {
+        textOptionDayNight.text = name
     }
 
     /********************
@@ -37,11 +45,16 @@ class SettingsActivity : BaseActivity(), ToolbarManager {
 
     private fun setUpUI() {
         setUpToolbar()
-        setUpOptions()
+        setUpDayNightOption()
     }
 
-    private fun setUpOptions() {
-        switchOption1.isChecked = option1
+    private fun setUpPresenter() {
+        presenter.attachView(this)
+    }
+
+    private fun setUpDayNightOption() {
+        switchDayNight.setOnCheckedChangeListener { _, isChecked -> presenter.initializeDayNightStatus(isChecked) }
+        switchDayNight.isChecked = dayNightOption
     }
 
     private fun setUpToolbar() {
