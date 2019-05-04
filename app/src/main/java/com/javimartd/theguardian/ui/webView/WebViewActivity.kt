@@ -64,10 +64,12 @@ class WebViewActivity : BaseActivity(), WebClient {
         baseWebViewClient.setWebViewClientInterface(this)
         webView.webViewClient = baseWebViewClient
         webView.isLongClickable = true
-        webView.settings.javaScriptEnabled = false
-        webView.settings.allowContentAccess = false
-        webView.settings.allowFileAccess = false
-        webView.settings.allowFileAccessFromFileURLs = false
-        webView.settings.allowUniversalAccessFromFileURLs = false
+        webView.settings.apply {
+            javaScriptEnabled = false
+            allowContentAccess = false
+            allowFileAccess = false
+            allowFileAccessFromFileURLs = false
+            allowUniversalAccessFromFileURLs = false
+        }
     }
 }
