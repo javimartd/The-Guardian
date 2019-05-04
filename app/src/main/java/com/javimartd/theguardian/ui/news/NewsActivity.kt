@@ -3,6 +3,7 @@ package com.javimartd.theguardian.ui.news
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -11,6 +12,7 @@ import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
+import com.javimartd.theguardian.ui.extensions.showSupportTheGuardianAlertDialog
 import com.javimartd.theguardian.ui.news.model.NewsViewModel
 import com.javimartd.theguardian.ui.webView.WebViewActivity
 import kotlinx.android.synthetic.main.activity_news.*
@@ -34,6 +36,8 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     private lateinit var adapter: NewsAdapter
+
+    private var supportTheGuardianAlertDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,5 +98,23 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
     private fun setUpToolbar() {
         toolbarTitle = getString(R.string.app_name)
         initializeToolbar()
+    }
+
+    private fun showSupportTheGuardianAlertDialog() {
+        if (supportTheGuardianAlertDialog == null)
+            supportTheGuardianAlertDialog = showSupportTheGuardianAlertDialog {
+                cancelable = true
+                isBackGroundTransparent = false
+                subscribeButtonClickListener {
+
+                }
+                contributeButtonClickListener {
+
+                }
+                onCancelListener {
+                    // nothing to do
+                }
+            }
+        supportTheGuardianAlertDialog?.show()
     }
 }

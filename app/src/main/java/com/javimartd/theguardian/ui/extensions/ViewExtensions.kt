@@ -1,5 +1,6 @@
 package com.javimartd.theguardian.ui.extensions
 
+import android.app.Activity
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.snackbar.Snackbar
+import com.javimartd.theguardian.ui.dialogs.custom.SupportTheGuardianAlertDialog
 
 // Adapter
 
@@ -78,3 +81,10 @@ fun EditText.onTextChange(cb: (String) -> Unit) {
 }
 
 fun String.isValidPassword(): Boolean = this.isNotEmpty() && this.trim().length >= 6
+
+// Dialog
+
+inline fun Activity.showSupportTheGuardianAlertDialog(func: SupportTheGuardianAlertDialog.() -> Unit): AlertDialog =
+        SupportTheGuardianAlertDialog(this).apply {
+            func()
+        }.create()
