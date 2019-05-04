@@ -20,4 +20,10 @@
     <string name="generic_error">Something was wrong. Please try again later.</string>
     <string name="connection_error">Connection error. Please check your internet connection.</string>
 
+    <!-- dialogs -->
+    <string name="support_the_guardian_title">Support The Guardian</string>
+    <string name="support_the_guardian_subTitle">Available for everyone, funded by readers</string>
+    <string name="support_the_guardian_subscribe_button">Subscribe</string>
+    <string name="support_the_guardian_contribute_button">Contribute</string>
+
 </resources>

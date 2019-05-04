@@ -17,4 +17,10 @@
     <string name="generic_error">Se ha producido un error. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="connection_error">Error de conexión. Por favor, revise su conecxión a Internet.</string>
 
+    <!-- dialogs -->
+    <string name="support_the_guardian_title">Apoya The Guardian</string>
+    <string name="support_the_guardian_subTitle">Available for everyone, funded by readers</string>
+    <string name="support_the_guardian_subscribe_button">Subscribirse</string>
+    <string name="support_the_guardian_contribute_button">Contribuir</string>
+
 </resources>
