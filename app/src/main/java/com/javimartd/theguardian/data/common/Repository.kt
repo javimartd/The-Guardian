@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.data.common
 
-import com.javimartd.theguardian.data.exceptions.ApiException
+import com.javimartd.theguardian.data.datasources.api.exceptions.ApiException
 import retrofit2.Call
 import retrofit2.Response
 

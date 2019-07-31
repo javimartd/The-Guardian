@@ -1,8 +1,8 @@
 package com.javimartd.theguardian.data.extensions
 
-import com.javimartd.theguardian.data.api.response.news.ArticleData
-import com.javimartd.theguardian.data.api.response.news.NewsResponse
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.data.datasources.api.model.news.ArticleData
+import com.javimartd.theguardian.data.datasources.api.model.news.NewsResponse
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.framework.db.NewsEntity
 
 fun NewsResponse.toDomain(): List<News> {

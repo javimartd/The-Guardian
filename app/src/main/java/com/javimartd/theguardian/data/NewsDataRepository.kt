@@ -1,11 +1,11 @@
 package com.javimartd.theguardian.data
 
 import com.javimartd.theguardian.BuildConfig
-import com.javimartd.theguardian.data.api.APIService
-import com.javimartd.theguardian.data.api.response.news.NewsResponse
 import com.javimartd.theguardian.data.common.Repository
+import com.javimartd.theguardian.data.datasources.api.APIService
+import com.javimartd.theguardian.data.datasources.api.model.news.NewsResponse
 import com.javimartd.theguardian.data.extensions.toDomain
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import retrofit2.Response
 
