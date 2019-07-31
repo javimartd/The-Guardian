@@ -1,5 +1,7 @@
 package com.javimartd.theguardian.ui.webView
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import com.google.android.material.snackbar.Snackbar
@@ -10,12 +12,19 @@ import com.javimartd.theguardian.ui.common.WebClient
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.snack
 import kotlinx.android.synthetic.main.activity_web_view.*
+import org.jetbrains.anko.bundleOf
 import javax.inject.Inject
 
 class WebViewActivity : BaseActivity(), WebClient {
 
     companion object {
         const val URL = "WebViewActivity:url"
+
+        fun newIntent(context: Context, url: String) : Intent {
+            return Intent(context, WebViewActivity::class.java).apply {
+                putExtras(bundleOf(URL to url))
+            }
+        }
     }
 
     @Inject lateinit var baseWebViewClient: BaseWebViewClient
