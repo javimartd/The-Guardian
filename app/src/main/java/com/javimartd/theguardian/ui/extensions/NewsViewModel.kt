@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.ui.extensions
 
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.ui.news.factory.SectionFactory
 import com.javimartd.theguardian.ui.news.model.NewsViewModel
 

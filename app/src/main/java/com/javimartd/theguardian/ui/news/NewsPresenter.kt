@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.ui.news
 
 import com.javimartd.theguardian.domain.errors.ApiError
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.usecases.GetNews
 import com.javimartd.theguardian.ui.common.Presenter
 import com.javimartd.theguardian.ui.extensions.toPresentation
