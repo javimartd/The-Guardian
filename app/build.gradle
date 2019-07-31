@@ -93,7 +93,7 @@ android {
     }
 }
 
-ext.dagger_version = '2.15'
+ext.dagger_version = '2.17'
 ext.coroutines_version = '1.0.0'
 ext.retrofit_version = '2.3.0'
 ext.okhttp_version = '3.11.0'
@@ -110,8 +110,8 @@ dependencies {
     implementation "com.google.android.material:material:1.0.0"
 
     // lifeCycle
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04"
-    kapt "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha04"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha01"
 
     // anko
     implementation "org.jetbrains.anko:anko-common:0.10.4"
@@ -127,6 +127,7 @@ dependencies {
     // dagger android
     implementation "com.google.dagger:dagger-android:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    kaptAndroidTest "com.google.dagger:dagger-android-processor:$dagger_version"
 
     // retrofit OkHttp
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -137,11 +138,11 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     // room
-    implementation "androidx.room:room-runtime:2.1.0-alpha06"
-    kapt "androidx.room:room-compiler:2.1.0-alpha06"
+    implementation "androidx.room:room-runtime:2.1.0"
+    kapt "androidx.room:room-compiler:2.1.0"
 
     // room test helpers
-    testImplementation "androidx.room:room-testing:2.1.0-alpha06"
+    testImplementation "androidx.room:room-testing:2.1.0"
 
     // Gson
     implementation "com.google.code.gson:gson:2.8.2"
@@ -154,22 +155,22 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Required for instrumented tests
-    implementation "androidx.annotation:annotation:1.0.2"
-    androidTestImplementation "androidx.test:runner:1.1.1"
+    implementation "androidx.annotation:annotation:1.1.0"
+    androidTestImplementation "androidx.test:runner:1.2.0"
 
     // mock web server
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
     // espresso
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.1.1"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.1"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:3.1.1"
-    androidTestImplementation "androidx.test:rules:1.1.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.2.0"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.2.0"
+    androidTestImplementation "androidx.test:rules:1.2.0"
 
     // androidX helpers
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.ext:truth:1.0.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:truth:1.2.0'
 
     // mockito
     testImplementation 'org.mockito:mockito-core:2.21.0'
