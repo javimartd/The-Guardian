@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.ui
 
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.usecases.GetNews
 import com.javimartd.theguardian.ui.news.NewsPresenter
 import com.javimartd.theguardian.ui.news.NewsView

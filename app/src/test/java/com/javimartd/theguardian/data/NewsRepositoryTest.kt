@@ -1,7 +1,8 @@
 package com.javimartd.theguardian.data
 
 import com.google.gson.GsonBuilder
-import com.javimartd.theguardian.data.api.APIService
+import com.javimartd.theguardian.data.datasources.api.APIService
+import com.javimartd.theguardian.domain.repositories.NewsRepository
 import junit.framework.Assert.assertEquals
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
@@ -17,7 +18,7 @@ import java.io.File
 
 class NewsRepositoryTest {
 
-    private lateinit var sut: NewsDataRepository
+    private lateinit var sut: NewsRepository
     private lateinit var server : MockWebServer
     private lateinit var apiService: APIService
 
@@ -36,7 +37,7 @@ class NewsRepositoryTest {
                 .build()
         apiService = retrofit.create(APIService::class.java)
 
-        sut = NewsDataRepository(apiService)
+        sut = NewsRepositoryImpl(apiService)
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.domain
 
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import com.javimartd.theguardian.domain.usecases.GetNews
 import com.nhaarman.mockitokotlin2.whenever
