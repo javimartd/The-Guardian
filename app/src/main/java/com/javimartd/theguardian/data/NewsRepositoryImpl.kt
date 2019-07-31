@@ -9,7 +9,7 @@ import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import retrofit2.Response
 
-class NewsDataRepository(private val apiService: APIService): NewsRepository, Repository() {
+class NewsRepositoryImpl(private val apiService: APIService): NewsRepository, Repository() {
 
     @Throws(Exception::class)
     override fun getNews(): List<News> {

@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.domain.usecases
 
 import com.javimartd.theguardian.domain.common.UseCase
-import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import javax.inject.Inject
 

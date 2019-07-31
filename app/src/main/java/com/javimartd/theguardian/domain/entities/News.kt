@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.domain.model
+package com.javimartd.theguardian.domain.entities
 
 data class News(val sectionId: String,
                 val sectionName: String,

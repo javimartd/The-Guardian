@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.di.module
 
 import com.javimartd.theguardian.BuildConfig
-import com.javimartd.theguardian.data.api.APIService
+import com.javimartd.theguardian.data.datasources.api.APIService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.framework.location
 
-import com.javimartd.theguardian.domain.model.Location
+import com.javimartd.theguardian.domain.entities.Location
 import com.javimartd.theguardian.domain.repositories.LocationRepository
 import java.util.*
 

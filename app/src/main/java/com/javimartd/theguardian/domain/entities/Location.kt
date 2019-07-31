@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.domain.model
+package com.javimartd.theguardian.domain.entities
 
 import java.util.*
 

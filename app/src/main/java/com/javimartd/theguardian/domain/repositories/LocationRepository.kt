@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.domain.repositories
 
-import com.javimartd.theguardian.domain.model.Location
+import com.javimartd.theguardian.domain.entities.Location
 
 interface LocationRepository {
     fun getDeviceLocation(): Location

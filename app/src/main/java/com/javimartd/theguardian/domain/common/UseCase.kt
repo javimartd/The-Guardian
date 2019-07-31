@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.domain.common
 
-import com.javimartd.theguardian.data.exceptions.ApiException
+import com.javimartd.theguardian.data.datasources.api.exceptions.ApiException
 import com.javimartd.theguardian.domain.errors.ApiError
 import kotlinx.coroutines.*
 import java.net.UnknownHostException
