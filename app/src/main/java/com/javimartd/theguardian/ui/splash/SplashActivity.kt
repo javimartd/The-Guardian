@@ -5,10 +5,9 @@ import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.navigator.Navigator
 import javax.inject.Inject
 
-class SplashActivity : BaseActivity() {
+class SplashActivity: BaseActivity<SplashContract.View, SplashContract.Presenter>(), SplashContract.View {
 
-    @Inject
-    lateinit var navigator: Navigator
+    @Inject lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

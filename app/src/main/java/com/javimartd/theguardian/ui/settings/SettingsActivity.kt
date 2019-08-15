@@ -10,7 +10,8 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.find
 import javax.inject.Inject
 
-class SettingsActivity : BaseActivity(), ToolbarManager, SettingsView {
+class SettingsActivity: BaseActivity<SettingsContract.View, SettingsContract.Presenter>(),
+        ToolbarManager, SettingsContract.View {
 
     companion object {
         const val OPTION1 = "option1"
@@ -30,6 +31,11 @@ class SettingsActivity : BaseActivity(), ToolbarManager, SettingsView {
         setUpUI()
     }
 
+    override fun onDestroy() {
+        presenter.detachView()
+        super.onDestroy()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         dayNightOption = switchDayNight.isChecked
@@ -38,10 +44,6 @@ class SettingsActivity : BaseActivity(), ToolbarManager, SettingsView {
     override fun setOptionNameDayNight(name: String) {
         textOptionDayNight.text = name
     }
-
-    /********************
-     * private functions
-     ********************/
 
     private fun setUpUI() {
         setUpToolbar()

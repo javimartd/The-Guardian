@@ -21,7 +21,7 @@ import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 
-class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
+class NewsActivity: BaseActivity<NewsContract.View, NewsContract.Presenter>(), NewsContract.View, ToolbarManager {
 
     companion object {
         fun buildIntent(context: Context): Intent {
@@ -29,7 +29,7 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
         }
     }
 
-    @Inject lateinit var presenter: NewsPresenter
+    @Inject lateinit var presenter: NewsContract.Presenter
 
     @Inject lateinit var loading: LoadingDialog
 
@@ -46,12 +46,26 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
         setUpPresenter()
     }
 
+    override fun onDestroy() {
+        presenter.detachView()
+        super.onDestroy()
+    }
+
     override fun showLoading() {
         loading.showDialog()
     }
 
     override fun hideLoading() {
         loading.cancelDialog()
+    }
+
+    override fun showNews(news: List<NewsViewModel>) {
+        adapter.items = news
+    }
+
+    override fun showEmptyState() {
+        constraintNewsActivity.showSnack("At this moment we have no news to show you",
+                Snackbar.LENGTH_LONG)
     }
 
     override fun showConnectionError() {
@@ -69,16 +83,8 @@ class NewsActivity : BaseActivity(), NewsView, ToolbarManager {
                 Snackbar.LENGTH_LONG)
     }
 
-    /********************
-     * private functions
-     ********************/
-
     private fun setUpPresenter() {
         presenter.attachView(this)
-    }
-
-    override fun showNews(news: List<NewsViewModel>) {
-        adapter.items = news
     }
 
     private fun setUpUI() {

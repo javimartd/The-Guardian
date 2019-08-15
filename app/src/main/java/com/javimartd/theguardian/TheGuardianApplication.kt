@@ -3,8 +3,8 @@ package com.javimartd.theguardian
 import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.javimartd.theguardian.di.component.AppComponent
-import com.javimartd.theguardian.di.component.DaggerAppComponent
+import com.javimartd.theguardian.ui.di.AppComponent
+import com.javimartd.theguardian.ui.di.DaggerAppComponent
 import com.javimartd.theguardian.ui.common.ApplicationObserver
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

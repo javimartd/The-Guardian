@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.ui.common
 
-interface RequestView: BaseView {
+interface RequestView {
     fun showLoading()
     fun hideLoading()
     fun showConnectionError()

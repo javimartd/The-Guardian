@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_web_view.*
 import org.jetbrains.anko.bundleOf
 import javax.inject.Inject
 
-class WebViewActivity : BaseActivity(), WebClient {
+class WebViewActivity: BaseActivity<WebViewContract.View, WebViewContract.Presenter>(), WebClient {
 
     companion object {
         const val URL = "WebViewActivity:url"
@@ -35,6 +35,7 @@ class WebViewActivity : BaseActivity(), WebClient {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
         setUpUI()
+        loadURL()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -55,18 +56,15 @@ class WebViewActivity : BaseActivity(), WebClient {
 
     override fun hideLoading() = loading.cancelDialog()
 
-    /********************
-     * private functions
-     ********************/
-
     private fun setUpUI() {
         loading.createDialog(this)
         setWebViewSettings()
-        loadURL()
     }
 
     private fun loadURL() {
-        webView.loadUrl(intent.getStringExtra(URL))
+        val url = intent.getStringExtra(URL)
+                ?: throw IllegalArgumentException("Required parameter $URL is missing in the intent.")
+        webView.loadUrl(url)
     }
 
     private fun setWebViewSettings() {

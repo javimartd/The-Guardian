@@ -1,13 +1,14 @@
 package com.javimartd.theguardian.ui.news
 
-import com.javimartd.theguardian.domain.errors.ApiError
 import com.javimartd.theguardian.domain.entities.News
+import com.javimartd.theguardian.domain.errors.ApiError
 import com.javimartd.theguardian.domain.usecases.GetNews
-import com.javimartd.theguardian.ui.common.Presenter
+import com.javimartd.theguardian.ui.common.BasePresenter
 import com.javimartd.theguardian.ui.extensions.toPresentation
 import javax.inject.Inject
 
-class NewsPresenter @Inject constructor(private val getNews: GetNews): Presenter<NewsView>() {
+class NewsPresenter @Inject constructor(private val getNews: GetNews):
+        BasePresenter<NewsContract.View>(), NewsContract.Presenter {
 
     override fun onViewAttached() {
         getNews()
@@ -15,33 +16,45 @@ class NewsPresenter @Inject constructor(private val getNews: GetNews): Presenter
 
     //region GET NEWS
     private fun getNews() {
-        view.showLoading()
+        view?.showLoading()
         execute(useCase = getNews,
-                onSuccess = { showNews(it) },
-                noConnection = { connectionError() },
-                apiError = { apiError(it) },
+                onSuccess = { onSuccess(it) },
+                noConnection = { onConnectionError() },
+                apiError = { onApiError(it) },
                 genericError = { onError() })
     }
 
-    private fun showNews(news: Any?) {
+    private fun onSuccess(news: Any?) {
         news as List<News>
-        view.hideLoading()
-        view.showNews(news.toPresentation())
+        view?.hideLoading()
+        if (news.isEmpty()) {
+            showEmptyState()
+        } else {
+            showNews(news)
+        }
     }
 
-    private fun connectionError() {
-        view.hideLoading()
-        view.showConnectionError()
+    private fun onConnectionError() {
+        view?.hideLoading()
+        view?.showConnectionError()
     }
 
-    private fun apiError(apiError: ApiError) {
-        view.hideLoading()
-        view.showError(apiError.errorCode, apiError.message)
+    private fun onApiError(apiError: ApiError) {
+        view?.hideLoading()
+        view?.showError(apiError.errorCode, apiError.message)
     }
 
     private fun onError() {
-        view.hideLoading()
-        view.showGenericError()
+        view?.hideLoading()
+        view?.showGenericError()
+    }
+
+    private fun showNews(news: List<News>) {
+        view?.showNews(news.toPresentation())
+    }
+
+    private fun showEmptyState() {
+        view?.showEmptyState()
     }
     //endregion
 }

@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.di.module
+package com.javimartd.theguardian.ui.di.module
 
 import com.javimartd.theguardian.ui.news.NewsActivity
 import com.javimartd.theguardian.ui.settings.SettingsActivity
@@ -14,7 +14,7 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun bindSplashActivity(): SplashActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [NewsActivityModule::class])
     abstract fun bindNewsActivity(): NewsActivity
 
     @ContributesAndroidInjector

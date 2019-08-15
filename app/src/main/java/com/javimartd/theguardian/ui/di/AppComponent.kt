@@ -1,11 +1,8 @@
-package com.javimartd.theguardian.di.component
+package com.javimartd.theguardian.ui.di
 
 import android.app.Application
 import com.javimartd.theguardian.TheGuardianApplication
-import com.javimartd.theguardian.di.module.ActivityModule
-import com.javimartd.theguardian.di.module.AppModule
-import com.javimartd.theguardian.di.module.NetworkModule
-import com.javimartd.theguardian.di.module.RepositoryModule
+import com.javimartd.theguardian.ui.di.module.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -13,7 +10,9 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, AppModule::class, RepositoryModule::class, NetworkModule::class])
+@Component(modules = [
+    AndroidInjectionModule::class, ActivityModule::class, AppModule::class,
+    RepositoryModule::class, NetworkModule::class])
 interface AppComponent {
 
     @Component.Builder

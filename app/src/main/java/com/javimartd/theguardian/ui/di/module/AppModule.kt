@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.di.module
+package com.javimartd.theguardian.ui.di.module
 
 import androidx.room.Room
 import com.javimartd.theguardian.TheGuardianApplication
