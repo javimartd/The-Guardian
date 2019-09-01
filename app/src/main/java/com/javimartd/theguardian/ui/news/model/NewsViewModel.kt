@@ -8,4 +8,15 @@ data class NewsViewModel(val section: Section,
                          val webUrl: String,
                          val live: Boolean,
                          val thumbnail: String,
-                         val description: String)
+                         val description: String) {
+
+    override fun equals(other: Any?): Boolean {
+        if(other == null || other !is NewsViewModel) {
+            return false
+        }
+        return section.getTitle() == other.section.getTitle()
+                && title == other.title
+                && date == other.date
+                && webUrl == other.webUrl
+    }
+}
