@@ -2,10 +2,12 @@ package com.javimartd.theguardian.ui
 
 import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.usecases.GetNews
+import com.javimartd.theguardian.ui.extensions.toPresentation
+import com.javimartd.theguardian.ui.news.NewsContract
 import com.javimartd.theguardian.ui.news.NewsPresenter
-import com.javimartd.theguardian.ui.news.NewsView
 import com.javimartd.theguardian.ui.news.model.NewsViewModel
 import com.nhaarman.mockitokotlin2.*
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,15 +19,17 @@ class GetNewsPresenterTest {
 
     private lateinit var sut: NewsPresenter
 
-    @Mock
-    private lateinit var getNews: GetNews
-
-    @Mock
-    private lateinit var newsView: NewsView
+    @Mock private lateinit var getNews: GetNews
+    @Mock private lateinit var newsView: NewsContract.View
 
     @Before
     fun setUp() {
         sut = NewsPresenter(getNews)
+    }
+
+    @After
+    fun tearDown() {
+        sut.detachView()
     }
 
     @Test
@@ -42,21 +46,31 @@ class GetNewsPresenterTest {
 
     @Test
     fun `after execute get news then hide loading`() {
-        val onCompleteCaptor = argumentCaptor<(Any) -> Unit>()
+        val onSuccess = argumentCaptor<(Any) -> Unit>()
         val result: List<News> = emptyList()
         sut.attachView(newsView)
-        verify(getNews).execute(onCompleteCaptor.capture(), any(), any(), any())
-        onCompleteCaptor.firstValue.invoke(result)
+        verify(getNews).execute(onSuccess.capture(), any(), any(), any())
+        onSuccess.firstValue.invoke(result)
         verify(newsView).hideLoading()
     }
 
     @Test
     fun `after execute get news then show news`() {
-        val onCompleteCaptor = argumentCaptor<(Any) -> Unit>()
+        val onSuccess = argumentCaptor<(Any) -> Unit>()
+        val result: List<News> =  NewsFactory.makeNews(1)
+        sut.attachView(newsView)
+        verify(getNews).execute(onSuccess.capture(), any(), any(), any())
+        onSuccess.firstValue.invoke(result)
+        verify(newsView).showNews(result.toPresentation())
+    }
+
+    @Test
+    fun `after execute get news then show empty state`() {
+        val onSuccess = argumentCaptor<(Any) -> Unit>()
         val result: List<NewsViewModel> = emptyList()
         sut.attachView(newsView)
-        verify(getNews).execute(onCompleteCaptor.capture(), any(), any(), any())
-        onCompleteCaptor.firstValue.invoke(result)
-        verify(newsView).showNews(result)
+        verify(getNews).execute(onSuccess.capture(), any(), any(), any())
+        onSuccess.firstValue.invoke(result)
+        verify(newsView).showEmptyState()
     }
 }
