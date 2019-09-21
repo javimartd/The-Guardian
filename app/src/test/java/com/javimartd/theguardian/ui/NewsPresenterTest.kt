@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.ui
 
 import com.javimartd.theguardian.domain.entities.News
-import com.javimartd.theguardian.domain.usecases.GetNews
+import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.javimartd.theguardian.ui.extensions.toPresentation
 import com.javimartd.theguardian.ui.news.NewsContract
 import com.javimartd.theguardian.ui.news.NewsPresenter
@@ -15,11 +15,11 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class GetNewsPresenterTest {
+class NewsPresenterTest {
 
     private lateinit var sut: NewsPresenter
 
-    @Mock private lateinit var getNews: GetNews
+    @Mock private lateinit var getNews: GetNewsUseCase
     @Mock private lateinit var newsView: NewsContract.View
 
     @Before
