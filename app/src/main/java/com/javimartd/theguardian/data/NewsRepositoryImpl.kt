@@ -1,21 +1,23 @@
 package com.javimartd.theguardian.data
 
-import com.javimartd.theguardian.BuildConfig
-import com.javimartd.theguardian.data.common.Repository
-import com.javimartd.theguardian.data.datasources.api.APIService
-import com.javimartd.theguardian.data.datasources.api.model.news.NewsResponse
-import com.javimartd.theguardian.data.extensions.toDomain
+import com.javimartd.theguardian.data.common.BaseRemote
+import com.javimartd.theguardian.data.datastores.local.NewsLocalDataStore
+import com.javimartd.theguardian.data.datastores.remote.NewsRemoteDataStore
 import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
-import retrofit2.Response
 
-class NewsRepositoryImpl(private val apiService: APIService): NewsRepository, Repository() {
+class NewsRepositoryImpl(private val remoteDataStore: NewsRemoteDataStore,
+                         private val localDataStore: NewsLocalDataStore): BaseRemote(), NewsRepository {
 
-    @Throws(Exception::class)
-    override fun getNews(): List<News> {
-        val serverResponse: Response<*> = executeCall(apiService.getNews("all",
-                BuildConfig.THE_GUARDIAN_API_KEY))
-        val response = serverResponse.body() as NewsResponse
-        return response.toDomain()
+    override fun getNews(getLocalNews: Boolean): List<News> {
+        return if (getLocalNews) {
+            localDataStore.getNews()
+        } else {
+            remoteDataStore.getNews()
+        }
+    }
+
+    override fun saveNews(news: News) {
+        localDataStore.saveNews(news)
     }
 }

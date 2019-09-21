@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.data.datasources.api.model.news
+package com.javimartd.theguardian.data.datastores.remote.model.news
 
 import com.google.gson.annotations.SerializedName
 

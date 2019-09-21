@@ -1,6 +1,6 @@
-package com.javimartd.theguardian.data.datasources.api
+package com.javimartd.theguardian.data.datastores.remote
 
-import com.javimartd.theguardian.data.datasources.api.model.news.NewsResponse
+import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

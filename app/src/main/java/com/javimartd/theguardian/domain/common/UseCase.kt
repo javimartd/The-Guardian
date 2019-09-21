@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.domain.common
 
-import com.javimartd.theguardian.data.datasources.api.exceptions.ApiException
+import com.javimartd.theguardian.data.datastores.remote.exceptions.ApiException
 import com.javimartd.theguardian.domain.errors.ApiError
 import kotlinx.coroutines.*
 import java.net.UnknownHostException
@@ -20,7 +20,7 @@ abstract class UseCase {
         result = GlobalScope.async(Dispatchers.IO) {
             try {
                 execution()
-            }catch (exception: UnknownHostException) {
+            } catch (exception: UnknownHostException) {
                 UnknownHostException()
             } catch (exception: ApiException) {
                 ApiException(exception.code, exception.message)
