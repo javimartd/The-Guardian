@@ -4,7 +4,7 @@ import com.javimartd.theguardian.domain.entities.Location
 import com.javimartd.theguardian.domain.repositories.LocationRepository
 import java.util.*
 
-class LocationDataRepository: LocationRepository {
+class LocationRepositoryImpl: LocationRepository {
 
     //TODO fake location. Implement with Google API
     override fun getDeviceLocation(): Location {

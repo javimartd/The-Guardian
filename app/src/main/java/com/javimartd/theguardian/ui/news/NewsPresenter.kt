@@ -2,12 +2,12 @@ package com.javimartd.theguardian.ui.news
 
 import com.javimartd.theguardian.domain.entities.News
 import com.javimartd.theguardian.domain.errors.ApiError
-import com.javimartd.theguardian.domain.usecases.GetNews
+import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.javimartd.theguardian.ui.common.BasePresenter
 import com.javimartd.theguardian.ui.extensions.toPresentation
 import javax.inject.Inject
 
-class NewsPresenter @Inject constructor(private val getNews: GetNews):
+class NewsPresenter @Inject constructor(private val getNews: GetNewsUseCase):
         BasePresenter<NewsContract.View>(), NewsContract.Presenter {
 
     override fun onViewAttached() {

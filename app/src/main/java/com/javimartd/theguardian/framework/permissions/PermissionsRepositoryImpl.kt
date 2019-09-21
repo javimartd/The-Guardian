@@ -6,7 +6,7 @@ import android.os.Build
 import com.javimartd.theguardian.domain.repositories.PermissionsRepository
 import javax.inject.Inject
 
-class PermissionsDataRepository @Inject constructor(val context: Context): PermissionsRepository {
+class PermissionsRepositoryImpl @Inject constructor(val context: Context): PermissionsRepository {
 
     override fun hasCameraPermission() = hasPermission(android.Manifest.permission.CAMERA)
 

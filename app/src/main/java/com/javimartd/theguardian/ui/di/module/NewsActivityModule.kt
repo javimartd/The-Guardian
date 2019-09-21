@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.ui.di.module
 
-import com.javimartd.theguardian.domain.usecases.GetNews
+import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.javimartd.theguardian.ui.news.NewsActivity
 import com.javimartd.theguardian.ui.news.NewsContract
 import com.javimartd.theguardian.ui.news.NewsPresenter
@@ -11,7 +11,7 @@ import dagger.Provides
 class NewsActivityModule {
 
     @Provides
-    internal fun providesNewsPresenter(newsView: NewsContract.View, getNews: GetNews): NewsContract.Presenter {
+    internal fun providesNewsPresenter(getNews: GetNewsUseCase): NewsContract.Presenter {
         return NewsPresenter(getNews)
     }
 
