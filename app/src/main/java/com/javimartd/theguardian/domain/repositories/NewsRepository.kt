@@ -1,8 +1,9 @@
 package com.javimartd.theguardian.domain.repositories
 
-import com.javimartd.theguardian.domain.entities.News
+import com.javimartd.theguardian.domain.model.News
+import io.reactivex.Observable
 
 interface NewsRepository {
-    fun getNews(getLocalNews: Boolean): List<News>
+    fun getNews(): Observable<List<News>>
     fun saveNews(news: News)
 }
