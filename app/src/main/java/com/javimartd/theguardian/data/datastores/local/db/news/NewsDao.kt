@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.framework.db
+package com.javimartd.theguardian.data.datastores.local.db.news
 
 import androidx.room.Dao
 import androidx.room.Insert
