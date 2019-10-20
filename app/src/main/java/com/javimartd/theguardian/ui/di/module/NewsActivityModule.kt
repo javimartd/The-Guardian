@@ -11,12 +11,13 @@ import dagger.Provides
 class NewsActivityModule {
 
     @Provides
-    internal fun providesNewsPresenter(getNews: GetNewsUseCase): NewsContract.Presenter {
-        return NewsPresenter(getNews)
+    fun providesNewsPresenter(view: NewsContract.View,
+                                       getNewsUseCase: GetNewsUseCase): NewsContract.Presenter {
+        return NewsPresenter(view, getNewsUseCase)
     }
 
     @Provides
-    internal fun provideNewsView(newsActivity: NewsActivity): NewsContract.View {
+    fun provideNewsView(newsActivity: NewsActivity): NewsContract.View {
         return newsActivity
     }
 }

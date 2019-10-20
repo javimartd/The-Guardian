@@ -1,5 +1,7 @@
 package com.javimartd.theguardian.ui.di.module
 
+import com.javimartd.theguardian.R
+import com.javimartd.theguardian.TheGuardianApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -12,6 +14,6 @@ class UrlModule {
     @Singleton
     @Named("baseUrl")
     fun providesBaseUrl(): String {
-        return "https://content.guardianapis.com"
+        return TheGuardianApplication.instance.getString(R.string.HOST)
     }
 }

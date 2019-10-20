@@ -18,8 +18,7 @@ class TheGuardianApplication: Application(), HasActivityInjector {
             private set
     }
 
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+    @Inject lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
     private val component: AppComponent by lazy {
         DaggerAppComponent.builder().application(this).build()

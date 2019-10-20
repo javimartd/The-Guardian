@@ -1,14 +1,16 @@
 package com.javimartd.theguardian.ui.di.module
 
 import com.javimartd.theguardian.BuildConfig
-import com.javimartd.theguardian.data.datastores.remote.APIService
+import com.javimartd.theguardian.data.datastores.remote.TheGuardianService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +18,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         val clientBuilder = OkHttpClient().newBuilder()
         clientBuilder.addInterceptor(HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else
@@ -29,17 +31,19 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofitClient(client: OkHttpClient): Retrofit {
+    fun provideRetrofitClient(client: OkHttpClient,
+                                       @Named("baseUrl") baseUrl: String): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("https://content.guardianapis.com")
+                .baseUrl(baseUrl)
                 .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): APIService {
-        return retrofit.create(APIService::class.java)
+    fun provideApiService(retrofit: Retrofit): TheGuardianService {
+        return retrofit.create(TheGuardianService::class.java)
     }
 }

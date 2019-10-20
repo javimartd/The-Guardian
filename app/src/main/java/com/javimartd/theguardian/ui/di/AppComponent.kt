@@ -10,16 +10,18 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [
-    AndroidInjectionModule::class, ActivityModule::class, AppModule::class,
-    RepositoryModule::class, NetworkModule::class])
+@Component(modules = [AndroidInjectionModule::class,
+    ActivityModule::class,
+    AppModule::class,
+    RepositoryModule::class,
+    NetworkModule::class,
+    UrlModule::class])
 interface AppComponent {
 
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
-
         fun build(): AppComponent
     }
 

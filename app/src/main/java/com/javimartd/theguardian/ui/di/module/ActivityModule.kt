@@ -20,6 +20,6 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun bindWebViewActivity(): WebViewActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [SettingsActivityModule::class])
     abstract fun bindSettingsActivity(): SettingsActivity
 }
