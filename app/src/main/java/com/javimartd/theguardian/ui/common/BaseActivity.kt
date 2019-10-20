@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.javimartd.theguardian.ui.utils.ActivityTransition
 import dagger.android.AndroidInjection
 
-abstract class BaseActivity<T: BaseContract.View, P: BaseContract.Presenter<T>>: AppCompatActivity(), BaseContract.View {
+abstract class BaseActivity: AppCompatActivity() {
 
     companion object {
         const val KEY_TRANSITION = "key_transition"

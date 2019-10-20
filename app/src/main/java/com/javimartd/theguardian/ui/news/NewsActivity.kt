@@ -21,7 +21,7 @@ import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 
-class NewsActivity: BaseActivity<NewsContract.View, NewsContract.Presenter>(), NewsContract.View, ToolbarManager {
+class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
 
     companion object {
         fun buildIntent(context: Context): Intent {
@@ -29,8 +29,7 @@ class NewsActivity: BaseActivity<NewsContract.View, NewsContract.Presenter>(), N
         }
     }
 
-    @Inject lateinit var presenter: NewsContract.Presenter
-
+    @Inject lateinit var newsPresenter: NewsContract.Presenter
     @Inject lateinit var loading: LoadingDialog
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
@@ -43,12 +42,16 @@ class NewsActivity: BaseActivity<NewsContract.View, NewsContract.Presenter>(), N
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         setUpUI()
-        setUpPresenter()
+        newsPresenter.start()
     }
 
     override fun onDestroy() {
-        presenter.detachView()
+        newsPresenter.stop()
         super.onDestroy()
+    }
+
+    override fun setPresenter(presenter: NewsContract.Presenter) {
+        newsPresenter = presenter
     }
 
     override fun showLoading() {
@@ -73,18 +76,9 @@ class NewsActivity: BaseActivity<NewsContract.View, NewsContract.Presenter>(), N
                 Snackbar.LENGTH_LONG)
     }
 
-    override fun showError(errorCode: Int, message: String) {
-        constraintNewsActivity.showSnack("$errorCode $message",
-                Snackbar.LENGTH_LONG)
-    }
-
-    override fun showGenericError() {
+    override fun showError() {
         constraintNewsActivity.showSnack(getString(R.string.generic_error),
                 Snackbar.LENGTH_LONG)
-    }
-
-    private fun setUpPresenter() {
-        presenter.attachView(this)
     }
 
     private fun setUpUI() {

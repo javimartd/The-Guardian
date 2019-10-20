@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class BaseWebViewClient @Inject constructor(): WebViewClient() {
 
-    lateinit var webClient: WebClient
+    private lateinit var webClient: WebClient
 
     fun setWebViewClientInterface(webClient: WebClient) {
         this.webClient = webClient
@@ -18,7 +18,7 @@ class BaseWebViewClient @Inject constructor(): WebViewClient() {
     override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
         super.onReceivedError(view, request, error)
         webClient.hideLoading()
-        webClient.errorLoading()
+        webClient.showError()
     }
 
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {

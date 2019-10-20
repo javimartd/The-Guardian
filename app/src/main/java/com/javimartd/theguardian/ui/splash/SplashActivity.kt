@@ -5,7 +5,7 @@ import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.navigator.Navigator
 import javax.inject.Inject
 
-class SplashActivity: BaseActivity<SplashContract.View, SplashContract.Presenter>(), SplashContract.View {
+class SplashActivity: BaseActivity(), SplashContract.View {
 
     @Inject lateinit var navigator: Navigator
 

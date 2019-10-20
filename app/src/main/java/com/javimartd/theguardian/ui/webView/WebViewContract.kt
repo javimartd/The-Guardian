@@ -1,10 +1,8 @@
 package com.javimartd.theguardian.ui.webView
 
-import com.javimartd.theguardian.ui.common.BaseContract
+import com.javimartd.theguardian.ui.common.WebClient
 
 interface WebViewContract {
 
-    interface View: BaseContract.View
-
-    interface Presenter: BaseContract.Presenter<View>
+    interface View: WebClient
 }

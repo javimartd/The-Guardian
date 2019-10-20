@@ -1,60 +1,53 @@
 package com.javimartd.theguardian.ui.news
 
-import com.javimartd.theguardian.domain.entities.News
-import com.javimartd.theguardian.domain.errors.ApiError
+import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
-import com.javimartd.theguardian.ui.common.BasePresenter
 import com.javimartd.theguardian.ui.extensions.toPresentation
+import io.reactivex.observers.DisposableObserver
+import java.net.UnknownHostException
 import javax.inject.Inject
 
-class NewsPresenter @Inject constructor(private val getNews: GetNewsUseCase):
-        BasePresenter<NewsContract.View>(), NewsContract.Presenter {
+class NewsPresenter @Inject constructor(private val view: NewsContract.View,
+                                        private val getNewsUseCase: GetNewsUseCase)
+    : NewsContract.Presenter {
 
-    override fun onViewAttached() {
-        getNews()
+    init {
+        view.setPresenter(this)
+    }
+
+    override fun start() {
+        view.showLoading()
+        getNewsUseCase.execute(NewsSubscriber())
+    }
+
+    override fun stop() {
+        getNewsUseCase.dispose()
     }
 
     //region GET NEWS
-    private fun getNews() {
-        view?.showLoading()
-        execute(useCase = getNews,
-                onSuccess = { onSuccess(it) },
-                noConnection = { onConnectionError() },
-                apiError = { onApiError(it) },
-                genericError = { onError() })
-    }
+    inner class NewsSubscriber: DisposableObserver<List<News>>() {
 
-    private fun onSuccess(news: Any?) {
-        news as List<News>
-        view?.hideLoading()
-        if (news.isEmpty()) {
-            showEmptyState()
-        } else {
-            showNews(news)
+        override fun onError(e: Throwable) {
+            view.hideLoading()
+            if (e is UnknownHostException) {
+                view.showConnectionError()
+            } else {
+                view.showError()
+            }
         }
-    }
 
-    private fun onConnectionError() {
-        view?.hideLoading()
-        view?.showConnectionError()
-    }
+        override fun onComplete() {
+            // does not require implementation at this moment
+        }
 
-    private fun onApiError(apiError: ApiError) {
-        view?.hideLoading()
-        view?.showError(apiError.errorCode, apiError.message)
-    }
-
-    private fun onError() {
-        view?.hideLoading()
-        view?.showGenericError()
-    }
-
-    private fun showNews(news: List<News>) {
-        view?.showNews(news.toPresentation())
-    }
-
-    private fun showEmptyState() {
-        view?.showEmptyState()
+        override fun onNext(news: List<News>) {
+            view.hideLoading()
+            if (news.isEmpty()) {
+                view.showEmptyState()
+            } else {
+                view.showNews(news.toPresentation())
+            }
+        }
     }
     //endregion
 }

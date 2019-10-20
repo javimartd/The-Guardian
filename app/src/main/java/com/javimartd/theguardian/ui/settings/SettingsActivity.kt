@@ -10,15 +10,14 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.find
 import javax.inject.Inject
 
-class SettingsActivity: BaseActivity<SettingsContract.View, SettingsContract.Presenter>(),
-        ToolbarManager, SettingsContract.View {
+class SettingsActivity: BaseActivity(), ToolbarManager, SettingsContract.View {
 
     companion object {
         const val OPTION1 = "option1"
         const val OPTION1_DEFAULT = false
     }
 
-    @Inject lateinit var presenter: SettingsPresenter
+    @Inject lateinit var settingsPresenter: SettingsContract.Presenter
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
@@ -27,18 +26,16 @@ class SettingsActivity: BaseActivity<SettingsContract.View, SettingsContract.Pre
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        setUpPresenter()
         setUpUI()
-    }
-
-    override fun onDestroy() {
-        presenter.detachView()
-        super.onDestroy()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         dayNightOption = switchDayNight.isChecked
+    }
+
+    override fun setPresenter(presenter: SettingsContract.Presenter) {
+        settingsPresenter = presenter
     }
 
     override fun setOptionNameDayNight(name: String) {
@@ -50,12 +47,8 @@ class SettingsActivity: BaseActivity<SettingsContract.View, SettingsContract.Pre
         setUpDayNightOption()
     }
 
-    private fun setUpPresenter() {
-        presenter.attachView(this)
-    }
-
     private fun setUpDayNightOption() {
-        switchDayNight.setOnCheckedChangeListener { _, isChecked -> presenter.initializeDayNightStatus(isChecked) }
+        switchDayNight.setOnCheckedChangeListener { _, isChecked -> settingsPresenter.initializeDayNightStatus(isChecked) }
         switchDayNight.isChecked = dayNightOption
     }
 

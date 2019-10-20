@@ -8,14 +8,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.BaseWebViewClient
-import com.javimartd.theguardian.ui.common.WebClient
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.snack
 import kotlinx.android.synthetic.main.activity_web_view.*
 import org.jetbrains.anko.bundleOf
 import javax.inject.Inject
 
-class WebViewActivity: BaseActivity<WebViewContract.View, WebViewContract.Presenter>(), WebClient {
+class WebViewActivity: BaseActivity(), WebViewContract.View {
 
     companion object {
         const val URL = "WebViewActivity:url"
@@ -28,7 +27,6 @@ class WebViewActivity: BaseActivity<WebViewContract.View, WebViewContract.Presen
     }
 
     @Inject lateinit var baseWebViewClient: BaseWebViewClient
-
     @Inject lateinit var loading: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +44,7 @@ class WebViewActivity: BaseActivity<WebViewContract.View, WebViewContract.Presen
         return super.onKeyDown(keyCode, event)
     }
 
-    override fun errorLoading() {
+    override fun showError() {
         constraintWebViewActivity.snack(getString(R.string.snackBar_text), Snackbar.LENGTH_INDEFINITE) {
             setAction(getString(R.string.snackBar_action)) { finish() }
         }

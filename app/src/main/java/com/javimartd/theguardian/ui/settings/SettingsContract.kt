@@ -1,14 +1,15 @@
 package com.javimartd.theguardian.ui.settings
 
-import com.javimartd.theguardian.ui.common.BaseContract
+import com.javimartd.theguardian.ui.common.BasePresenter
+import com.javimartd.theguardian.ui.common.BaseView
 
 interface SettingsContract {
 
-    interface View: BaseContract.View {
+    interface View: BaseView<Presenter> {
         fun setOptionNameDayNight(name: String)
     }
 
-    interface Presenter: BaseContract.Presenter<View> {
+    interface Presenter: BasePresenter {
         fun initializeDayNightStatus(dayNightStatus: Boolean)
     }
 }
