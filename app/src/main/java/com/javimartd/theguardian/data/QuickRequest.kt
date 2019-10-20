@@ -21,7 +21,7 @@ class QuickRequest (private val url : String) {
 
     override fun getNews(): List<News> {
         val responseJson = URL(URL_NEWS).readText()
-        val response: NewsResponse =  Gson().fromJson(responseJson, NewsResponse::class.java)
+        val response: NewsResponseModel =  Gson().fromJson(responseJson, NewsResponseModel::class.java)
         return response.response.toDomain()
     }*/
 }

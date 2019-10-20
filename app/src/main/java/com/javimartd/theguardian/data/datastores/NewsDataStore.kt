@@ -1,8 +1,9 @@
 package com.javimartd.theguardian.data.datastores
 
-import com.javimartd.theguardian.domain.entities.News
+import com.javimartd.theguardian.data.model.news.NewsModel
+import io.reactivex.Observable
 
 interface NewsDataStore {
-    fun getNews(): List<News>
-    fun saveNews(news: News)
+    fun getNews(): Observable<List<NewsModel>>
+    fun saveNews(news: NewsModel)
 }

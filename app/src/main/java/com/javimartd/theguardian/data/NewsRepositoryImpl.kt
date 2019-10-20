@@ -1,23 +1,19 @@
 package com.javimartd.theguardian.data
 
-import com.javimartd.theguardian.data.common.BaseRemote
-import com.javimartd.theguardian.data.datastores.local.NewsLocalDataStore
-import com.javimartd.theguardian.data.datastores.remote.NewsRemoteDataStore
-import com.javimartd.theguardian.domain.entities.News
+import com.javimartd.theguardian.data.datastores.NewsDataStore
+import com.javimartd.theguardian.data.mapper.news.NewsModelMapper
+import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
+import io.reactivex.Observable
 
-class NewsRepositoryImpl(private val remoteDataStore: NewsRemoteDataStore,
-                         private val localDataStore: NewsLocalDataStore): BaseRemote(), NewsRepository {
+class NewsRepositoryImpl(private val remoteDataStore: NewsDataStore,
+                         private val mapper: NewsModelMapper): NewsRepository {
 
-    override fun getNews(getLocalNews: Boolean): List<News> {
-        return if (getLocalNews) {
-            localDataStore.getNews()
-        } else {
-            remoteDataStore.getNews()
-        }
+    override fun getNews(): Observable<List<News>> {
+        return remoteDataStore.getNews().map { mapper.mapFromModel(it) }
     }
 
     override fun saveNews(news: News) {
-        localDataStore.saveNews(news)
+        // does not require implementation at this moment
     }
 }

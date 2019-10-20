@@ -2,7 +2,7 @@ package com.javimartd.theguardian.data.datastores.remote.model.news
 
 import com.google.gson.annotations.SerializedName
 
-data class ArticleData (
+data class ArticleRemoteModel (
         @SerializedName("sectionId")
         val sectionId: String = "",
 
@@ -19,4 +19,4 @@ data class ArticleData (
         val webUrl: String = "",
 
         @SerializedName("fields")
-        val fields: ExtrasData = ExtrasData())
+        val fields: ExtrasRemoteModel = ExtrasRemoteModel())

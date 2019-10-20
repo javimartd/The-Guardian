@@ -1,15 +1,15 @@
 package com.javimartd.theguardian.data.extensions
 
-import com.javimartd.theguardian.data.datastores.remote.model.news.ArticleData
-import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResponse
-import com.javimartd.theguardian.domain.entities.News
-import com.javimartd.theguardian.framework.db.NewsEntity
+import com.javimartd.theguardian.data.datastores.remote.model.news.ArticleRemoteModel
+import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResponseModel
+import com.javimartd.theguardian.domain.model.News
+import com.javimartd.theguardian.data.datastores.local.db.news.NewsEntity
 
-fun NewsResponse.toDomain(): List<News> {
+fun NewsResponseModel.toDomain(): List<News> {
     return newsResponse.results.map { articleToDomain(it) }
 }
 
-private fun articleToDomain(it: ArticleData): News {
+private fun articleToDomain(it: ArticleRemoteModel): News {
     return News(it.sectionId,
             it.sectionName,
             it.webTitle,
