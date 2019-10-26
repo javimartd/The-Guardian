@@ -5,9 +5,11 @@ import com.javimartd.theguardian.data.mapper.news.NewsModelMapper
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class NewsRepositoryImpl(private val remoteDataStore: NewsDataStore,
-                         private val mapper: NewsModelMapper): NewsRepository {
+class NewsRepositoryImpl @Inject constructor(private val remoteDataStore: NewsDataStore,
+                         private val mapper: NewsModelMapper)
+    : NewsRepository {
 
     override fun getNews(): Observable<List<News>> {
         return remoteDataStore.getNews().map { mapper.mapFromModel(it) }

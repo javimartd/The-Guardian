@@ -7,7 +7,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 
-open class BaseTestRobot {
+object BaseTestRobot {
 
     fun fillEditText(resId: Int, text: String): ViewInteraction =
             onView(withId(resId))

@@ -11,7 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.javimartd.theguardian.R
-import com.javimartd.theguardian.TheGuardianApplication
+import com.javimartd.theguardian.TestTheGuardianApplication
 import com.javimartd.theguardian.ui.extensions.DelegatesExt
 import org.junit.Before
 import org.junit.Test
@@ -21,18 +21,18 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class SettingsActivityTest {
 
-    lateinit var sharedPreferences: SharedPreferences
-    var dayNightOption: Boolean by DelegatesExt.preference(
-            TheGuardianApplication.instance,
+    private lateinit var sharedPreferences: SharedPreferences
+    private var dayNightOption: Boolean by DelegatesExt.preference(
+            TestTheGuardianApplication.instance,
             SettingsActivity.OPTION1,
             SettingsActivity.OPTION1_DEFAULT)
 
-    private val stringNightModeOn = TheGuardianApplication.instance.resources.getString(R.string.option_night_mode_on)
-    private val stringNightModeOff = TheGuardianApplication.instance.resources.getString(R.string.option_night_mode_off)
+    private val stringNightModeOn = TestTheGuardianApplication.instance.resources.getString(R.string.option_night_mode_on)
+    private val stringNightModeOff = TestTheGuardianApplication.instance.resources.getString(R.string.option_night_mode_off)
 
     @Before
     fun setUp() {
-        sharedPreferences = TheGuardianApplication.instance.getSharedPreferences("default", Context.MODE_PRIVATE)
+        sharedPreferences = TestTheGuardianApplication.instance.getSharedPreferences("default", Context.MODE_PRIVATE)
     }
 
     @Test

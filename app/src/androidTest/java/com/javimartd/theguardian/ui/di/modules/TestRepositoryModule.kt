@@ -1,25 +1,20 @@
-package com.javimartd.theguardian.ui.di.module
+package com.javimartd.theguardian.ui.di.modules
 
 import android.app.Application
 import android.content.Context
-import com.javimartd.theguardian.data.NewsRepositoryImpl
 import com.javimartd.theguardian.data.datastores.NewsDataStore
-import com.javimartd.theguardian.data.datastores.remote.NewsRemoteDataStore
-import com.javimartd.theguardian.data.datastores.remote.TheGuardianService
-import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
-import com.javimartd.theguardian.data.mapper.news.NewsModelMapper
 import com.javimartd.theguardian.domain.executor.PostExecutionThread
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import com.javimartd.theguardian.domain.repositories.ResourceRepository
 import com.javimartd.theguardian.framework.resources.ResourceRepositoryImpl
 import com.javimartd.theguardian.ui.UiThread
+import com.nhaarman.mockito_kotlin.mock
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-
 @Module
-class RepositoryModule {
+class TestRepositoryModule {
 
     private lateinit var context: Context
 
@@ -32,16 +27,14 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesNewsRemoteDataStore(theGuardianService: TheGuardianService,
-                                    newsRemoteMapper: NewsRemoteMapper): NewsDataStore {
-        return NewsRemoteDataStore(theGuardianService, newsRemoteMapper)
+    fun providesNewsRemoteDataStore(): NewsDataStore {
+        return mock()
     }
 
     @Provides
     @Singleton
-    fun providesNewsRepository(newsRemoteDataStore: NewsRemoteDataStore,
-                               newsModelMapper: NewsModelMapper): NewsRepository {
-        return NewsRepositoryImpl(newsRemoteDataStore, newsModelMapper)
+    fun providesNewsRepository(): NewsRepository {
+        return mock()
     }
 
     @Provides
@@ -55,4 +48,6 @@ class RepositoryModule {
     fun providePostExecutionThread(uiThread: UiThread): PostExecutionThread {
         return uiThread
     }
+
+
 }

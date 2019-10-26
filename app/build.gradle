@@ -20,7 +20,7 @@ android {
         targetSdkVersion 28
         versionCode versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.javimartd.theguardian.test.TestRunner"
     }
 
     signingConfigs {
@@ -82,9 +82,10 @@ ext.dagger_version = '2.17'
 ext.coroutines_version = '1.0.0'
 ext.retrofit_version = '2.3.0'
 ext.okhttp_version = '3.11.0'
-ext.glide_version = '4.6.1'
+ext.glide_version = '4.8.0'
 ext.mockWebServer_version = '3.8.1'
 ext.rxjava2_version = '2.1.1'
+ext.espresso_version = '3.2.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -96,16 +97,13 @@ dependencies {
     implementation "com.google.android.material:material:1.0.0"
 
     // rx java
-    implementation 'javax.inject:javax.inject:1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava2_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxjava2_version"
-    implementation 'javax.annotation:jsr250-api:1.0'
-
+    implementation 'javax.inject:javax.inject:1'
 
     // lifeCycle
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-beta01"
-    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0-beta01"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-rc01"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0-rc01"
 
     // anko
     implementation "org.jetbrains.anko:anko-common:0.10.4"
@@ -133,11 +131,11 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     // room
-    implementation "androidx.room:room-runtime:2.2.0"
-    kapt "androidx.room:room-compiler:2.2.0"
+    implementation "androidx.room:room-runtime:2.2.1"
+    kapt "androidx.room:room-compiler:2.2.1"
 
     // room test helpers
-    testImplementation "androidx.room:room-testing:2.2.0"
+    testImplementation "androidx.room:room-testing:2.2.1"
 
     // Gson
     implementation "com.google.code.gson:gson:2.8.5"
@@ -152,16 +150,16 @@ dependencies {
     // Required for instrumented tests
     implementation "androidx.annotation:annotation:1.1.0"
     androidTestImplementation "androidx.test:runner:1.2.0"
+    androidTestImplementation "androidx.test:rules:1.2.0"
 
     // mock web server
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
     // espresso
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.2.0"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:3.2.0"
-    androidTestImplementation "androidx.test:rules:1.2.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
 
     // androidX helpers
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -170,7 +168,8 @@ dependencies {
     // mockito
     testImplementation 'org.mockito:mockito-core:2.25.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2'
-
+    androidTestImplementation 'org.mockito:mockito-android:2.17.0'
+    androidTestImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
 }
 
 sonarqube {
