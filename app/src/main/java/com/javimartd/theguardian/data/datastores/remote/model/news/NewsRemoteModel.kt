@@ -3,9 +3,20 @@ package com.javimartd.theguardian.data.datastores.remote.model.news
 import com.google.gson.annotations.SerializedName
 
 data class NewsRemoteModel (
+        @SerializedName("sectionId")
+        val sectionId: String = "",
 
-        @SerializedName("status")
-        val status: String = "ok",
+        @SerializedName("sectionName")
+        val sectionName: String = "",
 
-        @SerializedName("results")
-        val results: List<ArticleRemoteModel> = emptyList())
+        @SerializedName("webPublicationDate")
+        val webPublicationDate: String = "",
+
+        @SerializedName("webTitle")
+        val webTitle: String = "",
+
+        @SerializedName("webUrl")
+        val webUrl: String = "",
+
+        @SerializedName("fields")
+        val fields: FieldsRemoteModel = FieldsRemoteModel())

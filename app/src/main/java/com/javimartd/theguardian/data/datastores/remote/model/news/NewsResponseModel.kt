@@ -4,4 +4,4 @@ import com.google.gson.annotations.SerializedName
 
 data class NewsResponseModel (
         @SerializedName("response")
-        val newsResponse: NewsRemoteModel = NewsRemoteModel())
+        val newsResponse: NewsResultsModel = NewsResultsModel())

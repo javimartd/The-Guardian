@@ -16,12 +16,16 @@ class NewsPresenter @Inject constructor(private val view: NewsContract.View,
     }
 
     override fun start() {
-        view.showLoading()
-        getNewsUseCase.execute(NewsSubscriber())
+        getNews()
     }
 
     override fun stop() {
         getNewsUseCase.dispose()
+    }
+
+    override fun getNews() {
+        view.showLoading()
+        getNewsUseCase.execute(NewsSubscriber())
     }
 
     //region GET NEWS

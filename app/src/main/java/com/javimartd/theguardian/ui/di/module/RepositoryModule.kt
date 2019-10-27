@@ -7,7 +7,7 @@ import com.javimartd.theguardian.data.datastores.NewsDataStore
 import com.javimartd.theguardian.data.datastores.remote.NewsRemoteDataStore
 import com.javimartd.theguardian.data.datastores.remote.TheGuardianService
 import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
-import com.javimartd.theguardian.data.mapper.news.NewsModelMapper
+import com.javimartd.theguardian.data.mapper.news.NewsDataMapper
 import com.javimartd.theguardian.domain.executor.PostExecutionThread
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import com.javimartd.theguardian.domain.repositories.ResourceRepository
@@ -40,8 +40,8 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providesNewsRepository(newsRemoteDataStore: NewsRemoteDataStore,
-                               newsModelMapper: NewsModelMapper): NewsRepository {
-        return NewsRepositoryImpl(newsRemoteDataStore, newsModelMapper)
+                               newsDataMapper: NewsDataMapper): NewsRepository {
+        return NewsRepositoryImpl(newsRemoteDataStore, newsDataMapper)
     }
 
     @Provides

@@ -15,5 +15,7 @@ interface NewsContract {
         fun showError()
     }
 
-    interface Presenter: BasePresenter
+    interface Presenter: BasePresenter {
+        fun getNews()
+    }
 }
