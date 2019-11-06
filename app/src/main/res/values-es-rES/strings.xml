@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--app-->
+    <string name="toolbar_menu_button_settings">Ajustes</string>
 
     <!--news activity-->
     <string name="button_readMore">Leer más</string>
+    <string name="no_news">No tenemos nada que informar</string>
 
     <!--web view activity-->
     <string name="snackBar_action">Se ha producido un error al cargar la página</string>

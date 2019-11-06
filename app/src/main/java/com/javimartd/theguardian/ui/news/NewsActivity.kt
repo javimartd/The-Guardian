@@ -42,12 +42,16 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         setUpUI()
+    }
+
+    override fun onResume() {
+        super.onResume()
         newsPresenter.start()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
+        super.onPause()
         newsPresenter.stop()
-        super.onDestroy()
     }
 
     override fun setPresenter(presenter: NewsContract.Presenter) {
@@ -55,10 +59,12 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
     }
 
     override fun showLoading() {
+        swipeRefresh.isRefreshing = false
         loading.showDialog()
     }
 
     override fun hideLoading() {
+        swipeRefresh.isRefreshing = false
         loading.cancelDialog()
     }
 
@@ -67,22 +73,20 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
     }
 
     override fun showEmptyState() {
-        constraintNewsActivity.showSnack("At this moment we have no news to show you",
-                Snackbar.LENGTH_LONG)
+        swipeRefresh.showSnack(getString(R.string.no_news), Snackbar.LENGTH_LONG)
     }
 
     override fun showConnectionError() {
-        constraintNewsActivity.showSnack(getString(R.string.connection_error),
-                Snackbar.LENGTH_LONG)
+        swipeRefresh.showSnack(getString(R.string.connection_error), Snackbar.LENGTH_LONG)
     }
 
     override fun showError() {
-        constraintNewsActivity.showSnack(getString(R.string.generic_error),
-                Snackbar.LENGTH_LONG)
+        swipeRefresh.showSnack(getString(R.string.generic_error), Snackbar.LENGTH_LONG)
     }
 
     private fun setUpUI() {
         setUpToolbar()
+        swipeRefresh.setOnRefreshListener { newsPresenter.getNews() }
         loading.createDialog(this)
         setUpRecycler()
     }
@@ -105,12 +109,8 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
             supportTheGuardianAlertDialog = showSupportTheGuardianAlertDialog {
                 cancelable = true
                 isBackGroundTransparent = false
-                subscribeButtonClickListener {
-
-                }
-                contributeButtonClickListener {
-
-                }
+                subscribeButtonClickListener {}
+                contributeButtonClickListener {}
                 onCancelListener {
                     // nothing to do
                 }
