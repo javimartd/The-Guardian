@@ -52,7 +52,7 @@ class WebViewActivity: BaseActivity(), WebViewContract.View {
 
     override fun showLoading() = loading.showDialog()
 
-    override fun hideLoading() = loading.cancelDialog()
+    override fun hideLoading() = loading.hideDialog()
 
     private fun setUpUI() {
         loading.createDialog(this)

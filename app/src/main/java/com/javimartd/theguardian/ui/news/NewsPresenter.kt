@@ -20,6 +20,7 @@ class NewsPresenter @Inject constructor(private val view: NewsContract.View,
     }
 
     override fun stop() {
+        view.hideLoading()
         getNewsUseCase.dispose()
     }
 

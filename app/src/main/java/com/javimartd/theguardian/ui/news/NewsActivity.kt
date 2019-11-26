@@ -42,16 +42,12 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         setUpUI()
-    }
-
-    override fun onResume() {
-        super.onResume()
         newsPresenter.start()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
         newsPresenter.stop()
+        super.onDestroy()
     }
 
     override fun setPresenter(presenter: NewsContract.Presenter) {
@@ -65,7 +61,7 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
 
     override fun hideLoading() {
         swipeRefresh.isRefreshing = false
-        loading.cancelDialog()
+        loading.hideDialog()
     }
 
     override fun showNews(news: List<NewsViewModel>) {
