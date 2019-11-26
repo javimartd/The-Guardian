@@ -18,14 +18,22 @@ abstract class ObservableUseCase<T, in Params> constructor (
         val observable = this.buildUseCaseObservable(params)
             .subscribeOn(Schedulers.io())
             .observeOn(postExecutionThread.scheduler)
-        addDisposable(observable.subscribeWith(observer ))
+        addDisposable(observable.subscribeWith(observer))
     }
 
-    fun addDisposable(disposable: Disposable) {
+    private fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
     }
 
     fun dispose() {
-        if (!disposables.isDisposed) disposables.dispose()
+        if (!disposables.isDisposed) {
+            disposables.dispose()
+        }
+    }
+
+    fun clear() {
+        if (!disposables.isDisposed) {
+            disposables.clear()
+        }
     }
 }

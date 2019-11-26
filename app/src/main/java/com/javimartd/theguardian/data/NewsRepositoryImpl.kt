@@ -4,6 +4,7 @@ import com.javimartd.theguardian.data.datastores.NewsDataStore
 import com.javimartd.theguardian.data.mapper.news.NewsDataMapper
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class NewsRepositoryImpl @Inject constructor(private val remoteDataStore: NewsDa
         return remoteDataStore.getNews().map { mapper.mapFromData(it) }
     }
 
-    override fun saveNews(news: News) {
+    override fun saveNews(news: News): Completable {
         TODO("not implemented")
     }
 }

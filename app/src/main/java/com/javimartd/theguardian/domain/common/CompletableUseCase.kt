@@ -18,10 +18,10 @@ abstract class CompletableUseCase<in Params> constructor(
         val completable = this.buildUseCaseCompletable(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(postExecutionThread.scheduler)
-        addDisposable(completable.subscribeWith(observer ))
+        addDisposable(completable.subscribeWith(observer))
     }
 
-    fun addDisposable(disposable: Disposable) {
+    private fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
     }
 
