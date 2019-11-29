@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.extensions.*
-import com.javimartd.theguardian.ui.news.model.NewsViewModel
+import com.javimartd.theguardian.ui.news.model.NewsView
 import kotlin.properties.Delegates
 
-class NewsAdapter(private val readMoreClick: (NewsViewModel) -> Unit)
+class NewsAdapter(private val readMoreClick: (NewsView) -> Unit)
     : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    var items: List<NewsViewModel> by Delegates.observable(emptyList()) {
+    var items: List<NewsView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

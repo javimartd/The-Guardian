@@ -15,6 +15,7 @@ class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianSe
     override fun getNews(): Observable<List<NewsDataModel>> {
         return service.getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
                 .map {
+                    Thread.sleep(6000)
                     mapper.mapFromRemote(it.newsResponse.results)
                 }
     }

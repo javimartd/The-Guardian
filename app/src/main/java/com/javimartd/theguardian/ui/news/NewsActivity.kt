@@ -3,8 +3,10 @@ package com.javimartd.theguardian.ui.news
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
@@ -12,8 +14,10 @@ import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
-import com.javimartd.theguardian.ui.extensions.showSupportTheGuardianAlertDialog
-import com.javimartd.theguardian.ui.news.model.NewsViewModel
+import com.javimartd.theguardian.ui.news.model.NewsView
+import com.javimartd.theguardian.ui.news.state.Resource
+import com.javimartd.theguardian.ui.news.state.ResourceState
+import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.javimartd.theguardian.ui.webView.WebViewActivity
 import kotlinx.android.synthetic.main.activity_news.*
 import org.jetbrains.anko.find
@@ -21,7 +25,7 @@ import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 
-class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
+class NewsActivity: BaseActivity(), ToolbarManager {
 
     companion object {
         fun buildIntent(context: Context): Intent {
@@ -29,60 +33,62 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
         }
     }
 
-    @Inject lateinit var newsPresenter: NewsContract.Presenter
     @Inject lateinit var loading: LoadingDialog
+    @Inject lateinit var factory: ViewModelProvider.Factory
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     private lateinit var adapter: NewsAdapter
-
-    private var supportTheGuardianAlertDialog: AlertDialog? = null
+    private lateinit var newsViewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         setUpUI()
-        newsPresenter.start()
+        setUpViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        newsViewModel.fetchNews()
     }
 
     override fun onDestroy() {
-        newsPresenter.stop()
         super.onDestroy()
+        hideLoading()
     }
 
-    override fun setPresenter(presenter: NewsContract.Presenter) {
-        newsPresenter = presenter
-    }
-
-    override fun showLoading() {
+    private fun showLoading() {
         swipeRefresh.isRefreshing = false
         loading.showDialog()
     }
 
-    override fun hideLoading() {
+    private fun hideLoading() {
         swipeRefresh.isRefreshing = false
         loading.hideDialog()
     }
 
-    override fun showNews(news: List<NewsViewModel>) {
+    private fun showNews(news: List<NewsView>) {
         adapter.items = news
     }
 
-    override fun showEmptyState() {
+    private fun showEmptyState() {
         swipeRefresh.showSnack(getString(R.string.no_news), Snackbar.LENGTH_LONG)
     }
 
-    override fun showConnectionError() {
+    private fun showConnectionError() {
         swipeRefresh.showSnack(getString(R.string.connection_error), Snackbar.LENGTH_LONG)
     }
 
-    override fun showError() {
-        swipeRefresh.showSnack(getString(R.string.generic_error), Snackbar.LENGTH_LONG)
+    private fun showError(message: String) {
+        swipeRefresh.showSnack(message, Snackbar.LENGTH_LONG)
     }
 
     private fun setUpUI() {
         setUpToolbar()
-        swipeRefresh.setOnRefreshListener { newsPresenter.getNews() }
+        swipeRefresh.setOnRefreshListener {
+            newsViewModel.fetchNews()
+        }
         loading.createDialog(this)
         setUpRecycler()
     }
@@ -100,17 +106,48 @@ class NewsActivity: BaseActivity(), NewsContract.View, ToolbarManager {
         initializeToolbar()
     }
 
-    private fun showSupportTheGuardianAlertDialog() {
-        if (supportTheGuardianAlertDialog == null)
-            supportTheGuardianAlertDialog = showSupportTheGuardianAlertDialog {
-                cancelable = true
-                isBackGroundTransparent = false
-                subscribeButtonClickListener {}
-                contributeButtonClickListener {}
-                onCancelListener {
-                    // nothing to do
-                }
+    private fun setUpViewModel() {
+        /**
+         * 2) Get the ViewModel.
+         */
+        newsViewModel = ViewModelProviders.of(this, factory).get(NewsViewModel::class.java)
+
+        /**
+         * After registering the Observer in the Activity, we need to override the onChange() method.
+         * his onChange() method will be called when we have view data using LiveData.
+         *
+         * 3) Observe the LiveData, passing in:
+         * - activity as the LifecycleOwner: NewsActivity
+         * - the observer
+         */
+        newsViewModel.getNewsObservable().observe(this, Observer<Resource<List<NewsView>>> {
+            it?.let {
+                handleDataState(it)
             }
-        supportTheGuardianAlertDialog?.show()
+        })
+    }
+
+    private fun handleDataState(resource: Resource<List<NewsView>>) {
+        when (resource.status) {
+            ResourceState.SUCCESS -> {
+                hideLoading()
+                resource.data?.let { showNews(resource.data) }
+            }
+            ResourceState.LOADING -> {
+                showLoading()
+            }
+            ResourceState.ERROR -> {
+                hideLoading()
+                resource.message?.let { showError(resource.message) }
+            }
+            ResourceState.NO_DATA -> {
+                hideLoading()
+                showEmptyState()
+            }
+            ResourceState.CONNECTION_ERROR -> {
+                hideLoading()
+                showConnectionError()
+            }
+        }
     }
 }
