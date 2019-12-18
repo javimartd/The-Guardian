@@ -8,9 +8,10 @@ The purpose of this application is first of all to offer a simple example of the
 
 Overview:
 - AndroidX
-- Pattern MVP, Clean architecture
 - Kotlin
-- Coroutines
+- Example of MVP pattern with Clean architecture
+- Example of MVVM pattern with Clean architecture
+- RxJava2[7]
 - Dependencies injection: [Dagger 2][1]
 - Data base: [Room][2]
 - Images: [Glide][3]
@@ -25,3 +26,4 @@ All the content offered is through the API provided by [The Guardian](https://ww
 [4]: https://site.mockito.org/
 [5]: https://github.com/square/okhttp/tree/master/mockwebserver
 [6]: https://www.sonarqube.org/
+[7]: https://github.com/ReactiveX/RxJava
