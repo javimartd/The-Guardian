@@ -1,24 +1,27 @@
 package com.javimartd.theguardian.ui.settings
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.extensions.DelegatesExt
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.find
+import javax.inject.Inject
 
-class SettingsActivity : BaseActivity(), ToolbarManager {
+class SettingsActivity: BaseActivity(), ToolbarManager, SettingsContract.View {
 
     companion object {
         const val OPTION1 = "option1"
         const val OPTION1_DEFAULT = false
     }
 
+    @Inject lateinit var settingsPresenter: SettingsContract.Presenter
+
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
-    private var option1: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
+    private var dayNightOption: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,20 +31,25 @@ class SettingsActivity : BaseActivity(), ToolbarManager {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        option1 = switchOption1.isChecked
+        dayNightOption = switchDayNight.isChecked
     }
 
-    /********************
-     * private functions
-     ********************/
+    override fun setPresenter(presenter: SettingsContract.Presenter) {
+        settingsPresenter = presenter
+    }
+
+    override fun setOptionNameDayNight(name: String) {
+        textOptionDayNight.text = name
+    }
 
     private fun setUpUI() {
         setUpToolbar()
-        setUpOptions()
+        setUpDayNightOption()
     }
 
-    private fun setUpOptions() {
-        switchOption1.isChecked = option1
+    private fun setUpDayNightOption() {
+        switchDayNight.setOnCheckedChangeListener { _, isChecked -> settingsPresenter.initializeDayNightStatus(isChecked) }
+        switchDayNight.isChecked = dayNightOption
     }
 
     private fun setUpToolbar() {

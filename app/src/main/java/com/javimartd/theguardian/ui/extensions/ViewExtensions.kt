@@ -1,13 +1,19 @@
 package com.javimartd.theguardian.ui.extensions
 
+import android.app.Activity
 import android.content.Context
-import android.support.design.widget.Snackbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.material.snackbar.Snackbar
+import com.javimartd.theguardian.ui.dialogs.custom.SupportTheGuardianAlertDialog
 
 // Adapter
 
@@ -24,8 +30,14 @@ fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).transition(DrawableTransitionOptions.withCrossFade()).into(this)
 }
 
-fun View.showSnackbar(snackBarText: String, timeLength: Int) {
+fun View.showSnack(snackBarText: String, timeLength: Int) {
     Snackbar.make(this, snackBarText, timeLength).show()
+}
+
+inline fun View.snack(message: String, length: Int = Snackbar.LENGTH_SHORT, f: Snackbar.() -> Unit) {
+    val snack = Snackbar.make(this, message, length)
+    snack.f()
+    snack.show()
 }
 
 fun View.hide() : View {
@@ -57,3 +69,22 @@ fun View.toggleVisibility() : View {
     }
     return this
 }
+
+fun EditText.onTextChange(cb: (String) -> Unit) {
+    this.addTextChangedListener(object: TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            cb(s.toString())
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    })
+}
+
+fun String.isValidPassword(): Boolean = this.isNotEmpty() && this.trim().length >= 6
+
+// Dialog
+
+inline fun Activity.showSupportTheGuardianAlertDialog(func: SupportTheGuardianAlertDialog.() -> Unit): AlertDialog =
+        SupportTheGuardianAlertDialog(this).apply {
+            func()
+        }.create()

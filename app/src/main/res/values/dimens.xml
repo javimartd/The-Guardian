@@ -14,4 +14,6 @@
     <dimen name="corners_radius">5dp</dimen>
     <dimen name="big_padding">16dp</dimen>
 
+    <dimen name="button_radius">10dp</dimen>
+
 </resources>

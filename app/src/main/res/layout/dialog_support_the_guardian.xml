@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/the_guardian_toolbar"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:text="@string/support_the_guardian_title"
+        android:textColor="@color/the_guardian_yellow"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textSubTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:text="@string/support_the_guardian_subTitle"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/textTitle"
+        app:layout_constraintStart_toStartOf="@+id/textTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButtonSubscribe"
+        style="@style/TheGuardianUnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/support_the_guardian_subscribe_button"
+        android:textColor="@color/the_guardian_toolbar"
+        app:backgroundTint="@color/the_guardian_yellow"
+        app:layout_constraintEnd_toEndOf="@+id/textSubTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textSubTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/TheGuardianOutlinedButton"
+        android:id="@+id/materialButtonContribute"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/support_the_guardian_contribute_button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/materialButtonSubscribe"
+        app:layout_constraintEnd_toStartOf="@+id/materialButtonSubscribe"
+        app:layout_constraintTop_toTopOf="@+id/materialButtonSubscribe"
+        app:strokeColor="@color/the_guardian_yellow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

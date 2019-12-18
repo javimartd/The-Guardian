@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--app-->
+    <string name="toolbar_menu_button_settings">Ajustes</string>
 
     <!--news activity-->
     <string name="button_readMore">Leer más</string>
+    <string name="no_news">No tenemos nada que informar</string>
+
+    <!--web view activity-->
+    <string name="snackBar_action">Se ha producido un error al cargar la página</string>
+    <string name="snackBar_text">SALIR</string>
 
     <!--settings activity-->
     <string name="toolbar_activity_settings">Ajustes</string>
-    <string name="option_1">Opción 1</string>
+    <string name="option_night_mode_off">Modo noche</string>
+    <string name="option_night_mode_on">Modo noche activado</string>
 
     <!--errors-->
     <string name="generic_error">Se ha producido un error. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="connection_error">Error de conexión. Por favor, revise su conecxión a Internet.</string>
+
+    <!-- dialogs -->
+    <string name="support_the_guardian_title">Apoya The Guardian</string>
+    <string name="support_the_guardian_subTitle">Available for everyone, funded by readers</string>
+    <string name="support_the_guardian_subscribe_button">Subscribirse</string>
+    <string name="support_the_guardian_contribute_button">Contribuir</string>
 
 </resources>

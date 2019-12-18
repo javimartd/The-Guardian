@@ -1,20 +1,27 @@
 package com.javimartd.theguardian
 
+import android.app.Activity
 import android.app.Application
-import android.arch.lifecycle.ProcessLifecycleOwner
-import com.javimartd.theguardian.di.component.AppComponent
-import com.javimartd.theguardian.di.component.DaggerAppComponent
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.javimartd.theguardian.ui.di.AppComponent
+import com.javimartd.theguardian.ui.di.DaggerAppComponent
 import com.javimartd.theguardian.ui.common.ApplicationObserver
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class TheGuardianApplication: Application() {
-
-    val component: AppComponent by lazy {
-        DaggerAppComponent.create()
-    }
+class TheGuardianApplication: Application(), HasActivityInjector {
 
     companion object {
         lateinit var instance: TheGuardianApplication
-        private set
+            private set
+    }
+
+    @Inject lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+
+    private val component: AppComponent by lazy {
+        DaggerAppComponent.builder().application(this).build()
     }
 
     override fun onCreate() {
@@ -31,4 +38,6 @@ class TheGuardianApplication: Application() {
     private fun setUpApplicationLifeCycle() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationObserver())
     }
+
+    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 }

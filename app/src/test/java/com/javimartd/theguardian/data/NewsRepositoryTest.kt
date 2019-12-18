@@ -1,92 +1,55 @@
 package com.javimartd.theguardian.data
 
-import com.google.gson.GsonBuilder
-import com.javimartd.theguardian.data.api.APIService
-import junit.framework.Assert.assertEquals
-import okhttp3.OkHttpClient
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import okhttp3.mockwebserver.SocketPolicy
-import org.junit.After
+import com.javimartd.theguardian.data.datastores.NewsDataStore
+import com.javimartd.theguardian.data.factory.NewsFactory
+import com.javimartd.theguardian.data.mapper.news.NewsDataMapper
+import com.javimartd.theguardian.data.model.news.NewsDataModel
+import com.javimartd.theguardian.domain.model.News
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
-
+@RunWith(JUnit4::class)
 class NewsRepositoryTest {
 
-    private lateinit var sut: NewsDataRepository
-    private lateinit var server : MockWebServer
-    private lateinit var apiService: APIService
+    private lateinit var sut: NewsRepositoryImpl
+
+    private val remoteDataStore = mock<NewsDataStore>()
+    private val mapper = mock<NewsDataMapper>()
 
     @Before
-    @Throws fun setUp() {
-
-        server = MockWebServer()
-        server.start()
-        //server.setDispatcher(MockServerDispatcher().RequestDispatcher())
-
-        val okHttpClient = OkHttpClient.Builder().build()
-        val retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .baseUrl(server.url("/"))
-                .client(okHttpClient)
-                .build()
-        apiService = retrofit.create(APIService::class.java)
-
-        sut = NewsDataRepository(apiService)
+    fun setup() {
+        sut = NewsRepositoryImpl(remoteDataStore, mapper)
     }
 
     @Test
-    @Throws(Exception::class)
-    fun `get news returns data properly`() {
-
-        val mockResponse = MockResponse()
-                .setResponseCode(200)
-                .setBody(getJson("json/news/news.json"))
-        server.enqueue(mockResponse)
-
-        val response = sut.getNews()
-        val request = server.takeRequest()
-        assertEquals("/search?show-fields=all&api-key=db0d0891-0604-403a-9fad-f8ea5a76dbcb",
-                request.path)
-        assertEquals("US-Taliban talks offer glimmer of hope on path to Afghan peace",
-                response[0].title)
+    fun `get news completed`() {
+        stubNewsDataStore(Observable.just(listOf(NewsFactory.makeNewsDataModel())))
+        stubMapper(any(), listOf(NewsFactory.makeNews()))
+        val testObserver = sut.getNews().test()
+        testObserver.assertComplete()
     }
 
     @Test
-    @Throws(Exception::class)
-    fun `server error throw exception`() {
-        val mockResponse = MockResponse()
-                .setResponseCode(500)
-        server.enqueue(mockResponse)
+    fun `get news returns data`() {
+        val newsDataModel = listOf(NewsFactory.makeNewsDataModel())
+        val news = listOf(NewsFactory.makeNews())
+        stubNewsDataStore(Observable.just(newsDataModel))
+        stubMapper(newsDataModel, news)
+        val testObserver = sut.getNews().test()
+        testObserver.assertValue(news)
     }
 
-    @Test(expected = Exception::class)
-    @Throws(Exception::class)
-    fun `time out network exception throw exception`() {
-        val mockResponse = MockResponse()
-        server.enqueue(mockResponse.setSocketPolicy(SocketPolicy.NO_RESPONSE))
-        sut.getNews()
+    private fun stubMapper(data: List<NewsDataModel>, domain: List<News>) {
+        whenever(mapper.mapFromData(data)).thenReturn(domain)
     }
 
-    /**
-     * Helper function which will load JSON from
-     * the path specified
-     *
-     * @param path : Path of JSON file
-     * @return json : JSON from file at given path
-     */
-    private fun getJson(path : String) : String {
-        val uri = this.javaClass.classLoader.getResource(path)
-        val file = File(uri.path)
-        return String(file.readBytes())
-    }
-
-    @After
-    @Throws fun tearDown() {
-        server.shutdown()
+    private fun stubNewsDataStore(observable: Observable<List<NewsDataModel>>) {
+        whenever(remoteDataStore.getNews()).thenReturn(observable)
     }
 }

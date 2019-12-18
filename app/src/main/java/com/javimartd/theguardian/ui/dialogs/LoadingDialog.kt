@@ -26,7 +26,7 @@ class LoadingDialog @Inject constructor(): DialogActions {
         }
     }
 
-    override fun cancelDialog() {
+    override fun hideDialog() {
         if (dialog.isShowing) {
             dialog.dismiss()
         }

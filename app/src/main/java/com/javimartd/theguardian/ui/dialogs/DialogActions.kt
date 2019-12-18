@@ -5,5 +5,5 @@ import android.content.Context
 interface DialogActions {
     fun createDialog(context: Context)
     fun showDialog()
-    fun cancelDialog()
+    fun hideDialog()
 }
