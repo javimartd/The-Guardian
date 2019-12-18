@@ -6,7 +6,7 @@ import com.javimartd.theguardian.data.factory.NewsFactory
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.javimartd.theguardian.ui.extensions.toPresentation
-import com.javimartd.theguardian.ui.news.state.ResourceState
+import com.javimartd.theguardian.ui.news.state.Status
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.observers.DisposableObserver
@@ -49,7 +49,7 @@ class NewsViewModelTest {
     fun `fetch news returns loading`() {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
-        Assert.assertEquals(ResourceState.LOADING, sut.getNewsObservable().value?.status)
+        Assert.assertEquals(Status.LOADING, sut.getNewsObservable().value?.status)
     }
 
     @Test
@@ -58,7 +58,7 @@ class NewsViewModelTest {
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = listOf(NewsFactory.makeNews())
         captor.firstValue.onNext(news)
-        Assert.assertEquals(ResourceState.SUCCESS, sut.getNewsObservable().value?.status)
+        Assert.assertEquals(Status.SUCCESS, sut.getNewsObservable().value?.status)
     }
 
     @Test
@@ -67,7 +67,7 @@ class NewsViewModelTest {
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = emptyList<News>()
         captor.firstValue.onNext(news)
-        Assert.assertEquals(ResourceState.NO_DATA, sut.getNewsObservable().value?.status)
+        Assert.assertEquals(Status.NO_DATA, sut.getNewsObservable().value?.status)
     }
 
     @Test
@@ -84,7 +84,7 @@ class NewsViewModelTest {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         captor.firstValue.onError(RuntimeException())
-        Assert.assertEquals(ResourceState.ERROR, sut.getNewsObservable().value?.status)
+        Assert.assertEquals(Status.ERROR, sut.getNewsObservable().value?.status)
     }
 
     @Test
@@ -92,7 +92,7 @@ class NewsViewModelTest {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         captor.firstValue.onError(UnknownHostException())
-        Assert.assertEquals(ResourceState.CONNECTION_ERROR, sut.getNewsObservable().value?.status)
+        Assert.assertEquals(Status.CONNECTION_ERROR, sut.getNewsObservable().value?.status)
     }
 
     @Test

@@ -16,7 +16,7 @@ import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
 import com.javimartd.theguardian.ui.news.model.NewsView
 import com.javimartd.theguardian.ui.news.state.Resource
-import com.javimartd.theguardian.ui.news.state.ResourceState
+import com.javimartd.theguardian.ui.news.state.Status
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.javimartd.theguardian.ui.webView.WebViewActivity
 import kotlinx.android.synthetic.main.activity_news.*
@@ -129,22 +129,22 @@ class NewsActivity: BaseActivity(), ToolbarManager {
 
     private fun handleDataState(resource: Resource<List<NewsView>>) {
         when (resource.status) {
-            ResourceState.SUCCESS -> {
+            Status.SUCCESS -> {
                 hideLoading()
                 resource.data?.let { showNews(resource.data) }
             }
-            ResourceState.LOADING -> {
+            Status.LOADING -> {
                 showLoading()
             }
-            ResourceState.ERROR -> {
+            Status.ERROR -> {
                 hideLoading()
                 resource.message?.let { showError(resource.message) }
             }
-            ResourceState.NO_DATA -> {
+            Status.NO_DATA -> {
                 hideLoading()
                 showEmptyState()
             }
-            ResourceState.CONNECTION_ERROR -> {
+            Status.CONNECTION_ERROR -> {
                 hideLoading()
                 showConnectionError()
             }

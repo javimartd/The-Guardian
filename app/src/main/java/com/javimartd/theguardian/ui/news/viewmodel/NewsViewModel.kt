@@ -8,7 +8,7 @@ import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.javimartd.theguardian.ui.extensions.toPresentation
 import com.javimartd.theguardian.ui.news.model.NewsView
 import com.javimartd.theguardian.ui.news.state.Resource
-import com.javimartd.theguardian.ui.news.state.ResourceState
+import com.javimartd.theguardian.ui.news.state.Status
 import io.reactivex.observers.DisposableObserver
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Important guiding principles for MVVM implementation:
  *
- * - As shown in the sample, ViewModels do not and must not reference Views directly because
+ * - ViewModels do not and must not reference Views directly because
  * if this is done, ViewModels can outlive the View’s lifecycle and memory leakage can happen.
  *
  * - Model and ViewModel are recommended to expose their data using LiveData since LiveData
@@ -61,7 +61,7 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
     }
 
     /**
-     * Expose the LiveData News query so the UI can observe it.
+     * Expose the LiveData News so the UI can observe it.
      *
      * A good practice that helps us limit the modification of MutableLiveData to the
      * class is to return it as LiveData. This is because the setValue and postValue
@@ -75,7 +75,7 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
     }
 
     fun fetchNews() {
-        newsObservable.postValue(Resource(ResourceState.LOADING, null, null))
+        newsObservable.postValue(Resource(Status.LOADING, null, null))
         getNewsUseCase.execute(NewsSubscriber())
     }
 
@@ -83,9 +83,9 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
 
         override fun onError(e: Throwable) {
             if (e is UnknownHostException) {
-                newsObservable.postValue(Resource(ResourceState.CONNECTION_ERROR, null, e.localizedMessage))
+                newsObservable.postValue(Resource(Status.CONNECTION_ERROR, null, e.localizedMessage))
             } else {
-                newsObservable.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
+                newsObservable.postValue(Resource(Status.ERROR, null, e.localizedMessage))
             }
         }
 
@@ -101,9 +101,9 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
              * @link: https://developer.android.com/topic/libraries/architecture/livedata.html#transformations_of_livedata
              */
             if (news.isEmpty()) {
-                newsObservable.postValue(Resource(ResourceState.NO_DATA, emptyList(), null))
+                newsObservable.postValue(Resource(Status.NO_DATA, emptyList(), null))
             } else {
-                newsObservable.postValue(Resource(ResourceState.SUCCESS, news.toPresentation(), null))
+                newsObservable.postValue(Resource(Status.SUCCESS, news.toPresentation(), null))
             }
         }
     }
