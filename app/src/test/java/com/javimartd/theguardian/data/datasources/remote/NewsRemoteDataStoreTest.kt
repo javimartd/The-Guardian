@@ -12,6 +12,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,7 +36,7 @@ class NewsRemoteDataStoreTest {
 
     @Test
     fun `get news calls server`() {
-        stubTheGuardianService(Observable.just(NewsFactory.makeNewsResponseModel()))
+        stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
         sut.getNews().test()
         verify(theGuardianService).getNews(any(), any())
@@ -43,7 +44,7 @@ class NewsRemoteDataStoreTest {
 
     @Test
     fun `get news completed`() {
-        stubTheGuardianService(Observable.just(NewsFactory.makeNewsResponseModel()))
+        stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
         val testObserver = sut.getNews().test()
         testObserver.assertComplete()
@@ -53,7 +54,7 @@ class NewsRemoteDataStoreTest {
     fun `get news returns data`() {
         val response = NewsFactory.makeNewsResponseModel()
         val newsDataModel = listOf(NewsFactory.makeNewsDataModel())
-        stubTheGuardianService(Observable.just(response))
+        stubTheGuardianService(Single.just(response))
         stubMapper(response.newsResponse.results, newsDataModel)
         val testObserver = sut.getNews().test()
         testObserver.assertValue(newsDataModel)
@@ -61,7 +62,7 @@ class NewsRemoteDataStoreTest {
 
     @Test
     fun `get news calls with correct parameters`() {
-        stubTheGuardianService(Observable.just(NewsFactory.makeNewsResponseModel()))
+        stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
         sut.getNews().test()
         verify(theGuardianService).getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
@@ -71,7 +72,7 @@ class NewsRemoteDataStoreTest {
         whenever(mapper.mapFromRemote(remote)).thenReturn(data)
     }
 
-    private fun stubTheGuardianService(observable: Observable<NewsResponseModel>) {
+    private fun stubTheGuardianService(observable: Single<NewsResponseModel>) {
         whenever(theGuardianService.getNews(any(), any())).thenReturn(observable)
     }
 }

@@ -10,6 +10,7 @@ import com.javimartd.theguardian.ui.news.state.Status
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -30,7 +31,7 @@ class NewsViewModelTest {
     @Mock private lateinit var getNewsUseCase: GetNewsUseCase
 
     private lateinit var sut: NewsViewModel
-    private lateinit var captor: KArgumentCaptor<DisposableObserver<List<News>>>
+    private lateinit var captor: KArgumentCaptor<DisposableSingleObserver<List<News>>>
 
     @Before
     fun setUp() {
@@ -57,7 +58,7 @@ class NewsViewModelTest {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = listOf(NewsFactory.makeNews())
-        captor.firstValue.onNext(news)
+        captor.firstValue.onSuccess(news)
         Assert.assertEquals(Status.SUCCESS, sut.getNewsObservable().value?.status)
     }
 
@@ -66,7 +67,7 @@ class NewsViewModelTest {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = emptyList<News>()
-        captor.firstValue.onNext(news)
+        captor.firstValue.onSuccess(news)
         Assert.assertEquals(Status.NO_DATA, sut.getNewsObservable().value?.status)
     }
 
@@ -75,7 +76,7 @@ class NewsViewModelTest {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = listOf(NewsFactory.makeNews())
-        captor.firstValue.onNext(news)
+        captor.firstValue.onSuccess(news)
         Assert.assertEquals(news.toPresentation(), sut.getNewsObservable().value?.data)
     }
 

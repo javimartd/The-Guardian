@@ -7,6 +7,7 @@ import com.javimartd.theguardian.domain.repositories.NewsRepository
 import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,20 +31,20 @@ class GetNewsUseCaseTest {
 
     @Test
     fun `get news completed`() {
-        stubNewsRepository(Observable.just(listOf(NewsFactory.makeNews())))
-        val testObserver = sut.buildUseCaseObservable().test()
+        stubNewsRepository(Single.just(listOf(NewsFactory.makeNews())))
+        val testObserver = sut.buildUseCaseSingle().test()
         testObserver.assertComplete()
     }
 
     @Test
     fun `get news returns data`() {
         val news = listOf(NewsFactory.makeNews())
-        stubNewsRepository(Observable.just(news))
-        val testObserver = sut.buildUseCaseObservable().test()
+        stubNewsRepository(Single.just(news))
+        val testObserver = sut.buildUseCaseSingle().test()
         testObserver.assertValue(news)
     }
 
-    private fun stubNewsRepository(observable: Observable<List<News>>) {
+    private fun stubNewsRepository(observable: Single<List<News>>) {
         whenever(repository.getNews()).thenReturn(observable)
     }
 }
