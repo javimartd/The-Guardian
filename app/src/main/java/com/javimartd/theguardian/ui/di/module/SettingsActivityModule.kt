@@ -12,7 +12,7 @@ class SettingsActivityModule {
 
     @Provides
     fun providesSettingsPresenter(view: SettingsContract.View,
-                                           resourceRepository: ResourceRepository): SettingsContract.Presenter {
+                                  resourceRepository: ResourceRepository): SettingsContract.Presenter {
         return SettingsPresenter(view, resourceRepository)
     }
 

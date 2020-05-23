@@ -9,7 +9,7 @@ import com.javimartd.theguardian.ui.extensions.toPresentation
 import com.javimartd.theguardian.ui.news.model.NewsView
 import com.javimartd.theguardian.ui.news.state.Resource
 import com.javimartd.theguardian.ui.news.state.Status
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -79,7 +79,7 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
         getNewsUseCase.execute(NewsSubscriber())
     }
 
-    inner class NewsSubscriber: DisposableObserver<List<News>>() {
+    inner class NewsSubscriber: DisposableSingleObserver<List<News>>() {
 
         override fun onError(e: Throwable) {
             if (e is UnknownHostException) {
@@ -89,11 +89,7 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
             }
         }
 
-        override fun onComplete() {
-            // does not require implementation at this moment
-        }
-
-        override fun onNext(news: List<News>) {
+        override fun onSuccess(news: List<News>) {
             /**
              * A transformation may be needed before passing the result data to the Observing View.
              * In order to make a transformation, you can use Transformation class as shown in the

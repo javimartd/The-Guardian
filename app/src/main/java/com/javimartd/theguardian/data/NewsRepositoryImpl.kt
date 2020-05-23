@@ -1,18 +1,20 @@
 package com.javimartd.theguardian.data
 
 import com.javimartd.theguardian.data.datastores.NewsDataStore
+import com.javimartd.theguardian.data.mapper.DataMapper
 import com.javimartd.theguardian.data.mapper.news.NewsDataMapper
+import com.javimartd.theguardian.data.model.news.NewsDataModel
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(private val remoteDataStore: NewsDataStore,
-                                             private val mapper: NewsDataMapper)
+                                             private val mapper: DataMapper<List<NewsDataModel>, List<News>>)
     : NewsRepository {
 
-    override fun getNews(): Observable<List<News>> {
+    override fun getNews(): Single<List<News>> {
         return remoteDataStore.getNews().map { mapper.mapFromData(it) }
     }
 

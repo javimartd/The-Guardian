@@ -4,7 +4,7 @@ import com.javimartd.theguardian.BuildConfig
 import com.javimartd.theguardian.data.datastores.NewsDataStore
 import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
 import com.javimartd.theguardian.data.model.news.NewsDataModel
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 
@@ -12,7 +12,7 @@ class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianSe
                                               private val mapper: NewsRemoteMapper)
     : NewsDataStore {
 
-    override fun getNews(): Observable<List<NewsDataModel>> {
+    override fun getNews(): Single<List<NewsDataModel>> {
         return service.getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
                 .map {
                     mapper.mapFromRemote(it.newsResponse.results)
