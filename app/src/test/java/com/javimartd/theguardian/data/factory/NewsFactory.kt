@@ -14,6 +14,7 @@ object NewsFactory {
                 DataFactory.randomString(),
                 DataFactory.randomString(),
                 DataFactory.randomString(),
+                DataFactory.randomString(),
                 false,
                 DataFactory.randomString(),
                 DataFactory.randomString())
@@ -21,6 +22,7 @@ object NewsFactory {
 
     fun makeNewsDataModel(): NewsDataModel {
         return NewsDataModel(
+                DataFactory.randomString(),
                 DataFactory.randomString(),
                 DataFactory.randomString(),
                 DataFactory.randomString(),

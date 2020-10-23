@@ -21,11 +21,13 @@ class NewsRepositoryTest {
     private lateinit var sut: NewsRepositoryImpl
 
     private val remoteDataStore = mock<NewsDataStore>()
+    private val localDataStore = mock<NewsDataStore>()
+    private val memoryDataStore = mock<NewsDataStore>()
     private val mapper = mock<NewsDataMapper>()
 
     @Before
     fun setup() {
-        sut = NewsRepositoryImpl(remoteDataStore, mapper)
+        sut = NewsRepositoryImpl(remoteDataStore, memoryDataStore, localDataStore, mapper)
     }
 
     @Test
@@ -51,6 +53,6 @@ class NewsRepositoryTest {
     }
 
     private fun stubNewsDataStore(observable: Single<List<NewsDataModel>>) {
-        whenever(remoteDataStore.getNews()).thenReturn(observable)
+        whenever(remoteDataStore.getNewsFromNetwork()).thenReturn(observable)
     }
 }

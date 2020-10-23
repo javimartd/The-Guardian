@@ -11,7 +11,6 @@ import com.javimartd.theguardian.data.model.news.NewsDataModel
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -38,7 +37,7 @@ class NewsRemoteDataStoreTest {
     fun `get news calls server`() {
         stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
-        sut.getNews().test()
+        sut.getNewsFromNetwork().test()
         verify(theGuardianService).getNews(any(), any())
     }
 
@@ -46,7 +45,7 @@ class NewsRemoteDataStoreTest {
     fun `get news completed`() {
         stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
-        val testObserver = sut.getNews().test()
+        val testObserver = sut.getNewsFromNetwork().test()
         testObserver.assertComplete()
     }
 
@@ -56,7 +55,7 @@ class NewsRemoteDataStoreTest {
         val newsDataModel = listOf(NewsFactory.makeNewsDataModel())
         stubTheGuardianService(Single.just(response))
         stubMapper(response.newsResponse.results, newsDataModel)
-        val testObserver = sut.getNews().test()
+        val testObserver = sut.getNewsFromNetwork().test()
         testObserver.assertValue(newsDataModel)
     }
 
@@ -64,7 +63,7 @@ class NewsRemoteDataStoreTest {
     fun `get news calls with correct parameters`() {
         stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
-        sut.getNews().test()
+        sut.getNewsFromNetwork().test()
         verify(theGuardianService).getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
     }
 

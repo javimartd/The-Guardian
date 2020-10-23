@@ -5,12 +5,12 @@ import com.javimartd.theguardian.data.factory.DataFactory
 import com.javimartd.theguardian.data.factory.NewsFactory
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
+import com.javimartd.theguardian.ui.common.state.Resource
 import com.javimartd.theguardian.ui.extensions.toPresentation
-import com.javimartd.theguardian.ui.news.state.Status
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.nhaarman.mockitokotlin2.*
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
+import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -50,7 +50,7 @@ class NewsViewModelTest {
     fun `fetch news returns loading`() {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
-        Assert.assertEquals(Status.LOADING, sut.getNewsObservable().value?.status)
+        Assert.assertTrue(sut.newsObservable.value is Resource.Loading)
     }
 
     @Test
@@ -59,16 +59,7 @@ class NewsViewModelTest {
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = listOf(NewsFactory.makeNews())
         captor.firstValue.onSuccess(news)
-        Assert.assertEquals(Status.SUCCESS, sut.getNewsObservable().value?.status)
-    }
-
-    @Test
-    fun `fetch news returns no data`() {
-        sut.fetchNews()
-        Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
-        val news = emptyList<News>()
-        captor.firstValue.onSuccess(news)
-        Assert.assertEquals(Status.NO_DATA, sut.getNewsObservable().value?.status)
+        Assert.assertTrue(sut.newsObservable.value is Resource.Success)
     }
 
     @Test
@@ -77,23 +68,23 @@ class NewsViewModelTest {
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         val news = listOf(NewsFactory.makeNews())
         captor.firstValue.onSuccess(news)
-        Assert.assertEquals(news.toPresentation(), sut.getNewsObservable().value?.data)
+        Assert.assertEquals(news.toPresentation(), sut.newsObservable.value?.data)
     }
 
     @Test
     fun `fetch news returns error`() {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
-        captor.firstValue.onError(RuntimeException())
-        Assert.assertEquals(Status.ERROR, sut.getNewsObservable().value?.status)
+        captor.firstValue.onError(RuntimeException(""))
+        Assert.assertTrue(sut.newsObservable.value is Resource.Error)
     }
 
     @Test
     fun `fetch news returns connection error`() {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
-        captor.firstValue.onError(UnknownHostException())
-        Assert.assertEquals(Status.CONNECTION_ERROR, sut.getNewsObservable().value?.status)
+        captor.firstValue.onError(UnknownHostException(""))
+        Assert.assertThat(sut.newsObservable.value?.error, instanceOf(UnknownHostException::class.java))
     }
 
     @Test
@@ -102,6 +93,6 @@ class NewsViewModelTest {
         sut.fetchNews()
         Mockito.verify(getNewsUseCase).execute(captor.capture(), eq(null))
         captor.firstValue.onError(RuntimeException(errorMessage))
-        Assert.assertEquals(errorMessage, sut.getNewsObservable().value?.message)
+        Assert.assertEquals(errorMessage, sut.newsObservable.value?.message)
     }
 }
