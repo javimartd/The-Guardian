@@ -6,22 +6,21 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
+import com.javimartd.theguardian.ui.common.state.Resource
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
 import com.javimartd.theguardian.ui.news.model.NewsView
-import com.javimartd.theguardian.ui.news.state.Resource
-import com.javimartd.theguardian.ui.news.state.Status
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.javimartd.theguardian.ui.webView.WebViewActivity
 import kotlinx.android.synthetic.main.activity_news.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 
@@ -107,20 +106,14 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     private fun setUpViewModel() {
-        /**
-         * 2) Get the ViewModel.
-         */
-        newsViewModel = ViewModelProviders.of(this, factory).get(NewsViewModel::class.java)
+        newsViewModel = ViewModelProvider(this, factory).get(NewsViewModel::class.java)
 
         /**
-         * After registering the Observer in the Activity, we need to override the onChange() method.
-         * his onChange() method will be called when we have view data using LiveData.
-         *
-         * 3) Observe the LiveData, passing in:
+         * Observe the LiveData, passing in:
          * - activity as the LifecycleOwner: NewsActivity
          * - the observer
          */
-        newsViewModel.getNewsObservable().observe(this, Observer<Resource<List<NewsView>>> {
+        newsViewModel.newsObservable.observe(this, Observer<Resource<List<NewsView>>> {
             it?.let {
                 handleDataState(it)
             }
@@ -128,25 +121,27 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     private fun handleDataState(resource: Resource<List<NewsView>>) {
-        when (resource.status) {
-            Status.SUCCESS -> {
-                hideLoading()
-                resource.data?.let { showNews(resource.data) }
+        when (resource) {
+            is Resource.Success -> {
+                resource.data?.let {
+                    hideLoading()
+                    if (resource.data.isEmpty()) {
+                        showEmptyState()
+                    } else {
+                        showNews(it)
+                    }
+                }
             }
-            Status.LOADING -> {
+            is Resource.Loading -> {
                 showLoading()
             }
-            Status.ERROR -> {
+            is Resource.Error -> {
                 hideLoading()
-                resource.message?.let { showError(resource.message) }
-            }
-            Status.NO_DATA -> {
-                hideLoading()
-                showEmptyState()
-            }
-            Status.CONNECTION_ERROR -> {
-                hideLoading()
-                showConnectionError()
+                if (resource.error is UnknownHostException) {
+                    showConnectionError()
+                } else {
+                    resource.message?.let { showError(it) }
+                }
             }
         }
     }

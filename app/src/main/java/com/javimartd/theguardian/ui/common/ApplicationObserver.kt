@@ -19,9 +19,4 @@ class ApplicationObserver : LifecycleObserver {
         // App goes to background
         Log.i(ApplicationObserver::class.java.simpleName, "onBackground")
     }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    internal fun onPause() {
-        Log.i(ApplicationObserver::class.java.simpleName, "onPause")
-    }
 }

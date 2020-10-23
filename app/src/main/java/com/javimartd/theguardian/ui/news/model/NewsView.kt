@@ -2,7 +2,8 @@ package com.javimartd.theguardian.ui.news.model
 
 import com.javimartd.theguardian.ui.news.sections.Section
 
-data class NewsView(val section: Section,
+data class NewsView(val id: String,
+                    val section: Section,
                     val title: String,
                     val date: String,
                     val webUrl: String,

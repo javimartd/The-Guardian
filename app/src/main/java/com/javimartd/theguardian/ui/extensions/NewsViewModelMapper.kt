@@ -8,13 +8,13 @@ fun List<News>.toPresentation(): List<NewsView> {
     return map { newsToPresentation(it) }
 }
 
-private fun newsToPresentation(it: News): NewsView {
-    return NewsView(
-            SectionFactory.getSection(it.sectionId, it.sectionName),
-            it.title,
-            it.date,
-            it.webUrl,
-            it.live,
-            it.thumbnail,
-            it.description)
+private fun newsToPresentation(domain: News): NewsView {
+    return NewsView(domain.id,
+            SectionFactory.getSection(domain.sectionId, domain.sectionName),
+            domain.title,
+            domain.date,
+            domain.webUrl,
+            domain.live,
+            domain.thumbnail,
+            domain.description)
 }

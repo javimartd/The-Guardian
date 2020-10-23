@@ -1,22 +1,18 @@
-package com.javimartd.theguardian.data.datastores.remote
+package com.javimartd.theguardian.data.datastores.local
 
-import com.javimartd.theguardian.BuildConfig
 import com.javimartd.theguardian.data.datastores.NewsDataStore
-import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
+import com.javimartd.theguardian.data.datastores.local.db.AppDatabase
+import com.javimartd.theguardian.data.datastores.local.mapper.news.NewsLocalMapper
 import com.javimartd.theguardian.data.model.news.NewsDataModel
 import io.reactivex.Single
 import javax.inject.Inject
 
-
-class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianService,
-                                              private val mapper: NewsRemoteMapper)
+class NewsLocalDataStore @Inject constructor(private val appDatabase: AppDatabase,
+                                             private val mapper: NewsLocalMapper)
     : NewsDataStore {
 
     override fun getNewsFromNetwork(): Single<List<NewsDataModel>> {
-        return service.getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
-                .map {
-                    mapper.mapFromRemote(it.newsResponse.results)
-                }
+        throw UnsupportedOperationException("Getting news from network isn't supported here...")
     }
 
     override fun getNewsFromMemory(): Single<List<NewsDataModel>> {
@@ -24,7 +20,8 @@ class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianSe
     }
 
     override fun getNewsFromLocal(): Single<List<NewsDataModel>> {
-        throw UnsupportedOperationException("Getting news from local isn't supported here...")
+        return appDatabase.newsDao().getAll()
+                .map { mapper.mapFromLocal(it) }
     }
 
     override fun saveNewsInMemory(data: List<NewsDataModel>) {
@@ -32,6 +29,6 @@ class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianSe
     }
 
     override fun saveNewsInLocal(data: List<NewsDataModel>) {
-        throw UnsupportedOperationException("Saving news in local isn't supported here...")
+        return appDatabase.newsDao().insert(mapper.mapToLocal(data))
     }
 }

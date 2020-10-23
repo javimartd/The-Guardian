@@ -16,7 +16,8 @@ class NewsDataMapper @Inject constructor(): DataMapper<List<NewsDataModel>, List
     }
 
     private fun mapFromData(model: NewsDataModel): News {
-        return News(model.sectionId,
+        return News(model.id,
+                model.sectionId,
                 model.sectionName,
                 model.title,
                 model.date,
@@ -27,7 +28,8 @@ class NewsDataMapper @Inject constructor(): DataMapper<List<NewsDataModel>, List
     }
 
     private fun mapToData(domain: News): NewsDataModel {
-        return NewsDataModel(domain.sectionId,
+        return NewsDataModel(domain.id,
+                domain.sectionId,
                 domain.sectionName,
                 domain.title,
                 domain.date,

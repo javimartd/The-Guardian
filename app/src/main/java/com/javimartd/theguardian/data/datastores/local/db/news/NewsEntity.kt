@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "news")
 data class NewsEntity (
-        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int,
+        @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "id") var id: String,
         @ColumnInfo(name = "sectionId") var sectionId: String,
         @ColumnInfo(name = "sectionName") var sectionName: String,
         @ColumnInfo(name = "title") var webTitle: String,
