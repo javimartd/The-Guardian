@@ -12,6 +12,7 @@ import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.state.Resource
+import com.javimartd.theguardian.ui.di.ViewModelFactory
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
 import com.javimartd.theguardian.ui.news.model.NewsView
@@ -33,7 +34,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     @Inject lateinit var loading: LoadingDialog
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject lateinit var factory: ViewModelFactory
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
