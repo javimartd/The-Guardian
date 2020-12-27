@@ -6,6 +6,7 @@
     <!--news activity-->
     <string name="button_readMore">Leer más</string>
     <string name="no_news">No tenemos nada que informar</string>
+    <string name="header">Últimas noticias</string>
 
     <!--web view activity-->
     <string name="snackBar_action">Se ha producido un error al cargar la página</string>

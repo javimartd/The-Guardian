@@ -15,12 +15,12 @@ import com.javimartd.theguardian.ui.common.state.Resource
 import com.javimartd.theguardian.ui.di.ViewModelFactory
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
-import com.javimartd.theguardian.ui.news.model.NewsView
+import com.javimartd.theguardian.ui.news.adapter.Adapter
+import com.javimartd.theguardian.ui.news.adapter.visitor.TypeFactoryImpl
+import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
-import com.javimartd.theguardian.ui.webView.WebViewActivity
 import kotlinx.android.synthetic.main.activity_news.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
-    private lateinit var adapter: NewsAdapter
+    private lateinit var adapter: Adapter
     private lateinit var newsViewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
         loading.hideDialog()
     }
 
-    private fun showNews(news: List<NewsView>) {
+    private fun showNews(news: List<Visitable>) {
         adapter.items = news
     }
 
@@ -95,9 +95,8 @@ class NewsActivity: BaseActivity(), ToolbarManager {
 
     private fun setUpRecycler() {
         recycler.layoutManager = LinearLayoutManager(this)
-        adapter = NewsAdapter {
-            startActivity<WebViewActivity>(WebViewActivity.URL to it.webUrl)
-        }
+        //adapter = NewsAdapter { startActivity<WebViewActivity>(WebViewActivity.URL to it.webUrl) }
+        adapter = Adapter(TypeFactoryImpl())
         recycler.adapter = adapter
     }
 
@@ -114,14 +113,14 @@ class NewsActivity: BaseActivity(), ToolbarManager {
          * - activity as the LifecycleOwner: NewsActivity
          * - the observer
          */
-        newsViewModel.newsObservable.observe(this, Observer<Resource<List<NewsView>>> {
+        newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
             it?.let {
                 handleDataState(it)
             }
         })
     }
 
-    private fun handleDataState(resource: Resource<List<NewsView>>) {
+    private fun handleDataState(resource: Resource<List<Visitable>>) {
         when (resource) {
             is Resource.Success -> {
                 resource.data?.let {

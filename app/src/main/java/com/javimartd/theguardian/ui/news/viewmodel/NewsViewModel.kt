@@ -7,7 +7,9 @@ import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.javimartd.theguardian.ui.common.state.Resource
 import com.javimartd.theguardian.ui.extensions.toPresentation
-import com.javimartd.theguardian.ui.news.model.NewsView
+import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
+import com.javimartd.theguardian.ui.news.model.AdView
+import com.javimartd.theguardian.ui.news.model.HeaderView
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
@@ -40,7 +42,7 @@ import javax.inject.Inject
 
 open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNewsUseCase): ViewModel() {
 
-    private val _newsObservable: MutableLiveData<Resource<List<NewsView>>> = MutableLiveData()
+    private val _newsObservable: MutableLiveData<Resource<List<Visitable>>> = MutableLiveData()
 
     /**
      * Expose the LiveData News so the UI can observe it.
@@ -52,7 +54,7 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
      * If we need it to be modified, it is better to add a function that updates it rather than
      * exposing it as MutableLiveData:
      */
-    val newsObservable: LiveData<Resource<List<NewsView>>>
+    val newsObservable: LiveData<Resource<List<Visitable>>>
         get() = _newsObservable
 
     override fun onCleared() {
@@ -76,7 +78,16 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
              * documentation below:
              * @link: https://developer.android.com/topic/libraries/architecture/livedata.html#transformations_of_livedata
              */
-            _newsObservable.value = (Resource.Success(t.toPresentation()))
+            val news = mutableListOf<Visitable>()
+            news.addAll(t.toPresentation())
+            setHeaderAndAds(news)
+            _newsObservable.value = (Resource.Success(news))
         }
+    }
+
+    private fun setHeaderAndAds(news: MutableList<Visitable>) {
+        news.add(0, HeaderView())
+        news.add(3, AdView())
+        news.add(8, AdView())
     }
 }

@@ -26,7 +26,7 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:minHeight="100dp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/textTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView"
             tools:text="Title" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/textDate"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -71,14 +71,14 @@
             app:layout_constraintStart_toEndOf="@+id/textDate"
             app:layout_constraintTop_toTopOf="@+id/textDate" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/textDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:layout_marginStart="@dimen/small_margin"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/small_margin"
-            android:ellipsize="end"
             android:maxLines="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             tools:text="Description" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/buttonReadMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

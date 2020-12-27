@@ -17,6 +17,7 @@ import com.javimartd.theguardian.R
 import com.javimartd.theguardian.TestTheGuardianApplication
 import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.factory.NewsFactory
+import com.javimartd.theguardian.ui.news.adapter.NewsAdapter
 import com.javimartd.theguardian.ui.settings.SettingsActivity
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
@@ -34,49 +35,49 @@ class NewsActivityTest {
 
     @Test
     fun activityLaunches() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(1)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
     }
 
     @Test
     fun shouldBeToolbarVisible() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(2)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
     }
 
     @Test
     fun shouldBeToolbarWithTitle() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(2)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
     }
 
     @Test
     fun shouldBeActionSettingsButtonVisible() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(2)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         onView(withId(R.id.action_settings)).check(matches(isDisplayed()))
     }
 
     @Test
     fun shouldRecyclerViewVisible() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(2)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         onView(withId(R.id.recycler)).check(matches(isDisplayed()))
     }
 
     @Test
     fun recyclerScrollToPosition() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(5)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         onView(ViewMatchers.withId(R.id.recycler)).perform(RecyclerViewActions.
-                actionOnItemAtPosition<NewsAdapter.ViewHolder>(2, ViewActions.click()))
+                actionOnItemAtPosition<NewsAdapter.ViewHolder>(5, ViewActions.click()))
     }
 
     @Test
     fun recyclerScrollToPositionAndClickOnItemButton() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(5)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         onView(withId(R.id.recycler))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<NewsAdapter.ViewHolder>(2,
@@ -85,7 +86,7 @@ class NewsActivityTest {
 
     @Test
     fun checkSettingsActivityIsAvailable() {
-        stubNewsRepository(Single.just(NewsFactory.makeNews(5)))
+        stubNewsRepository(Single.just(NewsFactory.makeNews(10)))
         activity.launchActivity(null)
         Intents.init()
         onView(withId(R.id.action_settings)).perform(ViewActions.click())

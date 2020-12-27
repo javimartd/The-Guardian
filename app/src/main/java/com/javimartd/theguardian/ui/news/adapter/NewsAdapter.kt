@@ -1,10 +1,10 @@
-package com.javimartd.theguardian.ui.news
+package com.javimartd.theguardian.ui.news.adapter
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -53,12 +53,12 @@ class NewsAdapter(private val readMoreClickListener: (NewsView) -> Unit)
             }
         }
 
-        private val textTitle: AppCompatTextView = itemView.findViewById(R.id.textTitle)
-        private val textDate:  AppCompatTextView = itemView.findViewById(R.id.textDate)
-        private val buttonReadMore: AppCompatButton = itemView.findViewById(R.id.buttonReadMore)
+        private val textTitle: TextView = itemView.findViewById(R.id.textTitle)
+        private val textDate:  TextView = itemView.findViewById(R.id.textDate)
+        private val buttonReadMore: Button = itemView.findViewById(R.id.buttonReadMore)
         private val chip: Chip = itemView.findViewById(R.id.some_chip)
-        private val textDescription: AppCompatTextView = itemView.findViewById(R.id.textDescription)
-        private val image: AppCompatImageView = itemView.findViewById(R.id.imageView)
+        private val textDescription: TextView = itemView.findViewById(R.id.textDescription)
+        private val image: ImageView = itemView.findViewById(R.id.imageView)
 
         /**
          * Encapsulating the details of how to update the views into the ViewHolder which

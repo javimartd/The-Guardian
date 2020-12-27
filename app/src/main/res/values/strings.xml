@@ -7,6 +7,7 @@
     <!--news activity-->
     <string name="button_readMore">Read more</string>
     <string name="no_news">We have nothing to report</string>
+    <string name="header">Breaking news</string>
 
     <!--web view activity-->
     <string name="snackBar_action">An error occurred when loading the page</string>
