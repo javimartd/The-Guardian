@@ -1,27 +1,25 @@
 package com.javimartd.theguardian.ui.settings
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import com.javimartd.theguardian.R
-import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
+import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.extensions.DelegatesExt
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.find
-import javax.inject.Inject
 
-class SettingsActivity: BaseActivity(), ToolbarManager, SettingsContract.View {
+class SettingsActivity: BaseActivity(), ToolbarManager {
 
     companion object {
         const val OPTION1 = "option1"
         const val OPTION1_DEFAULT = false
     }
 
-    @Inject lateinit var settingsPresenter: SettingsContract.Presenter
-
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
-    private var dayNightOption: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
+    private var nightMode: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +27,29 @@ class SettingsActivity: BaseActivity(), ToolbarManager, SettingsContract.View {
         setUpUI()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        dayNightOption = switchDayNight.isChecked
-    }
-
-    override fun setPresenter(presenter: SettingsContract.Presenter) {
-        settingsPresenter = presenter
-    }
-
-    override fun setOptionNameDayNight(name: String) {
-        textOptionDayNight.text = name
-    }
-
     private fun setUpUI() {
         setUpToolbar()
-        setUpDayNightOption()
-    }
-
-    private fun setUpDayNightOption() {
-        switchDayNight.setOnCheckedChangeListener { _, isChecked -> settingsPresenter.initializeDayNightStatus(isChecked) }
-        switchDayNight.isChecked = dayNightOption
+        setUpSwitchDayNightTheme()
     }
 
     private fun setUpToolbar() {
         toolbarTitle = getString(R.string.toolbar_activity_settings)
         enableHomeAsUp{ onBackPressed() }
+    }
+
+    private fun setUpSwitchDayNightTheme() {
+        if (nightMode) {
+            textOptionNightMode.text = getString(R.string.option_night_mode_on)
+        } else {
+            textOptionNightMode.text = getString(R.string.option_night_mode_off)
+        }
+        switchDayNight.isChecked = nightMode
+        switchDayNight.setOnCheckedChangeListener { _, isChecked ->
+            nightMode = switchDayNight.isChecked
+            when (isChecked) {
+                true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 }

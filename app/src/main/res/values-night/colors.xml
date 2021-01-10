@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/vivid_blue</color>
+    <color name="colorPrimaryDark">@color/the_guardian_toolbar</color>
+    <color name="colorAccent">@color/vivid_blue</color>
+
+    <color name="news_background">@color/black</color>
+    <color name="news_header">@color/white</color>
+</resources>
