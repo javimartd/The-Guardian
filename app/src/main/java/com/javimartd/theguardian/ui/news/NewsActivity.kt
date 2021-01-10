@@ -6,11 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
-import com.javimartd.theguardian.ui.base.ToolbarManager
 import com.javimartd.theguardian.ui.common.BaseActivity
+import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.common.state.Resource
 import com.javimartd.theguardian.ui.di.ViewModelFactory
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
@@ -72,10 +71,6 @@ class NewsActivity: BaseActivity(), ToolbarManager {
         adapter.items = news
     }
 
-    private fun showEmptyState() {
-        swipeRefresh.showSnack(getString(R.string.no_news), Snackbar.LENGTH_LONG)
-    }
-
     private fun showConnectionError() {
         swipeRefresh.showSnack(getString(R.string.connection_error), Snackbar.LENGTH_LONG)
     }
@@ -94,7 +89,6 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     private fun setUpRecycler() {
-        recycler.layoutManager = LinearLayoutManager(this)
         //adapter = NewsAdapter { startActivity<WebViewActivity>(WebViewActivity.URL to it.webUrl) }
         adapter = Adapter(TypeFactoryImpl())
         recycler.adapter = adapter
@@ -125,11 +119,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
             is Resource.Success -> {
                 resource.data?.let {
                     hideLoading()
-                    if (resource.data.isEmpty()) {
-                        showEmptyState()
-                    } else {
-                        showNews(it)
-                    }
+                    showNews(it)
                 }
             }
             is Resource.Loading -> {

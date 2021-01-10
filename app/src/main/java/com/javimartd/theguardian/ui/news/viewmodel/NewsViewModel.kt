@@ -88,6 +88,5 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
     private fun setHeaderAndAds(news: MutableList<Visitable>) {
         news.add(0, HeaderView())
         news.add(3, AdView())
-        news.add(8, AdView())
     }
 }

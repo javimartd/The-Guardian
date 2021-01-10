@@ -18,15 +18,11 @@ class Adapter(private val typeFactory: TypeFactory): RecyclerView.Adapter<BaseVi
         return typeFactory.holder(viewType, view)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: BaseViewHolder<Visitable>, position: Int) {
         holder.bind(items[position])
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return items[position].type(typeFactory)
-    }
+    override fun getItemViewType(position: Int): Int = items[position].type(typeFactory)
 }
