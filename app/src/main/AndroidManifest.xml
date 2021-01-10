@@ -36,11 +36,14 @@
 
         <activity
             android:name=".ui.news.NewsActivity" />
+
         <activity
             android:name=".ui.webView.WebViewActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

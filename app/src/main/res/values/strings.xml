@@ -3,15 +3,16 @@
     <!--app-->
     <string name="app_name" translatable="false">The Guardian</string>
     <string name="toolbar_menu_button_settings">Settings</string>
+    <string name="toolbar_menu_button_share">Share</string>
 
     <!--news activity-->
     <string name="button_readMore">Read more</string>
-    <string name="no_news">We have nothing to report</string>
     <string name="header">Breaking news</string>
 
     <!--web view activity-->
     <string name="snackBar_action">An error occurred when loading the page</string>
     <string name="snackBar_text">BACK</string>
+    <string name="share_url_message">Breaking news from The Guardian %s</string>
 
     <!--settings activity-->
     <string name="toolbar_activity_settings">Settings</string>

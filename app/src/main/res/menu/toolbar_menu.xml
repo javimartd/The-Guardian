@@ -10,4 +10,13 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_share"
+        android:enabled="true"
+        android:icon="@drawable/ic_share"
+        android:title="@string/toolbar_menu_button_share"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
 </menu>

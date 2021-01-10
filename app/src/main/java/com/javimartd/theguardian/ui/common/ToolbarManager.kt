@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.ui.base
+package com.javimartd.theguardian.ui.common
 
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
@@ -24,15 +24,24 @@ interface ToolbarManager {
         toolbar.setNavigationOnClickListener { up() }
     }
 
-    fun initializeToolbar() {
+    fun initializeToolbar(f: () -> Unit = {}) {
         toolbar.inflateMenu(R.menu.toolbar_menu)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
+                R.id.action_share -> f()
                 else -> TheGuardianApplication.instance.toast("Unknown option")
             }
             true
         }
+    }
+
+    fun setShareButtonToVisible() {
+        toolbar.menu.findItem(R.id.action_share).isVisible = true
+    }
+
+    fun setSettingsButtonToInvisible() {
+        toolbar.menu.findItem(R.id.action_settings).isVisible = false
     }
 
     private fun createUpDrawable() = DrawerArrowDrawable(toolbar.ctx).apply { progress = 1f }

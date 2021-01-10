@@ -4,17 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.BaseWebViewClient
+import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.snack
 import kotlinx.android.synthetic.main.activity_web_view.*
 import org.jetbrains.anko.bundleOf
+import org.jetbrains.anko.find
 import javax.inject.Inject
 
-class WebViewActivity: BaseActivity(), WebViewContract.View {
+class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
     companion object {
         const val URL = "WebViewActivity:url"
@@ -28,6 +31,8 @@ class WebViewActivity: BaseActivity(), WebViewContract.View {
 
     @Inject lateinit var baseWebViewClient: BaseWebViewClient
     @Inject lateinit var loading: LoadingDialog
+
+    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +60,29 @@ class WebViewActivity: BaseActivity(), WebViewContract.View {
     override fun hideLoading() = loading.hideDialog()
 
     private fun setUpUI() {
+        setUpToolbar()
         loading.createDialog(this)
         setWebViewSettings()
     }
 
+    private fun setUpToolbar() {
+        toolbarTitle = getString(R.string.app_name)
+        enableHomeAsUp{ onBackPressed() }
+        initializeToolbar { shareNews() }
+        setSettingsButtonToInvisible()
+        if (null != getShareIntent().resolveActivity(this.packageManager)) {
+            setShareButtonToVisible()
+        }
+    }
+
     private fun loadURL() {
-        val url = intent.getStringExtra(URL)
-                ?: throw IllegalArgumentException("Required parameter $URL is missing in the intent.")
+        val url = getURL()
         webView.loadUrl(url)
+    }
+
+    private fun getURL(): String {
+        return intent.getStringExtra(URL)
+                ?: throw IllegalArgumentException("Required parameter $URL is missing in the intent.")
     }
 
     private fun setWebViewSettings() {
@@ -75,6 +95,19 @@ class WebViewActivity: BaseActivity(), WebViewContract.View {
             allowFileAccess = false
             allowFileAccessFromFileURLs = false
             allowUniversalAccessFromFileURLs = false
+        }
+    }
+
+    private fun shareNews() {
+        val shareIntent = Intent.createChooser(getShareIntent(), null)
+        startActivity(shareIntent)
+    }
+
+    private fun getShareIntent(): Intent {
+        return Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_url_message, getURL()))
+            type = "text/plain"
         }
     }
 }
