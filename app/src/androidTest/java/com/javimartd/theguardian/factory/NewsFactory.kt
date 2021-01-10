@@ -26,6 +26,7 @@ object NewsFactory {
                 DataFactory.randomString(),
                 DataFactory.randomString(),
                 DataFactory.randomString(),
+                DataFactory.randomString(),
                 "2019-10-26T13:02:39Z",
                 DataFactory.randomString(),
                 DataFactory.randomBoolean(),
@@ -35,7 +36,7 @@ object NewsFactory {
 
     private fun createNewsEntity(): NewsEntity {
         return NewsEntity(
-                DataFactory.randomInt(),
+                DataFactory.randomString(),
                 DataFactory.randomString(),
                 DataFactory.randomString(),
                 DataFactory.randomString(),

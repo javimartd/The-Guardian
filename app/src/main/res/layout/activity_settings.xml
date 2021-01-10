@@ -14,8 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textOptionDayNight"
+    <TextView
+        android:id="@+id/textOptionNightMode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -25,13 +25,13 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switchDayNight"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/textOptionDayNight"
+        app:layout_constraintBottom_toBottomOf="@+id/textOptionNightMode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textOptionDayNight" />
+        app:layout_constraintTop_toTopOf="@+id/textOptionNightMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

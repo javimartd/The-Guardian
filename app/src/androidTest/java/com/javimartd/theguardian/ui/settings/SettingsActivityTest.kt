@@ -36,14 +36,14 @@ class SettingsActivityTest {
     }
 
     @Test
-    fun newsActivityLaunchesSuccessfully() {
+    fun settingsActivityLaunchesSuccessfully() {
        ActivityScenario.launch(SettingsActivity::class.java)
     }
 
     @Test
-    fun shouldDayNightTextAndSwitchVisible() {
+    fun shouldNightModeTextAndSwitchVisible() {
         ActivityScenario.launch(SettingsActivity::class.java)
-        Espresso.onView(ViewMatchers.withId(R.id.textOptionDayNight))
+        Espresso.onView(ViewMatchers.withId(R.id.textOptionNightMode))
                 .check(ViewAssertions.matches(isDisplayed()))
 
         Espresso.onView(ViewMatchers.withId(R.id.switchDayNight))
@@ -51,34 +51,34 @@ class SettingsActivityTest {
     }
 
     @Test
-    fun dayNightTextIsCorrectWithSwitchOn() {
+    fun nightModeTextIsCorrectWithSwitchOn() {
         dayNightOption = true
         ActivityScenario.launch(SettingsActivity::class.java)
-        Espresso.onView(ViewMatchers.withId(R.id.textOptionDayNight))
+        Espresso.onView(ViewMatchers.withId(R.id.textOptionNightMode))
                 .check(ViewAssertions.matches(withText(stringNightModeOn)))
 
     }
 
     @Test
-    fun dayNightTextIsCorrectWithSwitchOff() {
+    fun nightModeTextIsCorrectWithSwitchOff() {
         dayNightOption = false
         ActivityScenario.launch(SettingsActivity::class.java)
-        Espresso.onView(ViewMatchers.withId(R.id.textOptionDayNight))
+        Espresso.onView(ViewMatchers.withId(R.id.textOptionNightMode))
                 .check(ViewAssertions.matches(withText(stringNightModeOff)))
 
     }
 
     @Test
-    fun dayNightTextChangesCorrectlyWhenSwitchIsClicked() {
+    fun nightModeTextChangesCorrectlyWhenSwitchIsClicked() {
         dayNightOption = false
         ActivityScenario.launch(SettingsActivity::class.java)
         Espresso.onView(ViewMatchers.withId(R.id.switchDayNight))
                 .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.textOptionDayNight))
+        Espresso.onView(ViewMatchers.withId(R.id.textOptionNightMode))
                 .check(ViewAssertions.matches(withText(stringNightModeOn)))
         Espresso.onView(ViewMatchers.withId(R.id.switchDayNight))
                 .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.textOptionDayNight))
+        Espresso.onView(ViewMatchers.withId(R.id.textOptionNightMode))
                 .check(ViewAssertions.matches(withText(stringNightModeOff)))
     }
 }

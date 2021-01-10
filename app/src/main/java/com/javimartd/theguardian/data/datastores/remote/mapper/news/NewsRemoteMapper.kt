@@ -12,7 +12,8 @@ class NewsRemoteMapper @Inject constructor(): RemoteMapper<List<NewsRemoteModel>
     }
 
     private fun mapFromRemote(remote: NewsRemoteModel): NewsDataModel {
-        return NewsDataModel(remote.sectionId,
+        return NewsDataModel(remote.id,
+                remote.sectionId,
                 remote.sectionName,
                 remote.webTitle,
                 remote.webPublicationDate,

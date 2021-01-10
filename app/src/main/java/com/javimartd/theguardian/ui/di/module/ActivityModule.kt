@@ -14,7 +14,7 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun bindSplashActivity(): SplashActivity
 
-    @ContributesAndroidInjector(modules = [NewsActivityModule::class])
+    @ContributesAndroidInjector(modules = [NewsViewModelModule::class])
     abstract fun bindNewsActivity(): NewsActivity
 
     @ContributesAndroidInjector

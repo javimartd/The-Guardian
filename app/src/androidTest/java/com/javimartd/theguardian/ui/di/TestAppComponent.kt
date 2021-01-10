@@ -4,6 +4,7 @@ import android.app.Application
 import com.javimartd.theguardian.TestTheGuardianApplication
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import com.javimartd.theguardian.ui.di.module.ActivityModule
+import com.javimartd.theguardian.ui.di.module.NewsViewModelModule
 import com.javimartd.theguardian.ui.di.modules.TestNetworkModule
 import com.javimartd.theguardian.ui.di.modules.TestRepositoryModule
 import com.javimartd.theguardian.ui.di.modules.TestUrlModule
@@ -17,6 +18,7 @@ import javax.inject.Singleton
     ActivityModule::class,
     TestRepositoryModule::class,
     TestNetworkModule::class,
+    NewsViewModelModule::class,
     TestUrlModule::class])
 interface TestAppComponent {
 

@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,16 +21,18 @@ class NewsRepositoryTest {
     private lateinit var sut: NewsRepositoryImpl
 
     private val remoteDataStore = mock<NewsDataStore>()
+    private val localDataStore = mock<NewsDataStore>()
+    private val memoryDataStore = mock<NewsDataStore>()
     private val mapper = mock<NewsDataMapper>()
 
     @Before
     fun setup() {
-        sut = NewsRepositoryImpl(remoteDataStore, mapper)
+        sut = NewsRepositoryImpl(remoteDataStore, memoryDataStore, localDataStore, mapper)
     }
 
     @Test
     fun `get news completed`() {
-        stubNewsDataStore(Observable.just(listOf(NewsFactory.makeNewsDataModel())))
+        stubNewsDataStore(Single.just(listOf(NewsFactory.makeNewsDataModel())))
         stubMapper(any(), listOf(NewsFactory.makeNews()))
         val testObserver = sut.getNews().test()
         testObserver.assertComplete()
@@ -39,7 +42,7 @@ class NewsRepositoryTest {
     fun `get news returns data`() {
         val newsDataModel = listOf(NewsFactory.makeNewsDataModel())
         val news = listOf(NewsFactory.makeNews())
-        stubNewsDataStore(Observable.just(newsDataModel))
+        stubNewsDataStore(Single.just(newsDataModel))
         stubMapper(newsDataModel, news)
         val testObserver = sut.getNews().test()
         testObserver.assertValue(news)
@@ -49,7 +52,7 @@ class NewsRepositoryTest {
         whenever(mapper.mapFromData(data)).thenReturn(domain)
     }
 
-    private fun stubNewsDataStore(observable: Observable<List<NewsDataModel>>) {
-        whenever(remoteDataStore.getNews()).thenReturn(observable)
+    private fun stubNewsDataStore(observable: Single<List<NewsDataModel>>) {
+        whenever(remoteDataStore.getNewsFromNetwork()).thenReturn(observable)
     }
 }

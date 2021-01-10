@@ -4,7 +4,7 @@ import com.javimartd.theguardian.BuildConfig
 import com.javimartd.theguardian.data.datastores.NewsDataStore
 import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
 import com.javimartd.theguardian.data.model.news.NewsDataModel
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 
@@ -12,14 +12,26 @@ class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianSe
                                               private val mapper: NewsRemoteMapper)
     : NewsDataStore {
 
-    override fun getNews(): Observable<List<NewsDataModel>> {
+    override fun getNewsFromNetwork(): Single<List<NewsDataModel>> {
         return service.getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
                 .map {
                     mapper.mapFromRemote(it.newsResponse.results)
                 }
     }
 
-    override fun saveNews(news: NewsDataModel) {
-        TODO("not implemented")
+    override fun getNewsFromMemory(): Single<List<NewsDataModel>> {
+        throw UnsupportedOperationException("Getting news from memory isn't supported here...")
+    }
+
+    override fun getNewsFromLocal(): Single<List<NewsDataModel>> {
+        throw UnsupportedOperationException("Getting news from local isn't supported here...")
+    }
+
+    override fun saveNewsInMemory(data: List<NewsDataModel>) {
+        throw UnsupportedOperationException("Saving news isn't supported here...")
+    }
+
+    override fun saveNewsInLocal(data: List<NewsDataModel>) {
+        throw UnsupportedOperationException("Saving news in local isn't supported here...")
     }
 }

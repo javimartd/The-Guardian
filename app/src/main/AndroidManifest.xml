@@ -35,13 +35,15 @@
             android:value="true" />
 
         <activity
-            android:name=".ui.news.NewsActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.news.NewsActivity" />
+
         <activity
             android:name=".ui.webView.WebViewActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

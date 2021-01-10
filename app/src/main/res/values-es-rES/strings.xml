@@ -2,14 +2,16 @@
 <resources>
     <!--app-->
     <string name="toolbar_menu_button_settings">Ajustes</string>
+    <string name="toolbar_menu_button_share">Compartir</string>
 
     <!--news activity-->
     <string name="button_readMore">Leer más</string>
-    <string name="no_news">No tenemos nada que informar</string>
+    <string name="header">Últimas noticias</string>
 
     <!--web view activity-->
     <string name="snackBar_action">Se ha producido un error al cargar la página</string>
     <string name="snackBar_text">SALIR</string>
+    <string name="share_url_message">The Guardian %s</string>
 
     <!--settings activity-->
     <string name="toolbar_activity_settings">Ajustes</string>

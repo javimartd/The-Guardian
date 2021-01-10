@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import com.javimartd.theguardian.data.NewsRepositoryImpl
 import com.javimartd.theguardian.data.datastores.NewsDataStore
+import com.javimartd.theguardian.data.datastores.local.NewsLocalDataStore
+import com.javimartd.theguardian.data.datastores.local.db.AppDatabase
+import com.javimartd.theguardian.data.datastores.local.mapper.news.NewsLocalMapper
+import com.javimartd.theguardian.data.datastores.memory.NewsMemoryDataStore
 import com.javimartd.theguardian.data.datastores.remote.NewsRemoteDataStore
 import com.javimartd.theguardian.data.datastores.remote.TheGuardianService
 import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
@@ -39,9 +43,24 @@ class RepositoryModule {
 
     @Provides
     @Singleton
+    fun providesNewsMemoryDataStore(): NewsDataStore {
+        return NewsMemoryDataStore()
+    }
+
+    @Provides
+    @Singleton
+    fun providesNewsLocalDataStore(appDatabase: AppDatabase,
+                                   newsLocalMapper: NewsLocalMapper): NewsDataStore {
+        return NewsLocalDataStore(appDatabase, newsLocalMapper)
+    }
+
+    @Provides
+    @Singleton
     fun providesNewsRepository(newsRemoteDataStore: NewsRemoteDataStore,
+                               newsMemoryDataStore: NewsMemoryDataStore,
+                               newsLocalDataStore: NewsLocalDataStore,
                                newsDataMapper: NewsDataMapper): NewsRepository {
-        return NewsRepositoryImpl(newsRemoteDataStore, newsDataMapper)
+        return NewsRepositoryImpl(newsRemoteDataStore, newsMemoryDataStore, newsLocalDataStore, newsDataMapper)
     }
 
     @Provides
