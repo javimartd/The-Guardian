@@ -186,5 +186,9 @@ interface NewsDao {
     
     //...
 }
+```
 
+### More design patterns 
+
+Apart from the design patterns just mentioned, there are many others that we must take into account when developing quality software, such as the Memento, State, Strategy, Iterator, Command, Decorator, Facade, Prototype or MVI (Model View Intent) 
 
