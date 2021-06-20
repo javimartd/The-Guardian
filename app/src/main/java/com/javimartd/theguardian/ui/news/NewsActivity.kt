@@ -102,11 +102,6 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     private fun setUpViewModel() {
         newsViewModel = ViewModelProvider(this, factory).get(NewsViewModel::class.java)
 
-        /**
-         * Observe the LiveData, passing in:
-         * - activity as the LifecycleOwner: NewsActivity
-         * - the observer
-         */
         newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
             it?.let {
                 handleDataState(it)
