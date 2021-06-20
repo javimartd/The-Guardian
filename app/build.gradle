@@ -170,9 +170,10 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // mockito
-    testImplementation 'org.mockito:mockito-core:2.25.0'
+    def mockito_version = 'latest.release'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2'
-    androidTestImplementation 'org.mockito:mockito-android:2.17.0'
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
     androidTestImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
 }
 
