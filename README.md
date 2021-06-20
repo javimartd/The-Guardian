@@ -2,9 +2,9 @@
 
 ## The Guardian News
 
-This application allows you to check the latest news in the world thanks to the API provided by the [The Guardian](https://www.theguardian.com/uk).
+This app allows you to check the latest news in the world thanks to the API provided by the [The Guardian](https://www.theguardian.com/uk).
 
-The purpose of this application is first of all to offer a simple example of the use of Clean architecture using Kotlin and its many advantages over Java. In second place, this project also constitutes a repository of functionalities and utilities that are usually needed daily for the development of Android applications. If you dive into the code, you'll get more details.
+The purpose of this application is, first of all, to offer a simple example of the use of Clean architecture using Kotlin and its many advantages over Java. In second place, this project also constitutes a repository of functionalities and utilities that are usually needed daily for the development of Android applications. If you dive into the code, you'll get more details.
 
 <img src = "https://github.com/javimartd/The-Guardian/blob/master/screenshots/pixel_2_home.png" width ="200" /> <img src = "https://github.com/javimartd/The-Guardian/blob/master/screenshots/pixel_2_web.png" width ="200" />
 
@@ -39,7 +39,7 @@ Below are the design patterns that have been used in this app
 
 #### Builder
 This pattern separates de construction of a complex object from its representation.
-  cvb
+
 ```kotlin
 open fun create(): AlertDialog {
     alertDialog = builder
@@ -69,10 +69,7 @@ object SectionFactory {
 It's a design pattern in which objects are supplied to a class instead of the class itself creating those objects.
 
 ```kotlin
-@Module
-class AppModule {
-    //...
-}
+open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNewsUseCase): ViewModel() {
 ```
 
 #### Adapter
@@ -84,7 +81,7 @@ class Adapter(private val typeFactory: TypeFactory): RecyclerView.Adapter<BaseVi
 ```
 
 #### Observer
-According to wikipedia, the observer pattern defines a one-to-many dependency between objects, so that when one of the objects changes its state, it notifies all the dependents of this change. This pattern is one of the foundations on which reactive programming is based
+The observer pattern defines a one-to-many dependency between objects, so that when one of the objects changes its state, it notifies all the dependents of this change. This pattern is one of the foundations on which reactive programming is based
 
 ```kotlin
 newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
@@ -94,7 +91,7 @@ newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
 
 #### Factory
 
-The factory design pattern is used when when we have to create instances of different objects. This pattern takes out the responsibility of the instantiation of a class and delegates it to the factory class.
+The factory design pattern is used when we have to create instances of different objects. This pattern takes out the responsibility of the instantiation of a class and delegates it to the factory class.
 
 ```kotlin
 object SectionFactory {
@@ -103,16 +100,7 @@ object SectionFactory {
         return when (sectionId) {
             SectionsTypes.BUSINESS.id -> Business(sectionName)
             SectionsTypes.MEDIA.id -> Media(sectionName)
-            SectionsTypes.OPINION.id -> Opinion(sectionName)
-            SectionsTypes.FILM.id -> Film(sectionName)
-            SectionsTypes.SPORT.id -> Sport(sectionName)
-            SectionsTypes.POLITICS.id -> Politics(sectionName)
-            SectionsTypes.WORLD.id -> World(sectionName)
-            SectionsTypes.LIFE_AND_STYLE.id -> LifeAndStyle(sectionName)
-            SectionsTypes.MONEY.id -> Money(sectionName)
-            SectionsTypes.ARTICLE.id -> Article(sectionName)
-            SectionsTypes.TRAVEL.id -> Travel(sectionName)
-            else -> Other(sectionName)
+            // ...
         }
     }
 }
@@ -145,6 +133,16 @@ interface TypeFactory {
 ```kotlin
 interface Visitable {
     fun type(typeFactory: TypeFactory): Int
+}
+```
+
+#### Command
+
+This pattern allows requesting an operation to an object without really knowing the content of this operation.
+
+```kotlin
+interface Command <T>{
+    fun execute(): T
 }
 ```
 
@@ -190,5 +188,5 @@ interface NewsDao {
 
 ### More design patterns 
 
-Apart from the design patterns just mentioned, there are many others that we must take into account when developing quality software, such as the Memento, State, Strategy, Iterator, Command, Decorator, Facade, Prototype or MVI (Model View Intent) 
+Apart from the design patterns just mentioned, there are many others that we must take into account when developing quality software, such as the Memento, State, Strategy, Iterator, Decorator, Service Locator, Facade, Prototype or MVI (Model View Intent) 
 
