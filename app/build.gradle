@@ -46,13 +46,13 @@ android {
             dimension "mode"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
-            buildConfigField "String", "THE_GUARDIAN_API_KEY", '"db0d0891-0604-403a-9fad-f8ea5a76dbcb"'
+            buildConfigField "String", "THE_GUARDIAN_API_KEY", '"04082740-0fa7-4b3c-a45c-2f9769b2357f"'
             resValue "string", "HOST", "https://content.guardianapis.com"
 
         }
         pro {
             dimension "mode"
-            buildConfigField "String", "THE_GUARDIAN_API_KEY", '"db0d0891-0604-403a-9fad-f8ea5a76dbcb"'
+            buildConfigField "String", "THE_GUARDIAN_API_KEY", '"04082740-0fa7-4b3c-a45c-2f9769b2357f"'
             resValue "string", "HOST", "https://content.guardianapis.com"
         }
     }
