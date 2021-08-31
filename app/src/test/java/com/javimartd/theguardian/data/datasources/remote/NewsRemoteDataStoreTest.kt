@@ -1,11 +1,10 @@
 package com.javimartd.theguardian.data.datasources.remote
 
-import com.javimartd.theguardian.BuildConfig
 import com.javimartd.theguardian.data.datastores.remote.NewsRemoteDataStore
 import com.javimartd.theguardian.data.datastores.remote.TheGuardianService
 import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
+import com.javimartd.theguardian.data.datastores.remote.model.news.NewsApiResponse
 import com.javimartd.theguardian.data.datastores.remote.model.news.NewsRemoteModel
-import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResponseModel
 import com.javimartd.theguardian.data.factory.NewsFactory
 import com.javimartd.theguardian.data.model.news.NewsDataModel
 import com.nhaarman.mockitokotlin2.any
@@ -35,15 +34,15 @@ class NewsRemoteDataStoreTest {
 
     @Test
     fun `get news calls server`() {
-        stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
+        stubTheGuardianService(Single.just(NewsFactory.makeNewsApiResponse()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
         sut.getNewsFromNetwork().test()
-        verify(theGuardianService).getNews(any(), any())
+        verify(theGuardianService).getNews(any())
     }
 
     @Test
     fun `get news completed`() {
-        stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
+        stubTheGuardianService(Single.just(NewsFactory.makeNewsApiResponse()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
         val testObserver = sut.getNewsFromNetwork().test()
         testObserver.assertComplete()
@@ -51,27 +50,27 @@ class NewsRemoteDataStoreTest {
 
     @Test
     fun `get news returns data`() {
-        val response = NewsFactory.makeNewsResponseModel()
+        val response = NewsFactory.makeNewsApiResponse()
         val newsDataModel = listOf(NewsFactory.makeNewsDataModel())
         stubTheGuardianService(Single.just(response))
-        stubMapper(response.newsResponse.results, newsDataModel)
+        stubMapper(response.newsResults?.results!!, newsDataModel)
         val testObserver = sut.getNewsFromNetwork().test()
         testObserver.assertValue(newsDataModel)
     }
 
     @Test
     fun `get news calls with correct parameters`() {
-        stubTheGuardianService(Single.just(NewsFactory.makeNewsResponseModel()))
+        stubTheGuardianService(Single.just(NewsFactory.makeNewsApiResponse()))
         stubMapper(any(), listOf(NewsFactory.makeNewsDataModel()))
         sut.getNewsFromNetwork().test()
-        verify(theGuardianService).getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
+        verify(theGuardianService).getNews("all")
     }
 
     private fun stubMapper(remote: List<NewsRemoteModel>, data: List<NewsDataModel>) {
         whenever(mapper.mapFromRemote(remote)).thenReturn(data)
     }
 
-    private fun stubTheGuardianService(observable: Single<NewsResponseModel>) {
-        whenever(theGuardianService.getNews(any(), any())).thenReturn(observable)
+    private fun stubTheGuardianService(observable: Single<NewsApiResponse>) {
+        whenever(theGuardianService.getNews(any())).thenReturn(observable)
     }
 }

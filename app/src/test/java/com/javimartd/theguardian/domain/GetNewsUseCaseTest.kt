@@ -6,7 +6,6 @@ import com.javimartd.theguardian.domain.model.News
 import com.javimartd.theguardian.domain.repositories.NewsRepository
 import com.javimartd.theguardian.domain.usecases.GetNewsUseCase
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -16,7 +15,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class GetNewsUseCaseTest {
+class GetNewsUseCaseTes {
 
     lateinit var sut: GetNewsUseCase
 

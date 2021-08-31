@@ -13,9 +13,9 @@ class MockServerDispatcher {
     internal inner class RequestDispatcher : Dispatcher() {
 
         override fun dispatch(request: RecordedRequest): MockResponse {
-            return when {
-                request.path == "api/example1" -> MockResponse().setResponseCode(200).setBody(getJson(""))
-                request.path == "api/example2" -> MockResponse().setResponseCode(200).setBody(getJson(""))
+            return when (request.path) {
+                "api/example1" -> MockResponse().setResponseCode(200).setBody(getJson(""))
+                "api/example2" -> MockResponse().setResponseCode(200).setBody(getJson(""))
                 else -> MockResponse().setResponseCode(404)
             }
         }

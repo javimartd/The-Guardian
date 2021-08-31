@@ -1,7 +1,7 @@
 package com.javimartd.theguardian.data.factory
 
-import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResponseModel
-import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResultsModel
+import com.javimartd.theguardian.data.datastores.remote.model.news.NewsApiResponse
+import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResultsRemoteModel
 import com.javimartd.theguardian.data.model.news.NewsDataModel
 import com.javimartd.theguardian.domain.model.News
 
@@ -25,7 +25,8 @@ object NewsFactory {
                 DataFactory.randomString(),
                 false,
                 DataFactory.randomString(),
-                DataFactory.randomString())
+                DataFactory.randomString()
+        )
     }
 
     fun makeNewsDataModel(): NewsDataModel {
@@ -38,10 +39,16 @@ object NewsFactory {
                 DataFactory.randomString(),
                 false,
                 DataFactory.randomString(),
-                DataFactory.randomString())
+                DataFactory.randomString()
+        )
     }
 
-    fun makeNewsResponseModel(): NewsResponseModel {
-        return NewsResponseModel(NewsResultsModel())
+    fun makeNewsApiResponse(): NewsApiResponse {
+        return NewsApiResponse(
+            NewsResultsRemoteModel(
+                "ok",
+                emptyList()
+            )
+        )
     }
 }
