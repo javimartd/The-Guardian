@@ -38,7 +38,6 @@ All the content offered is through the API provided by [The Guardian](https://ww
 Below are the design patterns that have been used in this app
 
 #### Builder
-This pattern separates de construction of a complex object from its representation.
 
 ```kotlin
 open fun create(): AlertDialog {
@@ -54,7 +53,6 @@ open fun create(): AlertDialog {
 ```
 
 #### Singleton
-The singleton pattern specifies that only a single instance of a class should exist. Object declaration's initialization is thread-safe and done at first access.
 
 ```kotlin
 object SectionFactory {
@@ -66,14 +64,13 @@ object SectionFactory {
 ```
 
 #### Dependency Injection
-It's a design pattern in which objects are supplied to a class instead of the class itself creating those objects.
 
 ```kotlin
 open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNewsUseCase): ViewModel() {
 ```
 
 #### Adapter
-This pattern lets two incompatible classes work together by converting the interface of a class into another interface the client expects.
+
 ```kotlin
 class Adapter(private val typeFactory: TypeFactory): RecyclerView.Adapter<BaseViewHolder<Visitable>>() {
     //...
@@ -81,7 +78,6 @@ class Adapter(private val typeFactory: TypeFactory): RecyclerView.Adapter<BaseVi
 ```
 
 #### Observer
-The observer pattern defines a one-to-many dependency between objects, so that when one of the objects changes its state, it notifies all the dependents of this change. This pattern is one of the foundations on which reactive programming is based
 
 ```kotlin
 newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
@@ -90,8 +86,6 @@ newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
 ```
 
 #### Factory
-
-The factory design pattern is used when we have to create instances of different objects. This pattern takes out the responsibility of the instantiation of a class and delegates it to the factory class.
 
 ```kotlin
 object SectionFactory {
@@ -108,8 +102,6 @@ object SectionFactory {
 
 #### Repository
 
-"Mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects." 
-
 ```kotlin
 interface NewsRepository {
     fun getNews(): Single<List<News>>
@@ -118,8 +110,6 @@ interface NewsRepository {
 
 ```
 #### Visitor
-
-"Visitor pattern is used when we have to perform an operation on a group of similar kind of Objects. With the help of visitor pattern, we can move the operational logic from the objects to another class."
 
 ```kotlin
 interface TypeFactory {
@@ -138,8 +128,6 @@ interface Visitable {
 
 #### Command
 
-This pattern allows requesting an operation to an object without really knowing the content of this operation.
-
 ```kotlin
 interface Command <T>{
     fun execute(): T
@@ -147,8 +135,6 @@ interface Command <T>{
 ```
 
 #### Template Method
-
-The template method pattern is a design pattern that defines the skeleton of an algorithm in such a way that it allows us to redefine certain safe steps of an algorithm without changing its overall structure.
 
 ```kotlin
 abstract class CompletableUseCase<in Params> constructor(
@@ -174,8 +160,6 @@ abstract class CompletableUseCase<in Params> constructor(
 
 #### DAO (Data Access Object)
 
-"Is used to separate the data persistence logic in a separate layer. This way, the service remains completely in dark about how the low-level operations to access the database is done"
-
 ```kotlin
 @Dao
 interface NewsDao {
@@ -188,5 +172,5 @@ interface NewsDao {
 
 ### More design patterns 
 
-Apart from the design patterns just mentioned, there are many others that we must take into account when developing quality software, such as the Memento, State, Strategy, Iterator, Decorator, Service Locator, Facade, Prototype or MVI (Model View Intent) 
+In addition to the design patterns I have just mentioned, there are many others that we must take into account when developing quality software, such as the Memento, State, Strategy, Iterator, Decorator, Service Locator, Facade, Prototype or MVI (Model View Intent) 
 
