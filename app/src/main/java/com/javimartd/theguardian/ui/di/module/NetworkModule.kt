@@ -2,7 +2,8 @@ package com.javimartd.theguardian.ui.di.module
 
 import com.javimartd.theguardian.BuildConfig
 import com.javimartd.theguardian.data.datastores.remote.TheGuardianService
-import com.javimartd.theguardian.data.datastores.remote.mock.MockInterceptor
+import com.javimartd.theguardian.data.datastores.remote.interceptors.MockInterceptor
+import com.javimartd.theguardian.data.datastores.remote.interceptors.NewsAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -27,6 +28,7 @@ class NetworkModule {
                 HttpLoggingInterceptor.Level.NONE
         })
         //.addInterceptor(interceptor)
+        .addInterceptor(NewsAuthInterceptor())
         clientBuilder.readTimeout(20, TimeUnit.SECONDS)
         clientBuilder.connectTimeout(20, TimeUnit.SECONDS)
         return clientBuilder.build()
