@@ -12,6 +12,7 @@ import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.common.state.Resource
 import com.javimartd.theguardian.ui.di.ViewModelFactory
+import com.javimartd.theguardian.ui.dialogs.DialogActions
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
 import com.javimartd.theguardian.ui.news.adapter.Adapter
@@ -32,12 +33,12 @@ class NewsActivity: BaseActivity(), ToolbarManager {
         }
     }
 
-    @Inject lateinit var loading: LoadingDialog
     @Inject lateinit var factory: ViewModelFactory
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     private lateinit var adapter: Adapter
+    private lateinit var loading: DialogActions
     private lateinit var newsViewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +56,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     override fun onDestroy() {
         super.onDestroy()
         hideLoading()
+        loading.onDetach()
     }
 
     private fun showLoading() {
@@ -84,7 +86,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
         swipeRefresh.setOnRefreshListener {
             newsViewModel.fetchNews()
         }
-        loading.createDialog(this)
+        loading = LoadingDialog(this)
         setUpRecycler()
     }
 

@@ -30,7 +30,7 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
     }
 
     @Inject lateinit var baseWebViewClient: BaseWebViewClient
-    @Inject lateinit var loading: LoadingDialog
+    private lateinit var loading: LoadingDialog
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
@@ -39,6 +39,11 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
         setContentView(R.layout.activity_web_view)
         setUpUI()
         loadURL()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loading.onDetach()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -61,7 +66,7 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
     private fun setUpUI() {
         setUpToolbar()
-        loading.createDialog(this)
+        loading = LoadingDialog(this)
         setWebViewSettings()
     }
 
