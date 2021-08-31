@@ -1,6 +1,5 @@
 package com.javimartd.theguardian.data.datastores.remote
 
-import com.javimartd.theguardian.BuildConfig
 import com.javimartd.theguardian.data.datastores.NewsDataStore
 import com.javimartd.theguardian.data.datastores.remote.mapper.news.NewsRemoteMapper
 import com.javimartd.theguardian.data.model.news.NewsDataModel
@@ -13,10 +12,11 @@ class NewsRemoteDataStore @Inject constructor(private val service: TheGuardianSe
     : NewsDataStore {
 
     override fun getNewsFromNetwork(): Single<List<NewsDataModel>> {
-        return service.getNews("all", BuildConfig.THE_GUARDIAN_API_KEY)
-                .map {
-                    mapper.mapFromRemote(it.newsResponse.results)
-                }
+        return service
+            .getNews("all")
+            .map {
+                mapper.mapFromRemote(it.newsResults?.results)
+            }
     }
 
     override fun getNewsFromMemory(): Single<List<NewsDataModel>> {

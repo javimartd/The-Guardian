@@ -1,6 +1,6 @@
 package com.javimartd.theguardian.data.datastores.remote
 
-import com.javimartd.theguardian.data.datastores.remote.model.news.NewsResponseModel
+import com.javimartd.theguardian.data.datastores.remote.model.news.NewsApiResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -8,6 +8,7 @@ import retrofit2.http.Query
 interface TheGuardianService {
 
     @GET("/search")
-    fun getNews(@Query("show-fields") showFields: String,
-                @Query("api-key") apiKey: String): Single<NewsResponseModel>
+    fun getNews(
+        @Query("show-fields") showFields: String
+    ): Single<NewsApiResponse>
 }

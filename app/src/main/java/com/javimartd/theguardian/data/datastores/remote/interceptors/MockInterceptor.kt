@@ -1,4 +1,4 @@
-package com.javimartd.theguardian.data.datastores.remote.mock
+package com.javimartd.theguardian.data.datastores.remote.interceptors
 
 import com.javimartd.theguardian.BuildConfig
 import okhttp3.*
