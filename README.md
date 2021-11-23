@@ -1,4 +1,4 @@
-
+[![Mantained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]()
 
 ## The Guardian News
 
@@ -12,30 +12,33 @@ The purpose of this application is, first of all, to offer a simple example of t
 
 Overview:
 - AndroidX
-- [Kotlin][8]
-- Example of [MVVM][10] and [MVP][9] patterns with Clean architecture
-- [RxJava 2][1]
-- Dependencies injection: [Dagger 2][2]
-- Data base: [Room][3]
-- Images: [Glide][4]
-- Testing: JUnit, Espresso, [Mockito][5], [MockWebServer][6]
-- Integration with [SonarQube][7]
+- [Kotlin][1]
+- Example of [MVVM][2] and [MVP][3] patterns with [Clean architecture][4]
+- [RxJava 2][5] 
+- Dependencies injection: [Dagger 2][6]
+- Data base: [Room][7]
+- Testing: JUnit, Espresso, [Mockito][8]
+- Integration with [SonarQube][9]
+
+If you are using [Kotlin coroutines][11] take a look at this other simplified [version of the app][10].
 
 All the content offered is through the API provided by [The Guardian](https://www.theguardian.com/uk). You can check all the information about how to use [here](https://open-platform.theguardian.com/).
 
-[1]: https://github.com/ReactiveX/RxJava
-[2]: https://google.github.io/dagger/
-[3]: https://developer.android.com/training/data-storage/room/index.html
-[4]: https://github.com/bumptech/glide
-[5]: https://site.mockito.org/
-[6]: https://github.com/square/okhttp/tree/master/mockwebserver
-[7]: https://www.sonarqube.org/
-[8]: https://kotlinlang.org/docs/reference/
-[9]: https://upday.github.io/blog/model-view-presenter/
-[10]: https://upday.github.io/blog/model-view-viewmodel/
+[1]: https://kotlinlang.org/docs/reference/
+[2]: https://upday.github.io/blog/model-view-viewmodel/
+[3]: https://upday.github.io/blog/model-view-presenter/
+[4]: https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html?utm_source=pocket_mylist
+[5]: https://github.com/ReactiveX/RxJava
+[6]: https://google.github.io/dagger/
+[7]: https://developer.android.com/training/data-storage/room/index.html
+[8]: https://site.mockito.org/
+[9]: https://www.sonarqube.org
+[10]: https://github.com/javimartd/the-guardian-v2
+[11]: https://developer.android.com/kotlin/coroutines?utm_source=pocket_mylist
+
 
 ### Design patterns
-Below are the design patterns that have been used in this app
+Below are the design patterns that have been used in the app
 
 #### Builder
 
