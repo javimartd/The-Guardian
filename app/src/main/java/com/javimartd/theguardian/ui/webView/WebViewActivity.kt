@@ -13,8 +13,6 @@ import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.snack
 import kotlinx.android.synthetic.main.activity_web_view.*
-import org.jetbrains.anko.bundleOf
-import org.jetbrains.anko.find
 import javax.inject.Inject
 
 class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
@@ -24,15 +22,18 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
         fun newIntent(context: Context, url: String) : Intent {
             return Intent(context, WebViewActivity::class.java).apply {
-                putExtras(bundleOf(URL to url))
+                putExtra(URL, url)
             }
         }
     }
 
     @Inject lateinit var baseWebViewClient: BaseWebViewClient
+
     private lateinit var loading: LoadingDialog
 
-    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    override val toolbar: Toolbar by lazy {
+        findViewById(R.id.toolbar)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,8 +99,6 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
             javaScriptEnabled = false
             allowContentAccess = false
             allowFileAccess = false
-            allowFileAccessFromFileURLs = false
-            allowUniversalAccessFromFileURLs = false
         }
     }
 

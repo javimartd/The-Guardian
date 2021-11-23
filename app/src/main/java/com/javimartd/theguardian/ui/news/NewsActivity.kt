@@ -20,7 +20,6 @@ import com.javimartd.theguardian.ui.news.adapter.visitor.TypeFactoryImpl
 import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.activity_news.*
-import org.jetbrains.anko.find
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -35,7 +34,9 @@ class NewsActivity: BaseActivity(), ToolbarManager {
 
     @Inject lateinit var factory: ViewModelFactory
 
-    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    override val toolbar: Toolbar by lazy {
+        findViewById(R.id.toolbar)
+    }
 
     private lateinit var adapter: Adapter
     private lateinit var loading: DialogActions

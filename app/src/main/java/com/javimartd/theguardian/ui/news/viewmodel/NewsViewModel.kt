@@ -13,10 +13,11 @@ import com.javimartd.theguardian.ui.news.model.HeaderView
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
-open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNewsUseCase): ViewModel() {
+open class NewsViewModel @Inject constructor(
+    private val getNewsUseCase: GetNewsUseCase
+): ViewModel() {
 
     private val _newsObservable: MutableLiveData<Resource<List<Visitable>>> = MutableLiveData()
-
     val newsObservable: LiveData<Resource<List<Visitable>>>
         get() = _newsObservable
 
@@ -32,7 +33,7 @@ open class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNews
 
     inner class NewsSubscriber: DisposableSingleObserver<List<News>>() {
         override fun onError(e: Throwable) {
-            _newsObservable.value = Resource.Error(e.localizedMessage, e)
+            _newsObservable.value = Resource.Error(e.message?: "", e)
         }
         override fun onSuccess(t: List<News>) {
             val news = mutableListOf<Visitable>()

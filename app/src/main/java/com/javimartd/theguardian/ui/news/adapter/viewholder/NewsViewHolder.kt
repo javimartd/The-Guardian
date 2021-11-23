@@ -1,5 +1,6 @@
 package com.javimartd.theguardian.ui.news.adapter.viewholder
 
+import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -15,7 +16,6 @@ import com.javimartd.theguardian.ui.extensions.toLong
 import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
 import com.javimartd.theguardian.ui.news.model.NewsView
 import com.javimartd.theguardian.ui.webView.WebViewActivity
-import org.jetbrains.anko.startActivity
 
 class NewsViewHolder(view: View): BaseViewHolder<Visitable>(view) {
 
@@ -42,7 +42,9 @@ class NewsViewHolder(view: View): BaseViewHolder<Visitable>(view) {
         chip.text = model.section.getTitle()
         textDescription.text = model.description
         buttonReadMore.setOnClickListener {
-            buttonReadMore.context.startActivity<WebViewActivity>(WebViewActivity.URL to model.webUrl)
+            val intent = Intent(buttonReadMore.context, WebViewActivity::class.java)
+            intent.putExtra(WebViewActivity.URL, model.webUrl)
+            buttonReadMore.context.startActivity(intent)
         }
     }
 }
