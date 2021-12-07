@@ -8,7 +8,7 @@ The purpose of this application is, first of all, to offer a simple example of t
 
 <img src = "https://github.com/javimartd/The-Guardian/blob/master/screenshots/pixel_2_home.png" width ="200" /> <img src = "https://github.com/javimartd/The-Guardian/blob/master/screenshots/pixel_2_web.png" width ="200" />
 
-### Documentation
+### Features
 
 Overview:
 - AndroidX
@@ -176,4 +176,8 @@ interface NewsDao {
 ### More design patterns 
 
 In addition to the design patterns I have just mentioned, there are many others that we must take into account when developing quality software, such as the Memento, State, Strategy, Iterator, Decorator, Service Locator, Facade, Prototype or MVI (Model View Intent) 
+
+### Contributing
+
+Feel free to open a issue or submit a pull request for any bugs/improvements.
 
