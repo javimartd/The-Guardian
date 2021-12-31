@@ -2,7 +2,7 @@
 
 ## The Guardian News
 
-This app allows you to check the latest news in the world thanks to the API provided by the [The Guardian](https://www.theguardian.com/uk).
+This app allows you to check the latest news in the world thanks to the API provided by the [The Guardian](https://www.theguardian.com/uk). You can check all the information about how to use [here](https://open-platform.theguardian.com/).
 
 The purpose of this application is, first of all, to offer a simple example of the use of Clean architecture using Kotlin and its many advantages over Java. In second place, this project also constitutes a repository of functionalities and utilities that are usually needed daily for the development of Android applications. If you dive into the code, you'll get more details.
 
@@ -11,10 +11,9 @@ The purpose of this application is, first of all, to offer a simple example of t
 ### Features
 
 Overview:
-- AndroidX
 - [Kotlin][1]
 - Example of [MVVM][2] and [MVP][3] patterns with [Clean architecture][4]
-- [RxJava 2][5] 
+- Reactive Programming with [RxJava 2][5] 
 - Dependencies injection: [Dagger 2][6]
 - Data base: [Room][7]
 - Testing: JUnit, Espresso, [Mockito][8]
@@ -22,19 +21,17 @@ Overview:
 
 If you are using [Kotlin coroutines][11] take a look at this other simplified [version of the app][10].
 
-All the content offered is through the API provided by [The Guardian](https://www.theguardian.com/uk). You can check all the information about how to use [here](https://open-platform.theguardian.com/).
-
 [1]: https://kotlinlang.org/docs/reference/
 [2]: https://upday.github.io/blog/model-view-viewmodel/
 [3]: https://upday.github.io/blog/model-view-presenter/
-[4]: https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html?utm_source=pocket_mylist
+[4]: https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 [5]: https://github.com/ReactiveX/RxJava
 [6]: https://google.github.io/dagger/
 [7]: https://developer.android.com/training/data-storage/room/index.html
 [8]: https://site.mockito.org/
 [9]: https://www.sonarqube.org
 [10]: https://github.com/javimartd/the-guardian-v2
-[11]: https://developer.android.com/kotlin/coroutines?utm_source=pocket_mylist
+[11]: https://developer.android.com/kotlin/coroutines
 
 
 ### Design patterns
