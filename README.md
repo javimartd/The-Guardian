@@ -1,3 +1,4 @@
+[![Android CI](https://github.com/javimartd/The-Guardian/actions/workflows/android.yml/badge.svg)](https://github.com/javimartd/The-Guardian/actions/workflows/android.yml)
 [![Mantained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]()
 
 ## The Guardian News
@@ -16,6 +17,7 @@ Overview:
 - Reactive Programming with [RxJava 2][5] 
 - Dependencies injection: [Dagger 2][6]
 - Data base: [Room][7]
+- CI setup with [GitHub Actions][12]
 - Testing: JUnit, Espresso, [Mockito][8]
 - Integration with [SonarQube][9]
 
@@ -32,7 +34,7 @@ If you are using [Kotlin coroutines][11] take a look at this other simplified [v
 [9]: https://www.sonarqube.org
 [10]: https://github.com/javimartd/the-guardian-v2
 [11]: https://developer.android.com/kotlin/coroutines
-
+[12]: https://github.com/features/actions
 
 ### Design patterns
 Below are the design patterns that have been used in the app
