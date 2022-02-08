@@ -2,7 +2,7 @@ package com.javimartd.theguardian.ui.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.javimartd.theguardian.ui.di.ViewModelFactory
+import com.javimartd.theguardian.ui.news.viewmodel.ViewModelFactory
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import dagger.Binds
 import dagger.Module

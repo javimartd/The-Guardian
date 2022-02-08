@@ -16,7 +16,11 @@ class AppModule {
     @Singleton
     @Provides
     fun providesDatabase(): AppDatabase {
-        return Room.databaseBuilder(TheGuardianApplication.instance, AppDatabase::class.java, DATABASE_NAME).build()
+        return Room.databaseBuilder(
+            TheGuardianApplication.instance,
+            AppDatabase::class.java,
+            DATABASE_NAME
+        ).build()
     }
 
     @Singleton

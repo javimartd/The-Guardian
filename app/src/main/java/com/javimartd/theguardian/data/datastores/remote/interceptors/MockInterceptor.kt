@@ -1,7 +1,11 @@
 package com.javimartd.theguardian.data.datastores.remote.interceptors
 
 import com.javimartd.theguardian.BuildConfig
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.Protocol
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 class MockInterceptor: Interceptor {
 
@@ -82,7 +86,7 @@ class MockInterceptor: Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (BuildConfig.DEBUG) {
-            val uri = chain.request().url().uri().toString()
+            val uri = chain.request().url.toUri().toString()
             val responseString = when {
                 uri.contains("search") -> getListOfNewsJson else -> ""
             }
@@ -91,8 +95,10 @@ class MockInterceptor: Interceptor {
                     .code(200)
                     .protocol(Protocol.HTTP_2)
                     .message(responseString)
-                    .body(ResponseBody.create(MediaType.parse("application/json"),
-                            responseString.toByteArray()))
+                    .body(responseString
+                        .toByteArray()
+                        .toResponseBody("application/json".toMediaTypeOrNull())
+                    )
                     .addHeader("content-type", "application/json")
                     .build()
         } else {
