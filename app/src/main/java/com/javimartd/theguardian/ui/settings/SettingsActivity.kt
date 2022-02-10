@@ -8,7 +8,6 @@ import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.extensions.DelegatesExt
 import kotlinx.android.synthetic.main.activity_settings.*
-import org.jetbrains.anko.find
 
 class SettingsActivity: BaseActivity(), ToolbarManager {
 
@@ -17,9 +16,15 @@ class SettingsActivity: BaseActivity(), ToolbarManager {
         const val OPTION1_DEFAULT = false
     }
 
-    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    private var nightMode: Boolean by DelegatesExt.preference(
+        this,
+        OPTION1,
+        OPTION1_DEFAULT
+    )
 
-    private var nightMode: Boolean by DelegatesExt.preference(this, OPTION1, OPTION1_DEFAULT)
+    override val toolbar: Toolbar by lazy {
+        findViewById(R.id.toolbar)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

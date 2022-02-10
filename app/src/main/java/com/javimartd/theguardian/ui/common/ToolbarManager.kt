@@ -1,13 +1,11 @@
 package com.javimartd.theguardian.ui.common
 
+import android.content.Intent
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import com.javimartd.theguardian.R
-import com.javimartd.theguardian.TheGuardianApplication
 import com.javimartd.theguardian.ui.extensions.ctx
 import com.javimartd.theguardian.ui.settings.SettingsActivity
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 interface ToolbarManager {
 
@@ -28,9 +26,10 @@ interface ToolbarManager {
         toolbar.inflateMenu(R.menu.toolbar_menu)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
+                R.id.action_settings -> {
+                    toolbar.ctx.startActivity(Intent(toolbar.ctx, SettingsActivity::class.java))
+                }
                 R.id.action_share -> f()
-                else -> TheGuardianApplication.instance.toast("Unknown option")
             }
             true
         }

@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.common.state.Resource
-import com.javimartd.theguardian.ui.di.ViewModelFactory
 import com.javimartd.theguardian.ui.dialogs.DialogActions
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.showSnack
@@ -19,8 +17,8 @@ import com.javimartd.theguardian.ui.news.adapter.Adapter
 import com.javimartd.theguardian.ui.news.adapter.visitor.TypeFactoryImpl
 import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
+import com.javimartd.theguardian.ui.news.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_news.*
-import org.jetbrains.anko.find
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -35,7 +33,9 @@ class NewsActivity: BaseActivity(), ToolbarManager {
 
     @Inject lateinit var factory: ViewModelFactory
 
-    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    override val toolbar: Toolbar by lazy {
+        findViewById(R.id.toolbar)
+    }
 
     private lateinit var adapter: Adapter
     private lateinit var loading: DialogActions
@@ -104,11 +104,11 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     private fun setUpViewModel() {
         newsViewModel = ViewModelProvider(this, factory).get(NewsViewModel::class.java)
 
-        newsViewModel.newsObservable.observe(this, Observer<Resource<List<Visitable>>> {
+        newsViewModel.newsObservable.observe(this) {
             it?.let {
                 handleDataState(it)
             }
-        })
+        }
     }
 
     private fun handleDataState(resource: Resource<List<Visitable>>) {

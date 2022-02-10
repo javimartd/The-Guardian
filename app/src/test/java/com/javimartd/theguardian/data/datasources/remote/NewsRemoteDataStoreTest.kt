@@ -28,7 +28,7 @@ class NewsRemoteDataStoreTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         sut = NewsRemoteDataStore(theGuardianService, mapper)
     }
 

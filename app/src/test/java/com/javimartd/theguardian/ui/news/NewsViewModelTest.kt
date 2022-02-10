@@ -34,7 +34,7 @@ class NewsViewModelTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         captor = argumentCaptor()
         sut = NewsViewModel(getNewsUseCase)
     }
