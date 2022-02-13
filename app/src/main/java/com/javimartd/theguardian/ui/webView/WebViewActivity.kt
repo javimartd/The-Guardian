@@ -7,12 +7,12 @@ import android.view.KeyEvent
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
+import com.javimartd.theguardian.databinding.ActivityWebViewBinding
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.BaseWebViewClient
 import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.dialogs.LoadingDialog
 import com.javimartd.theguardian.ui.extensions.snack
-import kotlinx.android.synthetic.main.activity_web_view.*
 import javax.inject.Inject
 
 class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
@@ -29,6 +29,7 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
     @Inject lateinit var baseWebViewClient: BaseWebViewClient
 
+    private lateinit var binding: ActivityWebViewBinding
     private lateinit var loading: LoadingDialog
 
     override val toolbar: Toolbar by lazy {
@@ -37,7 +38,8 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web_view)
+        binding = ActivityWebViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUpUI()
         loadURL()
     }
@@ -48,15 +50,15 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
-            webView.goBack()
+        if (keyCode == KeyEvent.KEYCODE_BACK && binding.webView.canGoBack()) {
+            binding.webView.goBack()
             return true
         }
         return super.onKeyDown(keyCode, event)
     }
 
     override fun showError() {
-        constraintWebViewActivity.snack(getString(R.string.snackBar_text), Snackbar.LENGTH_INDEFINITE) {
+        binding.constraintWebViewActivity.snack(getString(R.string.snackBar_text), Snackbar.LENGTH_INDEFINITE) {
             setAction(getString(R.string.snackBar_action)) { finish() }
         }
     }
@@ -83,7 +85,7 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
     private fun loadURL() {
         val url = getURL()
-        webView.loadUrl(url)
+        binding.webView.loadUrl(url)
     }
 
     private fun getURL(): String {
@@ -93,9 +95,9 @@ class WebViewActivity: BaseActivity(), WebViewContract.View, ToolbarManager {
 
     private fun setWebViewSettings() {
         baseWebViewClient.setWebViewClientInterface(this)
-        webView.webViewClient = baseWebViewClient
-        webView.isLongClickable = true
-        webView.settings.apply {
+        binding.webView.webViewClient = baseWebViewClient
+        binding.webView.isLongClickable = true
+        binding.webView.settings.apply {
             javaScriptEnabled = false
             allowContentAccess = false
             allowFileAccess = false

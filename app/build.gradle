@@ -1,12 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'org.sonarqube'
 }
 
-def versionMajor = 1
+def versionMajor = 2
 def versionMinor = 0
 def versionPatch = 0
 
@@ -78,6 +77,10 @@ android {
         if(variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'mock') {
             variant.setIgnore(true)
         }
+    }
+
+    viewBinding {
+        enabled = true
     }
 }
 

@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import com.javimartd.theguardian.R
+import com.javimartd.theguardian.databinding.ActivitySettingsBinding
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.extensions.DelegatesExt
-import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity: BaseActivity(), ToolbarManager {
 
@@ -15,6 +15,8 @@ class SettingsActivity: BaseActivity(), ToolbarManager {
         const val OPTION1 = "option1"
         const val OPTION1_DEFAULT = false
     }
+
+    private lateinit var binding: ActivitySettingsBinding
 
     private var nightMode: Boolean by DelegatesExt.preference(
         this,
@@ -28,7 +30,8 @@ class SettingsActivity: BaseActivity(), ToolbarManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUpUI()
     }
 
@@ -44,13 +47,13 @@ class SettingsActivity: BaseActivity(), ToolbarManager {
 
     private fun setUpSwitchDayNightTheme() {
         if (nightMode) {
-            textOptionNightMode.text = getString(R.string.option_night_mode_on)
+            binding.textOptionNightMode.text = getString(R.string.option_night_mode_on)
         } else {
-            textOptionNightMode.text = getString(R.string.option_night_mode_off)
+            binding.textOptionNightMode.text = getString(R.string.option_night_mode_off)
         }
-        switchDayNight.isChecked = nightMode
-        switchDayNight.setOnCheckedChangeListener { _, isChecked ->
-            nightMode = switchDayNight.isChecked
+        binding.switchDayNight.isChecked = nightMode
+        binding.switchDayNight.setOnCheckedChangeListener { _, isChecked ->
+            nightMode = binding.switchDayNight.isChecked
             when (isChecked) {
                 true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

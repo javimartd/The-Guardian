@@ -5,7 +5,6 @@ import android.widget.TextView
 import com.javimartd.theguardian.R
 import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
 import com.javimartd.theguardian.ui.news.model.HeaderView
-import kotlinx.android.synthetic.main.item_header.view.*
 
 class HeaderViewHolder(val view: View): BaseViewHolder<Visitable>(view) {
 
@@ -13,7 +12,7 @@ class HeaderViewHolder(val view: View): BaseViewHolder<Visitable>(view) {
         const val LAYOUT = R.layout.item_header
     }
 
-    private val textHeader: TextView = view.textHeader
+    private val textHeader: TextView = itemView.findViewById(R.id.textHeader)
 
     override fun bind(model: Visitable) {
         model as HeaderView

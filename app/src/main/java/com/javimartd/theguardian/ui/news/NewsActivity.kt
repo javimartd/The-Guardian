@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.javimartd.theguardian.R
+import com.javimartd.theguardian.databinding.ActivityNewsBinding
 import com.javimartd.theguardian.ui.common.BaseActivity
 import com.javimartd.theguardian.ui.common.ToolbarManager
 import com.javimartd.theguardian.ui.common.state.Resource
@@ -18,7 +19,6 @@ import com.javimartd.theguardian.ui.news.adapter.visitor.TypeFactoryImpl
 import com.javimartd.theguardian.ui.news.adapter.visitor.Visitable
 import com.javimartd.theguardian.ui.news.viewmodel.NewsViewModel
 import com.javimartd.theguardian.ui.news.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_news.*
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -37,13 +37,15 @@ class NewsActivity: BaseActivity(), ToolbarManager {
         findViewById(R.id.toolbar)
     }
 
+    private lateinit var binding: ActivityNewsBinding
     private lateinit var adapter: Adapter
     private lateinit var loading: DialogActions
     private lateinit var newsViewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news)
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUpUI()
         setUpViewModel()
     }
@@ -60,12 +62,12 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     private fun showLoading() {
-        swipeRefresh.isRefreshing = false
+        binding.swipeRefresh.isRefreshing = false
         loading.showDialog()
     }
 
     private fun hideLoading() {
-        swipeRefresh.isRefreshing = false
+        binding.swipeRefresh.isRefreshing = false
         loading.hideDialog()
     }
 
@@ -74,16 +76,16 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     private fun showConnectionError() {
-        swipeRefresh.showSnack(getString(R.string.connection_error), Snackbar.LENGTH_LONG)
+        binding.swipeRefresh.showSnack(getString(R.string.connection_error), Snackbar.LENGTH_LONG)
     }
 
     private fun showError(message: String) {
-        swipeRefresh.showSnack(message, Snackbar.LENGTH_LONG)
+        binding.swipeRefresh.showSnack(message, Snackbar.LENGTH_LONG)
     }
 
     private fun setUpUI() {
         setUpToolbar()
-        swipeRefresh.setOnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             newsViewModel.fetchNews()
         }
         loading = LoadingDialog(this)
@@ -93,7 +95,7 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     private fun setUpRecycler() {
         //adapter = NewsAdapter { startActivity<WebViewActivity>(WebViewActivity.URL to it.webUrl) }
         adapter = Adapter(TypeFactoryImpl())
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
     }
 
     private fun setUpToolbar() {
