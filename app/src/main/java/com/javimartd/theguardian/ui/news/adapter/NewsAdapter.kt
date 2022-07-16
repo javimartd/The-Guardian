@@ -20,12 +20,6 @@ class NewsAdapter(private val readMoreClickListener: (NewsView) -> Unit)
     var items: List<NewsView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged() }
 
-    /*var items = listOf<NewsView>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }*/
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }

@@ -93,7 +93,6 @@ class NewsActivity: BaseActivity(), ToolbarManager {
     }
 
     private fun setUpRecycler() {
-        //adapter = NewsAdapter { startActivity<WebViewActivity>(WebViewActivity.URL to it.webUrl) }
         adapter = Adapter(TypeFactoryImpl())
         binding.recycler.adapter = adapter
     }
