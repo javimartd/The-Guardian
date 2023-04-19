@@ -21,8 +21,6 @@ Overview:
 - Testing: JUnit, Espresso, [Mockito][8]
 - Integration with [SonarQube][9]
 
-If you are using [Kotlin coroutines][11] take a look at this other simplified [version of the app][10].
-
 [1]: https://kotlinlang.org/docs/reference/
 [2]: https://upday.github.io/blog/model-view-viewmodel/
 [3]: https://upday.github.io/blog/model-view-presenter/
